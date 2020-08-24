@@ -23,6 +23,6 @@ This repository will contain every piece of material about the subject. It will 
 * [300+ Samples for ASP.NET](https://github.com/dodyg/practical-aspnetcore/tree/2.1-LTS)
 
 ## Contact
-Trainer: trainer@mail.com
+Trainer: stojanovskatanja@hotmail.com
 
-Assistant: assistant@mail.com
+Assistant: spasevska.kristina87@gmail.com
