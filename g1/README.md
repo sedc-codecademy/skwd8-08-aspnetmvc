@@ -25,4 +25,4 @@ This repository will contain every piece of material about the subject. It will 
 ## Contact
 Trainer: goce.kabov@yahoo.com
 
-Assistant: assistant@mail.com
+Assistant: darko.panchevski@gmail.com
