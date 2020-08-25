@@ -1,4 +1,4 @@
-## How to update Visual Studio 2017 with all necessary features ⭐
+## How to update Visual Studio 2019 with all necessary features ⭐
 1. Run Visual Studio Installer ( Search for Visual Studio Installer in your start menu )
 ![Visual Studio Installer](img/vs1.png)
 2. Might need to update the installer
