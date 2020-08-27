@@ -1,0 +1,9 @@
+﻿<h1>List of students</h1>
+<ul>
+    @{
+        foreach (var student in ViewBag.Students)
+        {
+            <li>@student.FullName <a asp-controller="Student" asp-action="Details" asp-route-id="@student.Id">Details</a></li>
+        }
+    }
+</ul>
