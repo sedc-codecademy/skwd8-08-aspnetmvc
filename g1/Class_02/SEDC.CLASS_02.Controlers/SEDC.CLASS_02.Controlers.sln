@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEDC.CLASS_02.Controlers", "SEDC.CLASS_02.Controlers\SEDC.CLASS_02.Controlers.csproj", "{5D861AE7-1931-443E-9AA9-8405604EDA59}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5D861AE7-1931-443E-9AA9-8405604EDA59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D861AE7-1931-443E-9AA9-8405604EDA59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D861AE7-1931-443E-9AA9-8405604EDA59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D861AE7-1931-443E-9AA9-8405604EDA59}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0013662F-2A06-4420-916B-FD2EDCC07255}
+	EndGlobalSection
+EndGlobal
