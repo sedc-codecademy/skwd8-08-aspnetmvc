@@ -10,8 +10,13 @@ namespace SEDC.AspNet.Class03.App.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(string error)
         {
+            if(error != null)
+            {
+                ViewBag.ProfileInfo = error; // error is string
+            }
+
             return View();
         }
 
