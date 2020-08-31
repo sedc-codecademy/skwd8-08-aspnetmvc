@@ -8,7 +8,7 @@ namespace PizzaApp.Services
     {
         public User GetUserById(List<User> users, int id)
         {
-            //var user = users.SingleOrDefault(u => u.)
+            
             return new User();
         }
 

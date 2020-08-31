@@ -1,0 +1,15 @@
+﻿@model List<PizzaApp.MVC1.Models.Pizza>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+@foreach (var pizza in Model)
+{
+    <h4>Pizza name: @pizza.Name</h4>
+    <h4>Pizza size: @pizza.Size</h4>
+}
+
+
