@@ -1,4 +1,5 @@
 # Homework - Class 02
+Work with the SEDC.PizzaApp
 
 1. Create new Controller for managing Orders (name it accordingly)
 
