@@ -1,13 +1,35 @@
 ﻿using PizzaApp.Domain.Domains;
 using PizzaApp.Domain.Enums;
+using PizzaApp.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace PizzaApp.Services
 {
-    public class PizzaRepo
+    public class PizzaRepo : IPizzaService
     {
+        public Pizza CratePizza(List<Pizza> pizzas,Pizza pizza)
+        {
+            var newPizza = new Pizza()
+            {
+                Price = pizza.Price,
+                Size = pizza.Size,
+                Type = pizza.Type,
+                User = pizza.User
+            };
+            pizzas.Add(newPizza);
+            return newPizza;
+        }
+
+        public bool DeletePizzaById(List<Pizza> pizzas,int id)
+        {
+            Pizza pizza = pizzas.SingleOrDefault(x => Pizza.PizzasCount == id);
+            var pizzaFound = pizza != null ?  true : false;
+            if (!pizzaFound) return false;
+            return true;
+        }
+
         public Pizza GetPizzaById(List<Pizza> pizzas,int id)
         {
             var pizza = pizzas.SingleOrDefault(p => id == Pizza.PizzasCount);
@@ -55,6 +77,16 @@ namespace PizzaApp.Services
                 Console.WriteLine("No such pizza types");
             }
             return pizzasList;
+        }
+
+        public Pizza UpdatePizza(Pizza pizza)
+        {
+            var updatedPizza = pizza;
+            updatedPizza.Price = pizza.Price;
+            updatedPizza.Size = pizza.Size;
+            updatedPizza.Type = pizza.Type;
+            updatedPizza.User = pizza.User;
+            return updatedPizza;
         }
     }
 }
