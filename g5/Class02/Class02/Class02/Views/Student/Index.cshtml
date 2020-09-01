@@ -3,7 +3,11 @@
     @{
         foreach (var student in ViewBag.Students)
         {
-            <li>@student.FullName <a asp-controller="Student" asp-action="Details" asp-route-id="@student.Id">Details</a></li>
+            <li>
+                @student.FullName
+                <a asp-controller="Student" asp-action="Details" asp-route-id="@student.Id">Details</a>
+                <a asp-controller="Student" asp-action="Edit" asp-route-id="@student.Id">Edit</a>
+            </li>
         }
     }
 </ul>

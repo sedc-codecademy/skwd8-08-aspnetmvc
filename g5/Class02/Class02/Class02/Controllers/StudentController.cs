@@ -39,5 +39,31 @@ namespace Class02.Controllers
         {
             return View();
         }
+
+        public IActionResult Edit(int id)
+        {
+            var student = DataHelper.Students.FirstOrDefault(x => x.Id == id);
+            if (student == null)
+                throw new Exception("Student not found");
+
+            return View(student);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, [Bind("Id,FirstName,LastName,Age")] Student student)
+        {
+            if (id != student.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View(student);
+        }
     }
 }
