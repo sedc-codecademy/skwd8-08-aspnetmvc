@@ -1,0 +1,13 @@
+﻿@using System.Globalization
+@model Product
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<h3>@Model.Name</h3>
+<h5>@Model.Quantity</h5>
+<h5>@Model.Category</h5>
+<h5>@Model.Price.ToString("C", new CultureInfo("mk-Mk"))</h5>
+<h5>@Model.ProducedBy</h5>
+<img src="@Model.ImageUrl" width="300" height="300"/>
