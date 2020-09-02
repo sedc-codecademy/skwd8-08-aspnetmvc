@@ -1,0 +1,41 @@
+﻿@model CreateOrderVM
+
+@{
+    ViewData["Title"] = "CreateOrder";
+}
+
+<h2>Order pizza</h2>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
+
+
+<form asp-route="CreateOrder" method="post">
+    <h3>User info:</h3>
+
+    <label asp-for="FirstName"></label>
+    <input asp-for="FirstName" /><br />
+
+    <label asp-for="LastName"></label>
+    <input asp-for="LastName" /><br />
+
+    <label asp-for="Address"></label>
+    <input asp-for="Address" /><br />
+
+    <label asp-for="Phone"></label>
+    <input asp-for="Phone" /><br />
+
+    <label asp-for="PizzaName"></label>
+    <input asp-for="PizzaName" /><br />
+
+    <label asp-for="Size"></label>
+    <select asp-for="Size" asp-items="Html.GetEnumSelectList<PizzaSize>()">
+    </select><br />
+
+    <button type="submit" class="btn btn-primary">Order pizza</button>
+</form>
+

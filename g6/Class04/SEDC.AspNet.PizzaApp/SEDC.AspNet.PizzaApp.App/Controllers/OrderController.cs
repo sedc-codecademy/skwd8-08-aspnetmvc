@@ -57,5 +57,47 @@ namespace SEDC.AspNet.PizzaApp.App.Controllers
 
             return View("Orders", orderVM);
         }
+
+        [HttpGet("CreateOrder")]
+        public IActionResult CreateOrder(string error)
+        {
+            ViewBag.Error = error;
+            return View();
+        }
+
+        [HttpPost("CreateOrder")]
+        public IActionResult CreateOrder(CreateOrderVM createOrder)
+        {
+            var pizza = Database.Menu.FirstOrDefault(p => p.Name == createOrder.PizzaName && p.Size == createOrder.Size);
+
+            // some error handling
+            if(pizza == null)
+            {
+                return RedirectToAction("CreateOrder", new { error = "There is no pizza like that in the menu" });
+            }
+
+            var user = new User()
+            {
+                Id = Database.Users.Count + 1,
+                FirstName = createOrder.FirstName,
+                LastName = createOrder.LastName,
+                Address = createOrder.Address,
+                Phone = createOrder.Phone
+            };
+
+            var order = new Order
+            {
+                Id = Database.Orders.Count + 1,
+                Delivered = false,
+                Price = pizza.Price + 2,
+                Pizza = pizza,
+                User = user
+            };
+
+            Database.Orders.Add(order);
+            Database.Users.Add(user);
+
+            return View("OrderComplete");
+        }
     }
 }

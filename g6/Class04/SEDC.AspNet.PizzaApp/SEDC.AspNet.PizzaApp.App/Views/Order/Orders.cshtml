@@ -23,7 +23,14 @@
         <ul>
         @foreach (var order in Model.Orders)
         {
-            <li>@order.User.FirstName - @order.Pizza.Name (@order.Pizza.Price $$)</li>
+            @*<li>@order.User.FirstName - @order.Pizza.Name (@order.Pizza.Price $$)</li>*@
+
+            @*Tag helpers*@
+            <partial name="_orderItemPartial" for="@order" />
+
+            //HtmlHelpers
+
+            @*@Html.Partial("~/Views/Shared/_orderItemPartial.cshtml", order)*@
         }
         </ul>
 
