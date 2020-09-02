@@ -55,7 +55,7 @@ namespace SEDC.AspNet.PizzaApp.App.Controllers
 
             ViewBag.Title = "Welcome to the Orders page!";
 
-            return View(orderVM);
+            return View("Orders", orderVM);
         }
     }
 }

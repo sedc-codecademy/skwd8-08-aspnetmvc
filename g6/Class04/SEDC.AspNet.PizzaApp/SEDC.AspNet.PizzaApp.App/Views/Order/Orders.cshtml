@@ -1,0 +1,31 @@
+﻿@model OrderListVM
+
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<h2>Orders</h2>
+<ol>
+    @for (var i = 0; i < 10; i++)
+    {
+        if (i % 2 == 0)
+        {
+            <li>This is the @i loop and is even number</li>
+        }
+    }
+</ol>
+
+<div class="row">
+    <div class="col-md-12">
+        <h3>Our first pizza ever to be delivered was: @Model.FirstPizza</h3>
+        <h3>Our first customer is: @Model.FirstPersonName</h3>
+        <h3>Total orders since we started: @Model.NumberOfOrders</h3>
+        <ul>
+        @foreach (var order in Model.Orders)
+        {
+            <li>@order.User.FirstName - @order.Pizza.Name (@order.Pizza.Price $$)</li>
+        }
+        </ul>
+
+    </div>
+</div>
