@@ -1,0 +1,43 @@
+﻿@using PizzaApp.Web.Models.Enums;
+ 
+<form class="form-group">
+    <hr />
+    <h5>Customer info: </h5>
+    <label class="col-form-label" for="FirstName">First Name: </label>
+    <input class="form-control" type="text" name="FirstName">
+
+    <label class="col-form-label" for="LastName">Last Name: </label>
+    <input class="form-control" type="text" name="LastName">
+
+    <label class="col-form-label" for="Address">Address: </label>
+    <input class="form-control" type="text" name="Address">
+
+    <label class="col-form-label" for="PhoneNumber">Phone Number: </label>
+    <input class="form-control" type="text" name="PhoneNumber">
+
+    <hr />
+    <h5>Order info:</h5>
+
+    <label class="col-form-label" for="PizzaType">Select Pizza: </label>
+    <select class="custom-select" name="PizzaType">
+        @{
+            foreach (Pizza pizza in ViewData["Pizzas"] as List<Pizza>)
+            {
+                <option value="@pizza.Id">@pizza.Name</option>
+            }
+        }
+    </select>
+
+    <label class="col-form-label" for="PizzaSize">Select Size: </label>
+    <select class="custom-select" name="PizzaSize">
+        @{
+            foreach (PizzaSize pizzaSize in ViewData["PizzaSize"] as List<PizzaSize>)
+            {
+                <option value="@pizzaSize">@pizzaSize.ToString()</option>
+            }
+        }
+    </select>
+    <hr />
+
+    <button class="btn btn-block btn-primary" type="submit">Place order</button>
+</form>
