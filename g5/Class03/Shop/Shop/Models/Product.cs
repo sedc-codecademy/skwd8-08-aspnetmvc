@@ -37,7 +37,9 @@ namespace Shop.Models
 
         public Product()
         {
-            
+            var rnd = new Random();
+            Id = rnd.Next(1, 1000000000);
+            Category = ProductCategory.Drinks;
         }
     }
 }
