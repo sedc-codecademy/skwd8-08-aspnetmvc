@@ -80,5 +80,17 @@ namespace SEDC.PizzaApp.v1.Controllers
             return View(orderDetails);
         }
 
+        public IActionResult Menu() 
+        {
+            var dbMenu = StaticDb.Menu;
+
+            var menu = new MenuViewModel()
+            {
+                Menu = dbMenu
+            };
+
+            return View(menu);
+        }
+
     }
 }
