@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "Welcome";
+}
+
+    <p>--------------------------------</p>
+
+    <h1>Pizza app</h1>
+    <h3>The best app for ordering pizza</h3>
+
+<a asp-controller="Order" asp-action="CreateOrder" class="btn btn-success">Click here to Order - attribute</a>
+
+@Html.ActionLink("Click here to Order - HtmlHelper", "CreateOrder", "Order", null, new { @class = "btn btn-success" })
+
+<p>------------------------------------</p>

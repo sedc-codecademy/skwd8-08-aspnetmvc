@@ -1,0 +1,7 @@
+﻿<h2>Order Complete</h2>
+
+<h1>Thank you for ordering pizza with Pizza app and using our application</h1>
+
+<a asp-controller="Order" asp-action="Index" class="btn btn-danger">View all orders</a>
+
+@Html.ActionLink("Order another pizza", "CreateOrder", "Order", null, new { @class = "btn btn-warning" } )

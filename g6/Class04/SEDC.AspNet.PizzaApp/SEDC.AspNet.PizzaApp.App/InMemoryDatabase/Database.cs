@@ -1,9 +1,19 @@
- public static class StaticDb
+﻿using SEDC.AspNet.PizzaApp.App.Models.Domain;
+using SEDC.AspNet.PizzaApp.App.Models.Enums;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace SEDC.AspNet.PizzaApp.App.InMemoryDatabase
+{
+    public static class Database
     {
         public static List<Order> Orders;
         public static List<Pizza> Menu;
         public static List<User> Users;
-        static StaticDb()
+
+        static Database()
         {
             Users = new List<User>()
             {
@@ -67,6 +77,48 @@
                     Name = "Peperoni",
                     Price = 11,
                     Size = PizzaSize.Family
+                },
+                new Pizza()
+                {
+                    Id = 7,
+                    Name = "Margarita",
+                    Price = 6,
+                    Size = PizzaSize.Medium
+                },
+                new Pizza()
+                {
+                    Id = 8,
+                    Name = "Margarita",
+                    Price = 7,
+                    Size = PizzaSize.Large
+                },
+                new Pizza()
+                {
+                    Id = 9,
+                    Name = "Margarita",
+                    Price = 8,
+                    Size = PizzaSize.Family
+                },
+                new Pizza()
+                {
+                    Id = 10,
+                    Name = "Siciliana",
+                    Price = 6.5,
+                    Size = PizzaSize.Medium
+                },
+                new Pizza()
+                {
+                    Id = 11,
+                    Name = "Siciliana",
+                    Price = 9.5,
+                    Size = PizzaSize.Large
+                },
+                new Pizza()
+                {
+                    Id = 12,
+                    Name = "Siciliana",
+                    Price = 9.5,
+                    Size = PizzaSize.Family
                 }
             };
             Orders = new List<Order>()
@@ -76,8 +128,26 @@
                     Id = 1,
                     User = Users[0],
                     Pizza = Menu[0],
-                    Delivered = false
+                    Delivered = false,
+                    Price = Menu[0].Price + 2
+                },
+                new Order()
+                {
+                    Id = 2,
+                    User = Users[0],
+                    Pizza = Menu[1],
+                    Delivered = true,
+                    Price = Menu[1].Price + 2
+                },
+                new Order()
+                {
+                    Id = 3,
+                    User = Users[1],
+                    Pizza = Menu[2],
+                    Delivered = false,
+                    Price = Menu[2].Price + 2
                 }
             };
         }
     }
+}

@@ -1,0 +1,16 @@
+﻿@model SEDC.PizzaApp.v1.Models.DomainModels.Order
+
+<h1>@ViewData["Title"]</h1>
+<h2>Hello, @ViewData["Username"]!</h2>
+
+<h2>@ViewBag.Greeting</h2>
+
+<h3>Pizza Name: @ViewBag.Pizza.Name</h3>
+<h3>Pizza Size: @ViewBag.Pizza.Size.ToString()</h3>
+<h3>Pizza Price: @ViewBag.Pizza.Price</h3>
+
+<ul>
+    <li>User: @Model.User.FirstName @Model.User.LastName</li>
+    <li>Pizza: @Model.Pizzas[0].Name, Size: @Model.Pizzas[0].Size</li>
+    <li>Price: $@Model.Price </li>
+</ul>
