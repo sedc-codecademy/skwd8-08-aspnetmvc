@@ -1,0 +1,28 @@
+﻿@model List<Person>
+
+@{
+    foreach (Person person in Model)
+    {
+        @*@Html.Partial("_CardPartial", person);*@
+        <partial name="_CardPartial" model="@person" />
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Vlez</th>
+                    <th scope="col">Izles</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var workingHour in person.WorkingHours)
+                {
+                    <tr>
+                        <td>@workingHour.StartAt.ToString("dd.MM.yyyy HH:mm:ss")</td>
+                        <td>@workingHour.EndAt.ToString("dd.MM.yyyy HH:mm:ss")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}

@@ -1,0 +1,11 @@
+﻿@model Person
+
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h3 class="card-title">@Model.FirstName @Model.LastName</h3>
+        <h6>@Model.Nationality</h6>
+        <h6>@Model.Profession</h6>
+    </div>
+    <a asp-controller="Home" asp-action="Index" style="margin-left: 10px">Home</a>
+    @*@Html.ActionLink("Home", "Index", "Home", null, new { style = "margin-left: 10px" })*@
+</div>
