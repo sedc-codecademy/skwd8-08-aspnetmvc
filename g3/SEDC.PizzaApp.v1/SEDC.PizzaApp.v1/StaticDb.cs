@@ -159,7 +159,6 @@ namespace SEDC.PizzaApp.v1
             };
             order3.Price = PriceCalculator(order3.Pizzas);
             Orders.Add(order3);
-
         }
 
         private static double PriceCalculator(List<Pizza> pizzas) 

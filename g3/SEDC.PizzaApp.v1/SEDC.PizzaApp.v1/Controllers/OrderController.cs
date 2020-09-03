@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SEDC.PizzaApp.v1.Models.DomainModels;
 using SEDC.PizzaApp.v1.Models.Enum;
+using SEDC.PizzaApp.v1.Models.ViewModels;
 
 namespace SEDC.PizzaApp.v1.Controllers
 {
@@ -53,6 +54,30 @@ namespace SEDC.PizzaApp.v1.Controllers
             ViewBag.Pizza = pizza;
 
             return View(order);
+        }
+
+        public IActionResult Details(int? id) 
+        {
+            var order = StaticDb.Orders.FirstOrDefault(x => x.Id == id);
+
+            if (order == null) 
+            {
+                return RedirectToAction("Index");
+            }
+
+            //mapping
+            var orderDetails = new OrderViewModel()
+            {
+                Id = order.Id,
+                FullName = order.User.FirstName + " " + order.User.LastName,
+                Address = order.User.Address,
+                Contact = order.User.Phone,
+                Price = order.Price,
+                IsDelievered = order.IsDelivered,
+                Pizzas = order.Pizzas
+            };
+            
+            return View(orderDetails);
         }
 
     }

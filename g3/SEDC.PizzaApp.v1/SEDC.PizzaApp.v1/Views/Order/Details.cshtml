@@ -1,0 +1,33 @@
+﻿@using SEDC.PizzaApp.v1.Models.ViewModels
+@model OrderViewModel 
+
+<h1>Order Details</h1>
+
+<h3>Order Number: @Model.Id</h3>
+@*<h3>User: @Model.FullName</h3>*@
+<h3>User: @("Mr./ Ms. " + Model.FullName)</h3>
+<h3>Adress: @Model.Address</h3>
+<h3>Phone: @Model.Contact</h3>
+<h3>Price: @Model.Price$</h3> 
+<h3>Price Changed: @(Model.Price + 10)$</h3>
+
+
+<h2>Order contains:</h2>
+@{
+    foreach (var pizza in Model.Pizzas)
+    {
+        <p>- @pizza.Size.ToString() @pizza.Name = @pizza.Price$</p>
+    }
+}
+
+<h2>Order Status</h2>
+@if (Model.IsDelievered)
+{
+    <p>Order is delieverd.</p>
+}
+else
+{
+    <p>Order is coming to you, be patient!</p>
+}
+
+<p>@DateTime.Now</p>
