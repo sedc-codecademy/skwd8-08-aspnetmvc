@@ -42,5 +42,11 @@ namespace Class02.DemoApp.Controllers
             Book foundBook = StaticDB.Books.FirstOrDefault(b => b.Id == id);
             return RedirectToAction("Contact", "Home", new { personName = foundBook.Title });
         }
+
+        public IActionResult CheckName(string name)
+        {
+            return View();
+        }
+
     }
 }

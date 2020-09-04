@@ -1,0 +1,16 @@
+﻿@model PizzaVM
+
+
+    <div class="card" style="width: 18rem;">
+        <img width="150" src=@Model.ImageUrl class="card-img-top" alt="...">
+        <div class="card-body">
+            <h2 class="card-title">@Model.Name</h2>
+            <h5>Price: @Model.Price</h5>
+            <h5>Size: @Model.Size</h5>
+            @Html.ActionLink("Details", "PizzaDetails", new { id = Model.Id });
+        </div>
+    </div>
+
+@*
+    Partial view that can be added in other views
+*@
