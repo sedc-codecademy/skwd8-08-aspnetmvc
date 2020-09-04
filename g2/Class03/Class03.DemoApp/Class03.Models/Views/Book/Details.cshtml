@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewData["Title"] = "Details";
+}
+@model Class03.Models.Models.Domain.Book
+
+
+@*<h2>Harry Potter</h2>
+    <p>ISBN: </p>
+    <p>Author: </p>
+    <p>Genre: </p>*@
+
+
+<h2>@Model.Title</h2>
+<p>ISBN: @Model.ISBN</p>
+<p>Author: @Model.Author.FullName</p>
+<p>Genre: @Model.Genre</p>
