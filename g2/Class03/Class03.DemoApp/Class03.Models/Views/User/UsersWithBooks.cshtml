@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewData["Title"] = "UsersWithBooks";
+}
+@model Class03.Models.Models.Domain.User
+
+<h2>Here are the users with all the books they have rented!</h2>
+
+<ol>
+    <li>
+        @Model.FirstName @Model.LastName <br />
+        Books rented: 
+        <ul>
+            @foreach(var book in Model.Books)
+            {
+                <li>@book.Title - @book.Author.FullName</li>
+            }
+        </ul>
+    </li>
+</ol>

@@ -1,0 +1,12 @@
+﻿@model MenuViewModel
+
+<h1>MENU</h1>
+
+@foreach (var item in Model.Menu)
+{
+    @*<p>Name: @item.Name</p>
+    <p>Size: @item.Size.ToString()</p>
+    <p>Price: @item.Price$</p>
+    <p>====================</p>*@
+    @Html.Partial("~/Views/Shared/_pizza.cshtml", item);
+}
