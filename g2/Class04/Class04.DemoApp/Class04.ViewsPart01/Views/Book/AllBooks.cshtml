@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewData["Title"] = "AllBooks";
+    string userName = "martin@sedc.com";
+    bool isAdmin = false;
+}
+
+@*This model is already imported in the _ViewImports.cshtml. And it knows how to use this List<Book>*@
+@model List<Book>
+
+@*No need of the following line of import, since we already import our model from _ViewImports.cshtml*@
+@*@model List<Class04.ViewsPart01.Models.Domain.Book>*@
+
+<h2>SEDC Library</h2>
+
+<h3>Welcome @("Mr./Ms. " + userName)</h3>
+
+<ol>
+    @foreach (var book in Model)
+    {
+        @Html.Partial("~/Views/Shared/_BookDetails.cshtml", book)
+    }   
+</ol>
+
+
+@*<ol>
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        @Html.Partial("~/Views/Shared/_BookDetails.cshtml", Model[i])
+    }
+</ol>*@
+
+
+
+
+
+

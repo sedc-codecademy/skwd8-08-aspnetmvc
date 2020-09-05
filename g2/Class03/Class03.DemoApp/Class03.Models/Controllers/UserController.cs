@@ -24,7 +24,7 @@ namespace Class03.Models.Controllers
             };
 
             //ViewData.Add("User", user);
-
+            ViewData["User"] = user;
 
             ViewBag.User = user;
 

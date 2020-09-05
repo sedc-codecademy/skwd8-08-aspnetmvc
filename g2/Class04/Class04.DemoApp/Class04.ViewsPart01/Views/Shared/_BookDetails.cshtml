@@ -1,0 +1,29 @@
+﻿
+@model Book
+@{
+    string availability = Model.IsAvailable ? "YES" : "NO";
+    //string colorCss = book.IsAvailable ? "green" : "red";
+    string colorClass = Model.IsAvailable ? "available" : "not-available";
+    bool isAdmin = false;
+
+}
+
+
+@if (isAdmin)
+{
+    <li>
+        @Model.Title [@Model.ISBN] | Author: @Model.Author.FullName
+        <br />
+        Is available:
+        <span class="@colorClass">@availability</span>
+    </li>
+}
+else
+{
+    <li>
+        @Model.Title [@Model.Genre] | Author: @Model.Author.FullName
+        <br />
+        Is available:
+        <span class="@colorClass">@availability</span>
+    </li>
+}

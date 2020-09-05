@@ -1,0 +1,14 @@
+﻿body {
+}
+
+.not-available{
+    color: red;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.available {
+    color: green;
+    font-weight: bold;
+    font-style: italic;
+}
