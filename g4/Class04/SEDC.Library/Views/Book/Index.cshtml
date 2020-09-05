@@ -1,0 +1,15 @@
+﻿@model List<BookListViewModel>
+
+<h2>Index</h2>
+<p>It's our Book Index View!</p>
+
+@for (int i = 0; i < Model.Count; i++)
+{
+    <p>Title: @Model[i].Title | Year: @Model[i].Year</p>
+    <p><a asp-controller="Book" asp-action="Details" asp-route-id="@Model[i].Id">See Details</a></p>
+    <hr/>
+}
+
+<a asp-controller="Home" asp-action="Index">Back to home page</a>
+
+<a asp-controller="Book" asp-action="CreateBook">Create Book</a>
