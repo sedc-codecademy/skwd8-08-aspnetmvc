@@ -1,0 +1,24 @@
+﻿@model OrderPizzaVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Order Pizza</h2>
+<h3 style="color:red"> @ViewBag.Error</h3>
+<form asp-controller="Order" asp-action="Index" method="post">
+    @Html.HiddenFor(x => x.Pizza.Id)
+    @Html.LabelFor(order => order.User.FirstName)
+    <input asp-for=@Model.User.FirstName />
+    <hr />
+    @Html.LabelFor(order => order.User.LastName)
+    <input asp-for=@Model.User.LastName />
+    <hr />
+    @Html.LabelFor(order => order.User.Address)
+    <input asp-for=@Model.User.Address />
+    <hr />
+    @Html.LabelFor(order => order.User.Phone)
+    <input asp-for=@Model.User.Phone />
+    <hr />
+    <button type="submit">Make Order</button>
+</form>
+
