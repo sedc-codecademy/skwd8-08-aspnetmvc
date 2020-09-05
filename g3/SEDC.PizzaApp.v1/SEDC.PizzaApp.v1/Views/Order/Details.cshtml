@@ -1,5 +1,4 @@
-﻿@using SEDC.PizzaApp.v1.Models.ViewModels
-@model OrderViewModel 
+﻿@model OrderViewModel 
 
 <h1>Order Details</h1>
 
@@ -16,7 +15,8 @@
 @{
     foreach (var pizza in Model.Pizzas)
     {
-        <p>- @pizza.Size.ToString() @pizza.Name = @pizza.Price$</p>
+        @*<p>- @pizza.Size.ToString() @pizza.Name = @pizza.Price$</p>*@
+        @Html.Partial("~/Views/Shared/_pizza.cshtml", pizza);
     }
 }
 

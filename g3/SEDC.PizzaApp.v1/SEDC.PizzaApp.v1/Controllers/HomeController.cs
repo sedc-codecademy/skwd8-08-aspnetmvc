@@ -25,13 +25,13 @@ namespace SEDC.PizzaApp.v1.Controllers
         }
 
         [HttpGet]
-        [Route("Start")]
+        //[Route("Start")]
         public IActionResult Contact() //https://localhost:5001/home/contact
         {
             return View();
         }
 
-        [HttpGet("Callme")]
+        //[HttpGet("Callme")]
         public IActionResult About() //https://localhost:5001/home/about
         {
             return View();

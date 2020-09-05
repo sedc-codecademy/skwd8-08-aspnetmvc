@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+@model List<Class03.Models.Models.Domain.Book>
+
+
+<h2>Welcome to our library!</h2>
+
+<h4>Here are all our books. Please choose one of them to read</h4>
+
+@*This way we display the data hardcoded*@
+@*<ul>
+        <li>Harry Potter</li>
+        <li>Lord of the rings</li>
+        <li>Game of thrones</li>
+</ul>*@
+
+
+@*This way we display the data dynamically by sending the data from the controller*@
+<ul>
+    @foreach (var book in Model)
+    {
+        <li>@book.Title - @book.Author.FullName</li>
+    }
+</ul>
+
+
+

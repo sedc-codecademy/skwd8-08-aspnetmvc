@@ -1,39 +1,24 @@
-﻿@model IEnumerable<SEDC.WebApp.ModelDemo.Models.Domain.Pizza>
+﻿@model List<PizzaVM>
+
+@*
+        When we want to overide the layout added in _ViewStart
+    @{
+        Layout = "~/Views/Shared/_MyLayout.cshtml";
+    }
+*@
 
 
-<h1>@ViewBag.Title </h1>
-<h2>@ViewData["Heading"] </h2>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Size)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Size)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "PizzaDetails", new { id = item.Id });
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="home">
+    <h1>@ViewBag.Title </h1>
+    <h2>@ViewData["Heading"] </h2>
+    
+            @foreach (var item in Model)
+            {
+                @* 
+                    How we use partial view inside this view 
+                    First parametar is relative path of the partial view
+                    Second parametar is model that we want to pass to that partial view
+                *@
+                @Html.Partial("~/Views/Shared/_PizzaCard.cshtml", item)
+            } 
+</div>
