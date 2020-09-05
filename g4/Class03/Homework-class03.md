@@ -1,5 +1,7 @@
 # Homework - Class 03
 
+Use the SEDC.PizzaApp project from Class 03
+
 1.	Extend the Pizza model with the following properties:
 -	Price : decimal
 -	PizzaSize : Enum (PizzaSize with two members: Normal and Family)
