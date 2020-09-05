@@ -107,21 +107,21 @@ namespace SEDC.PizzaApp.v1
                 new Pizza()
                 {
                     Id = 10,
-                    Name = "Siciliana",
+                    Name = "Napolitana",
                     Price = 6.5,
                     Size = PizzaSize.Medium
                 },
                 new Pizza()
                 {
                     Id = 11,
-                    Name = "Siciliana",
+                    Name = "Napolitana",
                     Price = 9.5,
                     Size = PizzaSize.Large
                 },
                 new Pizza()
                 {
                     Id = 12,
-                    Name = "Siciliana",
+                    Name = "Napolitana",
                     Price = 9.5,
                     Size = PizzaSize.Family
                 }

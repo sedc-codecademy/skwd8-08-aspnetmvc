@@ -1,3 +1,16 @@
 ﻿@model Pizza
 
-<p>- @Model.Size.ToString() @Model.Name = @Model.Price$</p>
+@*<p>- @Model.Size.ToString() @Model.Name = @Model.Price$</p>*@
+
+<div class="card" style="width: 18rem;">
+    <img src="~/img/pizza/@(Model.Name).png" class="card-img-top" alt="pizza">
+
+    <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+    </div>
+
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Size: @Model.Size.ToString()</li>
+        <li class="list-group-item">Price: <b>@Model.Price$</b></li>
+    </ul>
+</div>

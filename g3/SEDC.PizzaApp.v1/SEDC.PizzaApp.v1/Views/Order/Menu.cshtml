@@ -2,11 +2,10 @@
 
 <h1>MENU</h1>
 
-@foreach (var item in Model.Menu)
-{
-    @*<p>Name: @item.Name</p>
-    <p>Size: @item.Size.ToString()</p>
-    <p>Price: @item.Price$</p>
-    <p>====================</p>*@
-    @Html.Partial("~/Views/Shared/_pizza.cshtml", item);
-}
+<div class="menu">
+    @foreach (var item in Model.Menu)
+    {
+        @*@Html.Partial("~/Views/Shared/_pizza.cshtml", item);*@
+        <partial name="~/Views/Shared/_pizza.cshtml" for="@item" />
+    }
+</div>

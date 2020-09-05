@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\img\pizza\" />
     <Folder Include="wwwroot\lib\bootstrap\css\" />
     <Folder Include="wwwroot\lib\bootstrap\js\" />
     <Folder Include="wwwroot\lib\jquery\" />

@@ -56,6 +56,38 @@ namespace SEDC.PizzaApp.v1.Controllers
             return View(order);
         }
 
+        public IActionResult Orders() 
+        {
+            var dbOrders = StaticDb.Orders;
+
+            var orders = new List<OrderViewModel>();
+
+            foreach (var order in dbOrders)
+            {
+                var tempOrder = new OrderViewModel()
+                {
+                    Id = order.Id,
+                    FullName = order.User.FirstName + " " + order.User.LastName,
+                    Address = order.User.Address,
+                    Contact = order.User.Phone,
+                    Price = order.Price,
+                    IsDelievered = order.IsDelivered,
+                    Pizzas = order.Pizzas
+                };
+                orders.Add(tempOrder);
+            }
+
+            var ordersViewModel = new OrdersViewModel()
+            {
+                FirstPizza = dbOrders[0].Pizzas[0].Name,
+                FirstPersonName = $"{dbOrders[0].User.FirstName} {dbOrders[0].User.LastName}",
+                NumberOfOrders = dbOrders.Count,
+                Orders = orders
+            };
+
+            return View(ordersViewModel);
+        }
+
         public IActionResult Details(int? id) 
         {
             var order = StaticDb.Orders.FirstOrDefault(x => x.Id == id);

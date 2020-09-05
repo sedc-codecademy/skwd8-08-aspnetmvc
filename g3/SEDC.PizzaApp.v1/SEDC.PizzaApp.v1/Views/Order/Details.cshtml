@@ -1,4 +1,4 @@
-﻿@model OrderViewModel 
+﻿@model OrderViewModel
 
 <h1>Order Details</h1>
 
@@ -7,27 +7,30 @@
 <h3>User: @("Mr./ Ms. " + Model.FullName)</h3>
 <h3>Adress: @Model.Address</h3>
 <h3>Phone: @Model.Contact</h3>
-<h3>Price: @Model.Price$</h3> 
-<h3>Price Changed: @(Model.Price + 10)$</h3>
-
+<h3>Price: @Model.Price$</h3>
 
 <h2>Order contains:</h2>
-@{
-    foreach (var pizza in Model.Pizzas)
-    {
-        @*<p>- @pizza.Size.ToString() @pizza.Name = @pizza.Price$</p>*@
-        @Html.Partial("~/Views/Shared/_pizza.cshtml", pizza);
+<div class="menu">
+    @{
+        foreach (var pizza in Model.Pizzas)
+        {
+            @*<p>- @pizza.Size.ToString() @pizza.Name = @pizza.Price$</p>*@
+            @*@Html.Partial("~/Views/Shared/_pizza.cshtml", pizza);*@
+            <partial name="~/Views/Shared/_pizza.cshtml" for="@pizza" />
+        }
     }
-}
+</div>
 
-<h2>Order Status</h2>
+<span class="order-status">Order Status - </span>
 @if (Model.IsDelievered)
 {
-    <p>Order is delieverd.</p>
+    <span class="order-status delieverd">Order is delieverd.</span>
 }
 else
 {
-    <p>Order is coming to you, be patient!</p>
+    <span class="order-status not-delieverd">Order is coming to you, be patient!</span>
 }
 
-<p>@DateTime.Now</p>
+<div>
+    <a asp-controller="Order" asp-action="Orders" class="btn btn-outline-primary">Back</a>
+</div>
