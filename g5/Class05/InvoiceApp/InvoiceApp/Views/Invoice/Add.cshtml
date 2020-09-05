@@ -1,0 +1,110 @@
+﻿@model Invoice
+
+<h6>Tag helpers</h6>
+
+<form asp-controller="Invoice" asp-action="Add" class="col-md-6">
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="CreatedAt" />
+    <div class="form-group">
+        <label asp-for="CreatedAt"></label>
+        <input disabled="disabled" asp-for="CreatedAtFormatted" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Number"></label>
+        <input asp-for="Number" class="form-control" />
+        <span asp-validation-for="Number" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Month"></label>
+        <input asp-for="Month" class="form-control" />
+        <span asp-validation-for="Month" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Year"></label>
+        <input asp-for="Year" class="form-control" />
+        <span asp-validation-for="Year" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Amount"></label>
+        <input asp-for="Amount" class="form-control" />
+        <span asp-validation-for="Amount" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+    </div>
+    <div class="form-check">
+        <input type="checkbox" asp-for="Payed" class="form-check-input" id="PayedTagHelper" />
+        <label asp-for="Payed" for="PayedTagHelper"></label>
+    </div>
+    <div class="form-group">
+        @*<select asp-for="Type" asp-items="Html.GetEnumSelectList(Model.Type.GetType())" class="form-control">
+            <option value="">- Please select invoice type -</option>
+        </select>*@
+        @*<select asp-for="Type" asp-items="Html.GetEnumSelectList(typeof(InvoiceType))" class="form-control">
+            <option value="">- Please select invoice type -</option>
+        </select>*@
+        <label asp-for="Type"></label>
+        <select asp-for="Type" asp-items="Html.GetEnumSelectList<InvoiceType>()" class="form-control">
+            <option value="">- Please select invoice type -</option>
+        </select>
+        <span asp-validation-for="Type" class="text-danger"></span>
+    </div>
+    <label asp-for="WayOfPayment"></label>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" asp-for="WayOfPayment" value="@WayOfPayment.Immediate" id="WayOfPaymentImmediateTagHelper" />
+        <label for="WayOfPaymentImmediateTagHelper" class="form-check-label">@WayOfPayment.Immediate</label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" asp-for="WayOfPayment" value="@WayOfPayment.Postponed" id="WayOfPaymentPostponedTagHelper" />
+        <label for="WayOfPaymentPostponedTagHelper" class="form-check-label">@WayOfPayment.Postponed</label>
+    </div>
+    <div>
+        <label asp-for="PaymentDay"></label>
+        <input asp-for="PaymentDay" class="form-control" />
+        <span asp-validation-for="PaymentDay" class="text-danger"></span>
+    </div>
+    <input type="submit" class="btn btn-primary" value="Save" />
+</form>
+
+<hr />
+
+@*<h6>Html helpers</h6>
+
+@using (Html.BeginForm("Add", "Invoice", null, FormMethod.Post, null, new { @class = "col-md-6" }))
+{
+    @Html.HiddenFor(x => x.Id)
+    @Html.HiddenFor(x => x.CreatedAt)
+    <div class="form-group">
+        @Html.LabelFor(x => x.CreatedAt)
+        @Html.TextBoxFor(x => x.CreatedAtFormatted, null, new { @class = "form-control", @disabled = "disabled" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Number)
+        @Html.TextBoxFor(x => x.Number, null, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Description)
+        @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
+    </div>
+    <div class="form-check">
+        @Html.CheckBoxFor(x => x.Payed, new { @class = "form-check-input", @id = "PayedHtmlHelper" })
+        @Html.LabelFor(x => x.Payed, new { @for = "PayedHtmlHelper" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Type)
+        @Html.DropDownListFor(x => x.Type, Html.GetEnumSelectList<InvoiceType>(), "- Please select invoice type -", new { @class = "form-control" })
+    </div>
+    @Html.LabelFor(x => x.WayOfPayment)
+    <div class="form-check">
+        @Html.RadioButtonFor(x => x.WayOfPayment, WayOfPayment.Immediate, new { @class = "form-check-input", @id = "WayOfPaymentImmediateHtmlHelper" })
+        <label class="form-check-label" for="WayOfPaymentImmediateHtmlHelper">@WayOfPayment.Immediate</label>
+    </div>
+    <div class="form-check">
+        @Html.RadioButtonFor(x => x.WayOfPayment, WayOfPayment.Postponed, new { @class = "form-check-input", @id = "WayOfPaymentPostponedHtmlHelper" })
+        <label class="form-check-label" for="WayOfPaymentPostponedHtmlHelper">@WayOfPayment.Postponed</label>
+    </div>
+}*@
+
+
+
