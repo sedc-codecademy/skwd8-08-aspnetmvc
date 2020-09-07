@@ -1,0 +1,41 @@
+﻿@model List<PizzaVM>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Menu</h2>
+
+<div class="row">
+    <div class="col-md-5">
+        @Html.ActionLink("Create pizza", "CreatePizza", "Pizza", null, new { @class = "btn btn-danger" })
+        <a class="btn btn-warning" asp-controller="Pizza" asp-action="CreatePizza">Create pizza</a>
+    </div>
+</div>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Size</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var pizza in Model)
+        {
+            <tr>
+                <th scope="row">@pizza.Id</th>
+                <td>@pizza.Name</td>
+                <td>@pizza.Price</td>
+                <td>@pizza.Size</td>
+                <td>
+                    @Html.ActionLink("Edit", "EditPizza", "Pizza", new { id = pizza.Id }, new { @class = "btn btn-info"}) |
+                    <a class="btn btn-primary" asp-controller="Pizza" asp-action="EditPizza" asp-route-id="@pizza.Id">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
