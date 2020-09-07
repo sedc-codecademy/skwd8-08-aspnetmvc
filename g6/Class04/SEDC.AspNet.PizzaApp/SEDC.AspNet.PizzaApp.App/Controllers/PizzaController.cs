@@ -50,6 +50,17 @@ namespace SEDC.AspNet.PizzaApp.App.Controllers
         [HttpPost("edit/{id:int}")]
         public IActionResult EditPizza(PizzaVM pizzaVM)
         {
+            if(pizzaVM.Name == null)
+            {
+                ModelState.AddModelError("Size", "This is just for demo");
+                return View("Edit", pizzaVM);
+            }
+
+            if(!ModelState.IsValid)
+            {
+                return View("Edit", pizzaVM);
+            }
+
             var pizzaDb = Database.Menu.FirstOrDefault(x => x.Id == pizzaVM.Id);
 
             pizzaDb.Name = pizzaVM.Name;
