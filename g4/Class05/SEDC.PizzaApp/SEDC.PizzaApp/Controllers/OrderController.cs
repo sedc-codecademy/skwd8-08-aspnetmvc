@@ -127,7 +127,7 @@ namespace SEDC.PizzaApp.Controllers
             if (pizza == null)
                 return View("BadRequest");
 
-            //=====First way of update=================================
+            //=====!!!!!!!!!!!!Way of update that won't work!!!!!!!!!=================================
             //We map the order viewmodel in a domain model
             //Order editedOrder = OrderMapper.ToOrder(orderViewModel);
 
@@ -135,8 +135,19 @@ namespace SEDC.PizzaApp.Controllers
             //Order orderDb = StaticDb.Orders.First(x => x.Id == orderViewModel.Id);
 
             //we update the reference to point at editedOrder
-            //orderDb = editedOrder;
+            //orderDb = editedOrder; =========== this is not correct because you are just changing the reference of orderDb
             //==========================================================
+
+            //=================First way of update===================
+            //Take the index of the order you want to update
+            //var index = StaticDb.Orders.FindIndex(x => x.Id == orderViewModel.Id);
+            
+            //Map the view model to domain model
+            //Order editedOrder = OrderMapper.ToOrder(orderViewModel);
+            
+            //Assign the new domain model to the member of the list with that index
+            //StaticDb.Orders[index] = editedOrder;
+            //=======================================================================
 
             //=================Second way of update=======================
             //Take the order by reference and update each property
