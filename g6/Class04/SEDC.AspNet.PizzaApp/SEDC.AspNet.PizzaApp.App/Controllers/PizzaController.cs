@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SEDC.AspNet.PizzaApp.App.InMemoryDatabase;
 using SEDC.AspNet.PizzaApp.App.Models.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace SEDC.AspNet.PizzaApp.App.Controllers
 {
@@ -14,6 +12,9 @@ namespace SEDC.AspNet.PizzaApp.App.Controllers
         public IActionResult GetAll()
         {
             var pizzas = Database.Menu;
+
+                            //$"The pizza with id: {id} does not exits"      
+            ViewBag.Error = TempData["Info"];
 
             var listOfPizzasVM = new List<PizzaVM>();
             foreach (var pizza in pizzas)
@@ -29,6 +30,28 @@ namespace SEDC.AspNet.PizzaApp.App.Controllers
             }
 
             return View("Index", listOfPizzasVM);
+        }
+
+        [HttpGet("pizzas/{id:int}")]
+        public IActionResult Get(int id)
+        {
+            var pizza = Database.Menu.FirstOrDefault(x => x.Id == id);
+
+            if(pizza == null)
+            {
+                TempData["Info"] = $"The pizza with id: {id} does not exits";
+                return RedirectToAction("GetAll");
+            }
+
+            var pizzaVm = new PizzaVM
+            {
+                Id = pizza.Id,
+                Name = pizza.Name,
+                Price = pizza.Price,
+                Size = pizza.Size
+            };
+
+            return View("Details", pizzaVm);
         }
 
         [HttpGet("edit/{id:int}")]
@@ -68,6 +91,24 @@ namespace SEDC.AspNet.PizzaApp.App.Controllers
             pizzaDb.Size = pizzaVM.Size;
 
             return RedirectToAction("GetAll"); 
+        }
+
+        [HttpGet("create")]
+        public IActionResult CreatePizza()
+        {
+            return View();
+        }
+
+        [HttpPost("create")]
+        public IActionResult CreatePizza(CreatePizzaVM request)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(request);
+            }
+
+
+            return RedirectToAction("GetAll");
         }
     }
 }

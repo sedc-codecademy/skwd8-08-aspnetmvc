@@ -6,6 +6,11 @@
 
 <h2>Menu</h2>
 
+@if(ViewBag.Error != null)
+{
+    <h1>@ViewBag.Error</h1>
+}
+
 <div class="row">
     <div class="col-md-5">
         @Html.ActionLink("Create pizza", "CreatePizza", "Pizza", null, new { @class = "btn btn-danger" })
@@ -33,7 +38,8 @@
                 <td>@pizza.Size</td>
                 <td>
                     @Html.ActionLink("Edit", "EditPizza", "Pizza", new { id = pizza.Id }, new { @class = "btn btn-info"}) |
-                    <a class="btn btn-primary" asp-controller="Pizza" asp-action="EditPizza" asp-route-id="@pizza.Id">Edit</a>
+                    <a class="btn btn-primary" asp-controller="Pizza" asp-action="EditPizza" asp-route-id="@pizza.Id">Edit</a> |
+                    <a class="btn btn-success" asp-controller="Pizza" asp-action="Get" asp-route-id="@pizza.Id">Details</a>
                 </td>
             </tr>
         }

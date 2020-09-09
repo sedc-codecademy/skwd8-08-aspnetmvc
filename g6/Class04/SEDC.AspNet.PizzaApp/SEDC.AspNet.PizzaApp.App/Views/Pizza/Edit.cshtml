@@ -13,14 +13,14 @@
     </div>
 }
 
-@*<div class="row">
+<div class="row">
     <div class="col-md-5">
         <form asp-route="EditPizza" method="post">
             <h3>Pizza info: </h3>
-            <div hidden class="form-group">
+            @*<div hidden class="form-group">
                 <label asp-for="Id"></label>
                 <input class="form-control" asp-for="Id" value="@Model.Id" disabled />
-            </div>
+            </div>*@
             <div class="form-group">
                 <label asp-for="Name"></label>
                 <input class="form-control" asp-for="Name" value="@Model.Name" />
@@ -40,10 +40,10 @@
             </div>
         </form>
     </div>
-</div>*@
+</div>
 
 
-<div class="row">
+@*<div class="row">
         <div class="col-md-5">
             @using (Html.BeginForm())
             {
@@ -72,4 +72,4 @@
                 </div>
             }
         </div>
-    </div>
+    </div>*@
