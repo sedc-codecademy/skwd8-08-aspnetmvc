@@ -1,0 +1,17 @@
+﻿@model List<MovieVM>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+@foreach (var item in Model)
+{
+<ul>
+    <li>@item.Title</li>
+    <li>@item.MovieGenre.ToString()</li>
+    <li>@item.MovieRating</li>
+    <li>@item.Duration</li>
+</ul>
+}
+

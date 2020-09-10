@@ -20,25 +20,41 @@ namespace PizzaApp.Web.Controllers
             new Pizza{ Id = 4, Name = "Pizza 4"},
         };
 
-        List<OrderViewModel> Orders { get; set; } = new List<OrderViewModel>();
+        public List<string> PizzaNames = new List<string>();
+
+        private static List<OrderViewModel> Orders = new List<OrderViewModel>();
 
         [HttpGet]
         public IActionResult Index()
         {
             ViewBag.Title = "Wlcome to Pizza-App orders";
-
             return View("Order", Orders);
         }
 
         [HttpGet]
         public IActionResult PlaceOrder()
         {
+            
             ViewBag.Title = "Place an order";
 
-            ViewData["Pizzas"] = Pizzas;
+            PizzaNames = Pizzas.Select(x => x.Name).ToList();
+
+            ViewData["Pizzas"] = PizzaNames;
 
             ViewData["PizzaSize"] = Enum.GetValues(typeof(PizzaSize)).Cast<PizzaSize>().ToList();
 
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult PlaceOrder(OrderViewModel order)
+        {
+            Orders.Add(order);
+            return RedirectToAction("Index", order);
+        }
+
+        public IActionResult EditOder()
+        {
             return View();
         }
     }
