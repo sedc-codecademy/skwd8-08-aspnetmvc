@@ -1,0 +1,8 @@
+﻿@model PizzaViewModel
+
+<div>
+    <h4>@Model.Name</h4>
+    <p>@Model.Description</p>
+    <img src="@Model.ImageUrl" />
+</div>
+<a asp-controller="Pizza" asp-action="Index">Back to Pizzas</a>

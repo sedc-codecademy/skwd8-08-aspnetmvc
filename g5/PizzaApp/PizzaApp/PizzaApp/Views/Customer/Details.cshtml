@@ -1,0 +1,8 @@
+﻿@model CustomerViewModel
+
+    <div>
+        <h4>@Model.FullName</h4>
+        <p>@Model.Address</p>
+        <p>@Model.Phone</p>
+    </div>
+    <a asp-controller="Customer" asp-action="Index">Back to Customers</a>
