@@ -1,0 +1,35 @@
+﻿@model CustomerViewModel
+
+<div>
+    <h4>@Model.FullName</h4>
+    <p>@Model.Address</p>
+    <p>@Model.Phone</p>
+</div>
+
+<a asp-controller="Order" asp-action="Add" asp-route-id="@Model.Id" class="btn btn-block float-right col-2">Add</a>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">OrderNumber</th>
+            @*<th scope="col">Total Price</th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Orders.Count; i++)
+        {
+            <tr>
+                <th scope="row">@(i + 1)</th>
+                <td>@Model.Orders[i].OrderNumber</td>
+                @*<td>@Model.Orders[i].TotalPrice</td>*@
+                <td>
+                    <a asp-controller="Order" asp-action="Details" asp-route-id="@Model.Orders[i].Id">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr/>
+<a asp-controller="Customer" asp-action="Index">Back to Customers</a>

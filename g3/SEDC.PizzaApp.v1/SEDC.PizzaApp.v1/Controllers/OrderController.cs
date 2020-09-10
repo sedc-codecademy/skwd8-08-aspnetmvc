@@ -11,6 +11,7 @@ namespace SEDC.PizzaApp.v1.Controllers
 {
     public class OrderController : Controller
     {
+        [HttpGet]
         public IActionResult Index()
         {
             //transfer data form a Model          
@@ -56,6 +57,62 @@ namespace SEDC.PizzaApp.v1.Controllers
             return View(order);
         }
 
+        [HttpGet]
+        public IActionResult Order() 
+        {
+            var menu = StaticDb.Menu;
+
+            var pizzaNames = new List<string>();
+
+            foreach (var pizza in menu)
+            {
+                pizzaNames.Add(pizza.Name);
+            }
+
+            var filteredPizzaNames = pizzaNames.Distinct().ToList();
+
+            var viewModel = new MakeOrderViewModel()
+            {
+                PizzaNames = filteredPizzaNames
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Order(MakeOrderViewModel model) 
+        {
+            var pizza = StaticDb.Menu.FirstOrDefault(x => x.Name == model.Pizzas && x.Size == model.Size);
+
+            var lastUserId = StaticDb.Users.Last().Id;
+
+            var user = new User()
+            {
+                Id = lastUserId + 1,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Address = model.Address,
+                Phone = model.Phone
+            };
+
+            var lastOrderId = StaticDb.Orders.Last().Id;
+
+            var order = new Order()
+            {
+                Id = lastOrderId + 1,
+                IsDelivered = false,
+                Price = pizza.Price + 1.5,
+                User = user,
+                Pizzas = new List<Pizza>() { pizza }
+            };
+
+            StaticDb.Users.Add(user);
+            StaticDb.Orders.Add(order);
+
+            return View("_ThankYou");
+        }
+
+        [HttpGet]
         public IActionResult Orders() 
         {
             var dbOrders = StaticDb.Orders;
@@ -88,6 +145,7 @@ namespace SEDC.PizzaApp.v1.Controllers
             return View(ordersViewModel);
         }
 
+        [HttpGet]
         public IActionResult Details(int? id) 
         {
             var order = StaticDb.Orders.FirstOrDefault(x => x.Id == id);
@@ -112,6 +170,7 @@ namespace SEDC.PizzaApp.v1.Controllers
             return View(orderDetails);
         }
 
+        [HttpGet]
         public IActionResult Menu() 
         {
             var dbMenu = StaticDb.Menu;

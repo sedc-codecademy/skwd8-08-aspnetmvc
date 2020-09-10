@@ -1,5 +1,6 @@
 ﻿@using PizzaApp.Web.Models.Enums;
 @model OrderViewModel
+<<<<<<< HEAD
 
 <hr />
 <h5>Customer info: </h5>
@@ -41,3 +42,70 @@
         }
     </select>*@
 
+=======
+ 
+    @*<form class="form-group">*@
+        @Html.BeginForm("PlaceOrder", "Order", FormMethod.Post)
+        < hr />
+        < h5 > Customer info: </h5>
+        @*This is a label and we are writing the value of the label our selves*@
+        @*@Html.Label("User full name")*@
+
+        @Html.LabelFor(x => x.UserFullName, "User full name", new { @class = "col-form-label, text-secondary" })
+
+        @*<label class="col-form-label" for="FirstName">First Name: </label>*@
+
+        @*This is the same as input field where we are setting manulay the values of the HTML Tag
+        @Html.TextBox("UserFullName","No",new { @class="form-control" })*@
+        @*<input class="form-control" type="text" name="FirstName">*@
+
+        @Html.TextBoxFor(x => x.UserFullName, "text", new { @class = "form-control" })
+
+        @*We are using hidden input fields for properties that we do not want to show to the user
+        And those input tags will not be shown*@
+        @*@Html.HiddenFor(o=> o.Id)*@
+
+        @Html.LabelFor(x => x.Address, new { @class = "col-form-label" })
+        @Html.TextBoxFor(x => x.Address, "text", new { @class = "form-control" })
+
+        @Html.LabelFor(x => x.PhoneNumber, new { @class = "col-form-label" })
+        @Html.TextBoxFor(x => x.PhoneNumber, "text", new { @class = "form-control" })
+
+        <hr />
+        <h5>Order info:</h5>
+
+        @Html.LabelFor(x => x.PizzaName, "Choose a pizza")
+        @*This is HTML Tag Helper for a Dropdownlist*@
+        @Html.DropDownListFor(x => x.PizzaName, new SelectList(ViewData["Pizzas"] as List<string>), "Pizzas", new { @class = "dropdown,dropdown-toggle,btn, btn-secondary,btn-block" })
+        @*This is the standard way of writing HTML dropdownlist*@
+        @*<select class="custom-select" name="PizzaType">
+            @{
+                foreach (Pizza pizza in ViewData["Pizzas"] as List<Pizza>)
+                {
+                    <option value="@pizza.Id">@pizza.Name</option>
+                }
+            }
+        </select>*@
+
+        @Html.LabelFor(x => x.Size, "Choose a pizza size")
+        @*This is HTML Tag Helper for a Dropdownlist*@
+        @Html.DropDownListFor(x => x.Size, new SelectList(Enum.GetValues(typeof(PizzaSize))), "Sizes", new { @class = "dropdown,dropdown-toggle,btn, btn-secondary,btn-block" })
+        @*This is the standard way of writing HTML dropdownlist*@
+        @*<select class="custom-select" name="PizzaSize">
+            @{
+                foreach (PizzaSize pizzaSize in ViewData["PizzaSize"] as List<PizzaSize>)
+                {
+                    <option value="@pizzaSize">@pizzaSize.ToString()</option>
+                }
+            }
+        </select>*@
+        <hr />
+        @*This is the Action Link Helper Tag
+        @Html.ActionLink("Place order","Index","Order",new { },new { @class ="btn,btn-secondary,btn-lg" })*@
+        <input type="submit" value="Place Order" asp-action="PlaceOrder" asp-controller="Order" class="btn btn-primary btn-block"/>
+        @*This is our custom HTML tag
+        @Html.ButtonFor("submit","Place your order","order",new List<string>() {"btn","btn-primary","btn-block" })*@
+    @*This is the standard way of writing a button in HTML*@
+    @*<button class="btn btn-block btn-primary" type="submit">Place order</button>*@
+    @*</form>*@
+>>>>>>> 1cd30a1651bab29babd836b7779d780b70744e25

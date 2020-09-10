@@ -20,9 +20,13 @@ namespace PizzaApp.Web.Controllers
             new Pizza{ Id = 4, Name = "Pizza 4"},
         };
 
+<<<<<<< HEAD
         public List<string> PizzaNames = new List<string>();
 
         private static List<OrderViewModel> Orders = new List<OrderViewModel>();
+=======
+        public static List<OrderViewModel> Orders { get; set; } = new List<OrderViewModel>();
+>>>>>>> 1cd30a1651bab29babd836b7779d780b70744e25
 
         [HttpGet]
         public IActionResult Index()
@@ -37,25 +41,38 @@ namespace PizzaApp.Web.Controllers
             
             ViewBag.Title = "Place an order";
 
+<<<<<<< HEAD
             PizzaNames = Pizzas.Select(x => x.Name).ToList();
 
             ViewData["Pizzas"] = PizzaNames;
+=======
+            var pizzasNames = Pizzas.Select(x => x.Name).ToList();
+
+            ViewData["Pizzas"] = pizzasNames;
+>>>>>>> 1cd30a1651bab29babd836b7779d780b70744e25
 
             ViewData["PizzaSize"] = Enum.GetValues(typeof(PizzaSize)).Cast<PizzaSize>().ToList();
 
             return View();
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1cd30a1651bab29babd836b7779d780b70744e25
         [HttpPost]
         public IActionResult PlaceOrder(OrderViewModel order)
         {
             Orders.Add(order);
+<<<<<<< HEAD
             return RedirectToAction("Index", order);
         }
 
         public IActionResult EditOder()
         {
             return View();
+=======
+            return RedirectToAction("Index","Order",order);
+>>>>>>> 1cd30a1651bab29babd836b7779d780b70744e25
         }
     }
 }

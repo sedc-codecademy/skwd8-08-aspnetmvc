@@ -24,3 +24,7 @@
 .orders > div {
     margin-bottom: 20px;
 }
+
+.carousel-custom img {
+    height: 500px;
+}

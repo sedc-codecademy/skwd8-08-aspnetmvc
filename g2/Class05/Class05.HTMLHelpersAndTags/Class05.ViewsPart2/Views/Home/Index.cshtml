@@ -1,0 +1,15 @@
+﻿
+<h2 class="text-center">Welcome to our application!</h2>
+
+@*<a href="#">Create new book</a>*@
+
+@*
+    Insert link for navigation to some other view - By using HTML Helper
+
+    @Html.ActionLink("Add new book", "Create", "Book")
+*@
+
+@*
+    Insert link for navigation to some other view - By using HTML Tag (From .NET Core)
+*@
+<a asp-controller="Book" asp-action="Index">All books</a>

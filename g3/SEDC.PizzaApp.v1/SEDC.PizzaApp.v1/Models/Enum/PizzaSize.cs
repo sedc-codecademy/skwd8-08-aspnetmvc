@@ -4,6 +4,7 @@
     {
         Medium = 1,
         Large,
-        Family
+        Family,
+        Jumbo
     }
 }
