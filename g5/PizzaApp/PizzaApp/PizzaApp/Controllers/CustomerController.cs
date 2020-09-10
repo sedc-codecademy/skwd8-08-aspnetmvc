@@ -22,8 +22,16 @@ namespace PizzaApp.Controllers
             {
                 return NotFound();
             }
+            
+            var customerViewModel = Customer.ToViewModel(customer);
 
-            return View(Customer.ToViewModel(customer));
+            customerViewModel.Orders = customer.Orders.Select(x => new OrderViewModel
+            {
+                Id = x.Id,
+                OrderNumber = x.OrderNumber
+            }).ToList();
+
+            return View(customerViewModel);
         }
 
         public IActionResult Edit(int id)

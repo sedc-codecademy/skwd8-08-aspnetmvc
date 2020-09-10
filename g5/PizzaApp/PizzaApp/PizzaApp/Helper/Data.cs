@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using PizzaApp.Models.DomainModels;
 
 namespace PizzaApp.Helper
@@ -20,9 +22,26 @@ namespace PizzaApp.Helper
         {
             new Size("Mala", "30cm"),
             new Size("Sredna", "45cm"),
-            new Size("Golema", "60cm"),
+            new Size("Golema", "60cm")
         };
-        public static List<PizzaSize> PizzaSizes { get; set; } = new List<PizzaSize>();
-        public static List<Order> Orders { get; set; } = new List<Order>();
+        public static List<PizzaSize> PizzaSizes { get; set; } = new List<PizzaSize>()
+        {
+            new PizzaSize(Pizzas[0].Id, Sizes[0].Id, 150),
+            new PizzaSize(Pizzas[0].Id, Sizes[1].Id, 250),
+            new PizzaSize(Pizzas[0].Id, Sizes[2].Id, 350),
+            new PizzaSize(Pizzas[1].Id, Sizes[0].Id, 180),
+            new PizzaSize(Pizzas[1].Id, Sizes[1].Id, 280),
+            new PizzaSize(Pizzas[1].Id, Sizes[2].Id, 380),
+        };
+
+        public static IEnumerable<SelectListItem> PizzasToSelectListItems()
+        {
+            return Pizzas.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+        }
+        
+        public static IEnumerable<SelectListItem> SizesToSelectListItems()
+        {
+            return Sizes.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+        }
     }
 }
