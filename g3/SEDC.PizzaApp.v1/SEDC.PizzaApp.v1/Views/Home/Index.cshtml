@@ -1,4 +1,30 @@
 ﻿@{ ViewBag.Title = "Home"; }
 
-<h1>Pizza App</h1>
-<h3>The best application for ordering Pizza!</h3>
+<div class="jumbotron">
+    <h1 class="display-4">Pizza App</h1>
+    <p class="lead">The best application for ordering Pizza!</p>
+    <hr class="my-4">
+
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner carousel-custom">
+            <div class="carousel-item active">
+                <img src="~/img/pizza/Kapri.png" class="d-block w-100" alt="...">
+            </div>
+
+            <div class="carousel-item">
+                <img src="~/img/pizza/Margarita.png" class="d-block w-100" alt="...">
+            </div>
+
+            <div class="carousel-item">
+                <img src="~/img/pizza/Napolitana.png" class="d-block w-100" alt="...">
+            </div>
+
+            <div class="carousel-item">
+                <img src="~/img/pizza/Peperoni.png" class="d-block w-100" alt="...">
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-4">
+    <a asp-controller="Order" asp-action="Order" class="btn btn-outline-success">Order Pizza Now</a>
+</div>
