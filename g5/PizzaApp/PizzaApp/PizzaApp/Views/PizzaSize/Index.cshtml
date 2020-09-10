@@ -1,0 +1,33 @@
+﻿@using System.Globalization
+@model List<PizzaSizeViewModel>
+
+<h4>Menu</h4>
+
+<a asp-controller="PizzaSize" asp-action="Add" class="btn btn-block float-right col-2">Add</a>
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Pizza Name</th>
+        <th scope="col">Size</th>
+        <th scope="col">Price</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        <tr>
+            <th scope="row">@(i + 1)</th>
+            <td>@Model[i].PizzaViewModel.Name</td>
+            <td>@Model[i].SizeViewModel.Name</td>
+            <td>@Model[i].Price.ToString("C", new CultureInfo("mk-MK"))</td>
+            <td>
+                <a asp-controller="PizzaSize" asp-action="Details" asp-route-id="@Model[i].Id" class="btn btn-info">Details</a>
+                <a asp-controller="PizzaSize" asp-action="Edit" asp-route-id="@Model[i].Id" class="btn btn-warning">Edit</a>
+                <a asp-controller="PizzaSize" asp-action="Delete" asp-route-id="@Model[i].Id" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
