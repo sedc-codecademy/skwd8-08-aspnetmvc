@@ -35,6 +35,8 @@ namespace SEDC.AspNet.Class06.App
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+
+            //services.AddTransient(typeof(IPizzaRepository), typeof(PizzaRepository));
             //services.AddTransient(typeof(Database));
             services.AddScoped<IPizzaRepository, EfPizzaRepository>();
             services.AddTransient<IPizzaService, PizzaService>();
