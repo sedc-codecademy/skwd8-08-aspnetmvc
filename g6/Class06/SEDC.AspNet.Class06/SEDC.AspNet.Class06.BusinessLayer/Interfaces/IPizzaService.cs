@@ -8,5 +8,6 @@ namespace SEDC.AspNet.Class06.BusinessLayer.Interfaces
     public interface IPizzaService
     {
         List<PizzaVM> GetAllPizzas();
+        UsersAndPizzasResult GetUsersAndPizzas();
     }
 }

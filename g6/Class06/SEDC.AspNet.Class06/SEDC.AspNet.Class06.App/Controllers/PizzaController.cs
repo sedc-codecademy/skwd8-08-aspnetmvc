@@ -12,14 +12,16 @@ namespace SEDC.AspNet.Class06.App.Controllers
     {
         private readonly IPizzaService _pizzaService;
 
-        public PizzaController()
+        public PizzaController(IPizzaService pizzaService)
         {
-            _pizzaService = new PizzaService();
+            _pizzaService = pizzaService;
         }
 
         public IActionResult Index()
         {
             var pizzas = _pizzaService.GetAllPizzas();
+
+            var result = _pizzaService.GetUsersAndPizzas();
 
             return View(pizzas);
         }

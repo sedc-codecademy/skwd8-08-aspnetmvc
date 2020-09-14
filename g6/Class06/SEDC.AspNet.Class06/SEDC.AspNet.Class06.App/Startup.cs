@@ -8,6 +8,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SEDC.AspNet.Class06.BusinessLayer.Interfaces;
+using SEDC.AspNet.Class06.BusinessLayer.Services;
+using SEDC.AspNet.Class06.DataLayer;
+using SEDC.AspNet.Class06.DataLayer.Interfaces;
+using SEDC.AspNet.Class06.DataLayer.Repositories;
 
 namespace SEDC.AspNet.Class06.App
 {
@@ -29,6 +34,11 @@ namespace SEDC.AspNet.Class06.App
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
+            //services.AddTransient(typeof(Database));
+            services.AddScoped<IPizzaRepository, EfPizzaRepository>();
+            services.AddTransient<IPizzaService, PizzaService>();
+            //services.AddTransient<IUserRepository>(x => typeof(UserRepository));
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
