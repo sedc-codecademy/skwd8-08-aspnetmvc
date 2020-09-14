@@ -1,4 +1,6 @@
 ﻿using SEDC.PizzaApp.Domain;
+using SEDC.PizzaApp.Domain.Enums;
+using SEDC.PizzaApp.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
