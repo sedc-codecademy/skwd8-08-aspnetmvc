@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SEDC.MVC.BuildeingApps.DataAccess\SEDC.MVC.BuildeingApps.DataAccess.csproj" />
+    <ProjectReference Include="..\SEDC.MVC.BuildingApps.Domain\SEDC.MVC.BuildingApps.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
