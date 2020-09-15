@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SEDC.MVC.BuildingApps.Domain\SEDC.MVC.BuildingApps.Domain.csproj" />
+    <ProjectReference Include="..\SEDC.MVC.BuildingApps.Services\SEDC.MVC.BuildingApps.Services.csproj" />
+  </ItemGroup>
+
+
+
+</Project>
