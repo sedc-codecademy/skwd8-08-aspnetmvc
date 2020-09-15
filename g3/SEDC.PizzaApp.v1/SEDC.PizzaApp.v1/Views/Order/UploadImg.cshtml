@@ -1,0 +1,29 @@
+﻿<h1>Upload pizza images</h1>
+@model ImageClass
+
+<form asp-controller="Order" asp-action="UploadImg" method="post" enctype="multipart/form-data">
+
+    <input type="file" name="imgfile" />
+
+    <input type="submit" value="Upload img file"/>
+
+    <p>@Model.Message</p>
+
+    <table class="table">
+        <tr>
+            <th>Image Name</th>
+            <th>Image</th>
+            <th>Options</th>
+        </tr>
+        @foreach (var item in Model.FileImage)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <th><img src="~/img/pizza/@item.Name" alt="pizza img" height="100"/></th>
+                <th><a asp-controller="Order" asp-action="DeleteImg" asp-route-imgdelete="@item.Name" >Delete</a></th>
+            </tr>
+        }
+    </table>
+
+
+</form> 
