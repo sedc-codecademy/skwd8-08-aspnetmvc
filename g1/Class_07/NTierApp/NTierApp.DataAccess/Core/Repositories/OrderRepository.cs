@@ -6,6 +6,12 @@ namespace NTierApp.DataAccess.Core.Repositories
 {
     public class OrderRepository : IRepository<Order>
     {
+
+        private ILocalDb _db;
+        public OrderRepository(ILocalDb db)
+        {
+            _db = db;
+        }
         public bool Create(Order entity)
         {
             throw new System.NotImplementedException();

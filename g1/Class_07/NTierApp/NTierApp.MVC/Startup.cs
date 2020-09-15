@@ -36,11 +36,14 @@ namespace NTierApp.MVC
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddTransient<IRepository<Movie>, MovieRepository>();
+
+
             services.AddTransient<ILocalDb, LocalDb>();
+            services.AddTransient<IRepository<Movie>, MovieRepository>();
+            services.AddTransient<IRepository<Order>, OrderRepository>();
+            services.AddTransient<IRepository<User>, UserRepository>();
+            
             services.AddTransient<IMovieService, MovieService>();
         }
 

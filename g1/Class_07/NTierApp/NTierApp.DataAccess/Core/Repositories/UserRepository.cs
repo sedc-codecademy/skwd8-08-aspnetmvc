@@ -6,6 +6,11 @@ namespace NTierApp.DataAccess.Core.Repositories
 {
     public class UserRepository : IRepository<User>
     {
+        private ILocalDb _db;
+        public UserRepository(ILocalDb db)
+        {
+            _db = db;
+        }
         public bool Create(User entity)
         {
             throw new System.NotImplementedException();
