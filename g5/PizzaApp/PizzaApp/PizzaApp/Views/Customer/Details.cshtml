@@ -23,9 +23,10 @@
                 <th scope="row">@(i + 1)</th>
                 <td>@Model.Orders[i].OrderNumber</td>
                 @*<td>@Model.Orders[i].TotalPrice</td>*@
-                <td>
-                    <a asp-controller="Order" asp-action="Details" asp-route-id="@Model.Orders[i].Id">Details</a>
-                </td>
+            <td>
+                <a asp-controller="Order" asp-action="Details" asp-route-id="@Model.Orders[i].Id" class="btn btn-info">Details</a>
+                <a asp-controller="Order" asp-action="Delete" asp-route-id="@Model.Orders[i].Id" class="btn btn-danger">Delete</a>
+            </td>
             </tr>
         }
     </tbody>
