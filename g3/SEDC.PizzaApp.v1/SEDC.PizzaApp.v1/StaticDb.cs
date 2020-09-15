@@ -124,6 +124,13 @@ namespace SEDC.PizzaApp.v1
                     Name = "Napolitana",
                     Price = 9.5,
                     Size = PizzaSize.Family
+                },
+                new Pizza()
+                {
+                    Id = 13,
+                    Name = "Vesuvio",
+                    Price = 12.5,
+                    Size = PizzaSize.Jumbo
                 }
             };
 

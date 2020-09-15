@@ -1,5 +1,48 @@
 ﻿@using PizzaApp.Web.Models.Enums;
 @model OrderViewModel
+<<<<<<< HEAD
+
+<hr />
+<h5>Customer info: </h5>
+@Html.BeginForm("placeOrder", "Order", FormMethod.Post)
+@Html.Label("User fullname")
+@Html.TextBoxFor(x => x.UserFullName, "text", new { @class="form-control" })
+<label class="col-form-label" for="Address">Address: </label>
+<input class="form-control" type="text" name="Address">
+
+<label class="col-form-label" for="PhoneNumber">Phone Number: </label>
+<input class="form-control" type="text" name="PhoneNumber">
+
+<hr />
+<h5>Order info:</h5>
+
+<label class="col-form-label" for="PizzaType">Select Pizza: </label>
+@Html.DropDownListFor(x => x.PizzaName, new SelectList(ViewData["Pizzas"] as List<string>), "Pizzas", new { @class = "dropdown btn btn-secondary dropdown-toggle" })
+<label class="col-form-label" for="PizzaSize">Select Size: </label>
+@Html.DropDownListFor(x => x.Size, new SelectList(Enum.GetValues(typeof(PizzaSize))), "Pizza size", new { @class = "dropdown btn btn-bright dropdown-toggle" })
+<hr />
+<input type="submit" name="btnSubmit" asp-action="placeOrder" asp-controller="Order" value="Button submit" class="btn btn-secondary" />
+
+@*<select class="custom-select" name="PizzaType">
+        @{
+            foreach (Pizza pizza in ViewData["Pizzas"] as List<Pizza>)
+            {
+                <option value="@pizza.Id">@pizza.Name</option>
+            }
+        }
+    </select>*@
+
+
+@*<select asp-for="Size" class="custom-select" name="PizzaSize">
+        @{
+            foreach (PizzaSize pizzaSize in ViewData["PizzaSize"] as List<PizzaSize>)
+            {
+                <option value="@pizzaSize.ToString()">@pizzaSize.ToString()</option>
+            }
+        }
+    </select>*@
+
+=======
  
     @*<form class="form-group">*@
         @Html.BeginForm("PlaceOrder", "Order", FormMethod.Post)
@@ -65,3 +108,4 @@
     @*This is the standard way of writing a button in HTML*@
     @*<button class="btn btn-block btn-primary" type="submit">Place order</button>*@
     @*</form>*@
+>>>>>>> 1cd30a1651bab29babd836b7779d780b70744e25

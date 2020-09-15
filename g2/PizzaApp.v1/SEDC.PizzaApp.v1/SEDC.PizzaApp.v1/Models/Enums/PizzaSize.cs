@@ -10,6 +10,6 @@ namespace SEDC.PizzaApp.v1.Models.Enums
         Small,
         Medium,
         Large,
-        Familly
+        Family
     }
 }

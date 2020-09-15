@@ -1,0 +1,18 @@
+﻿@model PizzaApp.MVC1.Models.ViewModels.UserViewModel
+@{
+    ViewData["Title"] = "CreateUser";
+}
+
+<h2>Create User</h2>
+
+
+<form class="form-control" action="/" method="post">
+    <input type="text" placeholder="Full name" name="FullName" value="FullName" />
+    <input type="text" placeholder="Address" name="Address" value="Address" />
+    <input type="text" placeholder="Phone number" name="PhoneNumber" value="PhoneNumber" />
+    <input type="text" placeholder="Username" name="Username" value="Username" />
+    <input type="text" placeholder="email" name="Email" value="Email" />
+    <button type="submit" asp-action="CreateView">Create user</button>
+</form>
+
+

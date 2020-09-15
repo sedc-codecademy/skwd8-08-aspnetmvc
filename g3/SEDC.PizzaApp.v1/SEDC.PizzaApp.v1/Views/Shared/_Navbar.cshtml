@@ -10,13 +10,14 @@
 
             @*HTML Helpers*@
             @*<li class="nav-item">@Html.ActionLink("Home", "Index", "Home", new { }, new { @class = "nav-link" })</li>
-                <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", new { }, new { @class = "nav-link" })</li>
-                <li class="nav-item">@Html.ActionLink("About Us", "About", "Home", new { }, new { @class = "nav-link" })</li>
-                <li class="nav-item">@Html.ActionLink("Orders", "Index", "Order", new { }, new { @class = "nav-link" })</li>*@
+        <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", new { }, new { @class = "nav-link" })</li>
+        <li class="nav-item">@Html.ActionLink("About Us", "About", "Home", new { }, new { @class = "nav-link" })</li>
+        <li class="nav-item">@Html.ActionLink("Orders", "Index", "Order", new { }, new { @class = "nav-link" })</li>*@
 
             @*Tag Helpers*@
             <li><a asp-controller="Home" asp-action="Index" class="nav-link">Home</a></li>
             <li><a asp-controller="Order" asp-action="Menu" class="nav-link">Menu</a></li>
+            <li><a asp-controller="Order" asp-action="Order" class="nav-link">Order Pizza</a></li>
             <li><a asp-controller="Order" asp-action="Orders" class="nav-link">Orders</a></li>
             <li><a asp-controller="Home" asp-action="Contact" class="nav-link">Contact</a></li>
             <li><a asp-controller="Home" asp-action="About" class="nav-link">About Us</a></li>

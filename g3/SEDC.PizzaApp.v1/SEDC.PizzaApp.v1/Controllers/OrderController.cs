@@ -1,16 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SEDC.PizzaApp.v1.Models.DomainModels;
 using SEDC.PizzaApp.v1.Models.Enum;
+using SEDC.PizzaApp.v1.Models.HelperModels;
 using SEDC.PizzaApp.v1.Models.ViewModels;
 
 namespace SEDC.PizzaApp.v1.Controllers
 {
     public class OrderController : Controller
     {
+        private readonly IHostingEnvironment _webhost;
+
+        public OrderController(IHostingEnvironment webhost)
+        {
+            _webhost = webhost;
+        }
+
+        [HttpGet]
         public IActionResult Index()
         {
             //transfer data form a Model          
@@ -56,6 +69,62 @@ namespace SEDC.PizzaApp.v1.Controllers
             return View(order);
         }
 
+        [HttpGet]
+        public IActionResult Order() 
+        {
+            var menu = StaticDb.Menu;
+
+            var pizzaNames = new List<string>();
+
+            foreach (var pizza in menu)
+            {
+                pizzaNames.Add(pizza.Name);
+            }
+
+            var filteredPizzaNames = pizzaNames.Distinct().ToList();
+
+            var viewModel = new MakeOrderViewModel()
+            {
+                PizzaNames = filteredPizzaNames
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Order(MakeOrderViewModel model) 
+        {
+            var pizza = StaticDb.Menu.FirstOrDefault(x => x.Name == model.Pizzas && x.Size == model.Size);
+
+            var lastUserId = StaticDb.Users.Last().Id;
+
+            var user = new User()
+            {
+                Id = lastUserId + 1,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Address = model.Address,
+                Phone = model.Phone
+            };
+
+            var lastOrderId = StaticDb.Orders.Last().Id;
+
+            var order = new Order()
+            {
+                Id = lastOrderId + 1,
+                IsDelivered = false,
+                Price = pizza.Price + 1.5,
+                User = user,
+                Pizzas = new List<Pizza>() { pizza }
+            };
+
+            StaticDb.Users.Add(user);
+            StaticDb.Orders.Add(order);
+
+            return View("_ThankYou");
+        }
+
+        [HttpGet]
         public IActionResult Orders() 
         {
             var dbOrders = StaticDb.Orders;
@@ -88,6 +157,7 @@ namespace SEDC.PizzaApp.v1.Controllers
             return View(ordersViewModel);
         }
 
+        [HttpGet]
         public IActionResult Details(int? id) 
         {
             var order = StaticDb.Orders.FirstOrDefault(x => x.Id == id);
@@ -112,6 +182,7 @@ namespace SEDC.PizzaApp.v1.Controllers
             return View(orderDetails);
         }
 
+        [HttpGet]
         public IActionResult Menu() 
         {
             var dbMenu = StaticDb.Menu;
@@ -124,5 +195,99 @@ namespace SEDC.PizzaApp.v1.Controllers
             return View(menu);
         }
 
+
+        //add pizza
+        [HttpGet]
+        public IActionResult AddPizza() 
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddPizza(PizzaViewModel model)
+        {
+            var lastPizzaId = StaticDb.Menu.Last().Id;
+
+            var pizza = new Pizza()
+            {
+                Id = lastPizzaId + 1,
+                Name = model.Name,
+                Price = model.Price,
+                Size = model.Size
+            };
+
+            StaticDb.Menu.Add(pizza);
+
+            return RedirectToAction("Menu");
+        }
+
+        //upolad image
+        [HttpGet]
+        public IActionResult UploadImg()
+        {
+            var ic = new ImageClass();
+            var fileInfo = AccessWWWRoot();
+            ic.FileImage = fileInfo;
+            return View(ic);
+        }
+
+        [HttpPost]
+        public IActionResult UploadImg(IFormFile imgfile)
+        {
+            var ic = new ImageClass();
+            var fileInfo = AccessWWWRoot();
+            ic.FileImage = fileInfo;
+
+            if (imgfile == null) 
+            {
+                ic.Message = "Please select valid image.";
+                return View(ic);
+            }
+
+            var saveimg = Path.Combine(_webhost.WebRootPath, "img/pizza", imgfile.FileName);
+
+            var imgtext = Path.GetExtension(imgfile.FileName);
+            if (imgtext == ".jpg" || imgtext == ".png")
+            {
+                using (var uploadimg = new FileStream(saveimg, FileMode.Create))
+                {
+                    imgfile.CopyTo(uploadimg);
+                    ic.Message = $"The selected file {imgfile.FileName} is saved successfully.";
+                }
+            }
+            else 
+            {
+                ic.Message = $"Only file the img file types .jpg or .png can be uploaded.";
+            }
+
+            fileInfo = AccessWWWRoot();
+            ic.FileImage = fileInfo;
+
+            return View(ic);
+        }
+
+        //delete img
+        [HttpGet]
+        public IActionResult DeleteImg(string imgdelete) 
+        {
+            imgdelete = Path.Combine(_webhost.WebRootPath, "img/pizza", imgdelete);
+            var image = new FileInfo(imgdelete);
+
+            if (image != null) 
+            {
+                System.IO.File.Delete(imgdelete);
+                image.Delete();
+            }
+
+            return RedirectToAction("UploadImg");
+        }
+
+        private List<FileInfo> AccessWWWRoot() 
+        {
+            var displayImg = Path.Combine(_webhost.WebRootPath, "img/pizza");
+            var di = new DirectoryInfo(displayImg);
+            List<FileInfo> fileInfo = di.GetFiles().ToList();
+            return fileInfo;
+        }
     }
 }

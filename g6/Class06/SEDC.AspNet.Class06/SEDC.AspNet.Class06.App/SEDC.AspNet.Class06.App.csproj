@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SEDC.AspNet.Class06.BusinessLayer\SEDC.AspNet.Class06.BusinessLayer.csproj" />
+    <ProjectReference Include="..\SEDC.AspNet.Class06.DataLayer\SEDC.AspNet.Class06.DataLayer.csproj" />
   </ItemGroup>
 
 </Project>
