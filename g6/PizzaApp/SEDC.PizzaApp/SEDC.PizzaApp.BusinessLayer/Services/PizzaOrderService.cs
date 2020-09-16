@@ -107,5 +107,34 @@ namespace SEDC.PizzaApp.BusinessLayer.Services
             // TODO: make validations and map to order
             _orderRepository.Insert(order);
         }
+
+        public int MakeNewOrder(OrderViewModel orderVm)
+        {
+            var order = new Order();
+            var pizzas = new List<PizzaOrder>();
+
+            foreach (var pizzaVm in orderVm.Pizzas)
+            {
+                var pizzaOrder = new PizzaOrder()
+                {
+                    Pizza = GetPizzaFromMenu(pizzaVm.Name, pizzaVm.Size),
+                    Order = order
+                };
+                pizzaOrder.PizzaId = pizzaOrder.Pizza.Id;
+                pizzas.Add(pizzaOrder);
+            }
+
+            var user = new User
+            {
+                Address = orderVm.Address,
+                FirstName = orderVm.FirstName,
+                LastName = orderVm.LastName,
+                Phone = orderVm.Phone
+            };
+
+            order.PizzaOrders = pizzas;
+            order.User = user;
+            return _orderRepository.Insert(order);
+        }
     }
 }

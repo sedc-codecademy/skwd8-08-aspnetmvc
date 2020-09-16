@@ -12,7 +12,8 @@ namespace SEDC.PizzaApp.BusinessLayer.Interfaces
     {
         List<Order> GetAllOrders();
         Order GetOrderById(int id);
-        void MakeNewOrder(Order order); // TODO: change to CreateOrderVM
+        //void MakeNewOrder(Order order); // TODO: change to CreateOrderVM
+        int MakeNewOrder(OrderViewModel orderVm);
         int GetOrderCount();
         MenuViewModelNew GetMenu();
         Order GetLastOrder();
