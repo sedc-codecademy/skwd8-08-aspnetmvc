@@ -1,0 +1,20 @@
+﻿@model OrderVM
+
+<hr/>
+<div class="row">>
+    <h4>Customer Name: @Model.User.FirstName @Model.User.LastName</h4>
+</div>
+<div class="row">
+    <h5>@Model.User.Address</h5>
+</div>
+<div class="row">
+    <div class="container">
+        @{
+            for (int i = 0; i < Model.Pizzas.Count; i++)
+            {
+                @Html.Partial("_PizzaItem", Model.Pizzas[i]);
+            }
+        }
+    </div>
+</div>
+<hr/>
