@@ -1,0 +1,18 @@
+﻿@model OrderVM
+
+<h1>Place Order</h1>
+<form class="form-group">
+
+    <label class="col-form-label">Pizza</label>
+    
+    <select class="custom-select">
+        @{
+            foreach (var pizzaName in ViewData["Pizzas"] as IEnumerable<string>)
+            {
+                <option>@pizzaName</option>
+            }
+        }
+    </select>
+
+    <input type="submit" class="btn btn-primary" title="Place Order"/>
+</form>
