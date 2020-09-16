@@ -1,4 +1,5 @@
 ﻿using SEDC.PizzaApp.BusinessLayer.Interfaces;
+using SEDC.PizzaApp.BusinessModels.newModels;
 using SEDC.PizzaApp.DataAccess.Repositories;
 using SEDC.PizzaApp.Domain.Enums;
 using SEDC.PizzaApp.Domain.Models;
@@ -32,13 +33,40 @@ namespace SEDC.PizzaApp.BusinessLayer.Services
             return orders[orders.Count - 1];
         }
 
-        public List<Pizza> GetMenu()
+        //public List<Pizza> GetMenu()
+        //{
+        //    var menu = _pizzaRepository.GetAll()
+        //        .GroupBy(p => p.Name)
+        //        .Select(x => x.First())
+        //        .ToList();
+        //    return menu;
+        //}
+
+        public MenuViewModelNew GetMenu()
         {
             var menu = _pizzaRepository.GetAll()
                 .GroupBy(p => p.Name)
                 .Select(x => x.First())
                 .ToList();
-            return menu;
+
+            List<PizzaViewModelNew> listOfPizzas = new List<PizzaViewModelNew>();
+            foreach (var piza in menu)
+            {
+                listOfPizzas.Add(new PizzaViewModelNew
+                {
+                    Id = piza.Id,
+                    Image = piza.Image,
+                    Name = piza.Name,
+                    Price = piza.Price,
+                    Size = piza.Size
+                });
+            }
+            var model = new MenuViewModelNew
+            {
+                Menu = listOfPizzas
+            };
+
+            return model;
         }
 
         public string GetMostPopularPizza()

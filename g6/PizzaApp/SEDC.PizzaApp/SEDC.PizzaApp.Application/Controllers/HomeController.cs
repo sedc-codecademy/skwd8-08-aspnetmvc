@@ -5,14 +5,36 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SEDC.PizzaApp.Application.Models;
+using SEDC.PizzaApp.BusinessLayer.Interfaces;
 
 namespace SEDC.PizzaApp.Application.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IPizzaOrderService _pizzaOrderService;
+
+        public HomeController(IPizzaOrderService pizzaOrderService)
+        {
+            _pizzaOrderService = pizzaOrderService;
+        }
+
+        [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            return View(new HomeViewModel());
+        }
+
+        [HttpPost]
+        public IActionResult Index(HomeViewModel model)
+        {
+            return RedirectToAction("Order", "Order", new { pizzas = model.NumberOfPizzas });
+        }
+
+        [HttpGet]
+        public IActionResult Menu()
+        {
+            var menu = _pizzaOrderService.GetMenu();
+            return View(menu);
         }
 
         public IActionResult About()

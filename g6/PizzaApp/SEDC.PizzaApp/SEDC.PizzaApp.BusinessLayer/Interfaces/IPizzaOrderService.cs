@@ -1,4 +1,5 @@
 ﻿using SEDC.PizzaApp.BusinessModels.Models;
+using SEDC.PizzaApp.BusinessModels.newModels;
 using SEDC.PizzaApp.Domain.Enums;
 using SEDC.PizzaApp.Domain.Models;
 using System;
@@ -13,7 +14,7 @@ namespace SEDC.PizzaApp.BusinessLayer.Interfaces
         Order GetOrderById(int id);
         void MakeNewOrder(Order order); // TODO: change to CreateOrderVM
         int GetOrderCount();
-        List<Pizza> GetMenu();
+        MenuViewModelNew GetMenu();
         Order GetLastOrder();
         string GetMostPopularPizza();
         Pizza GetPizzaFromMenu(string name, PizzaSize size);
