@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PizzaApp.Models.DomainModels;
@@ -42,6 +43,14 @@ namespace PizzaApp.Helper
         public static IEnumerable<SelectListItem> SizesToSelectListItems()
         {
             return Sizes.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+        }
+
+        public static IEnumerable<SelectListItem> PizzaSizesToSelectListItems()
+        {
+            return PizzaSizes.Select(x =>
+                new SelectListItem(
+                    $"{x.Pizza.Name} - {x.Size.Name} ({x.Price.ToString("C", new CultureInfo("mk-MK"))})",
+                    x.Id.ToString())).ToList();
         }
     }
 }

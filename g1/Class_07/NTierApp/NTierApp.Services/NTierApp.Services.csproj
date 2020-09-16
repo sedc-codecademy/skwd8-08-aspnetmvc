@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Helpers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NTierApp.DataAccess\NTierApp.DataAccess.csproj" />
+    <ProjectReference Include="..\NTIerApp.PresentationLayer\NTIerApp.PresentationLayer.csproj" />
+  </ItemGroup>
+
+</Project>

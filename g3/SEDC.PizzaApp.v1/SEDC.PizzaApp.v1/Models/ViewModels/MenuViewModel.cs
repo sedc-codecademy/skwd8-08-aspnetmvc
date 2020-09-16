@@ -8,6 +8,7 @@ namespace SEDC.PizzaApp.v1.Models.ViewModels
 {
     public class MenuViewModel
     {
-        public List<Pizza> Menu { get; set; }
+        public List<PizzaViewModel> Menu { get; set; }
+        public List<string> PizzaNames { get; set; }
     }
 }

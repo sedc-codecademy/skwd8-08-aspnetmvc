@@ -1,0 +1,35 @@
+﻿@model List<PizzaVM>
+
+@*
+        When we want to overide the layout added in _ViewStart
+    @{
+        Layout = "~/Views/Shared/_MyLayout.cshtml";
+    }
+*@
+
+<style>
+    .pizza-menu {
+        display:inline-flex;
+        flex-wrap: wrap
+    }
+</style>
+<div class="home">
+    <h1>@ViewBag.Title </h1>
+    <h2>@ViewData["Heading"] </h2>
+    <div class="pizza-menu">
+        @foreach (var item in Model)
+        {
+            @*
+            How we use partial view inside this view
+            First parametar is relative path of the partial view
+            Second parametar is model that we want to pass to that partial view
+            *@
+            <partial name="_PizzaCard" model=item />
+            @*
+            @Html.Partial("~View/Shared/_PizzaCard.cshtml", item)
+            *@
+        }
+    </div>
+           
+</div>
+

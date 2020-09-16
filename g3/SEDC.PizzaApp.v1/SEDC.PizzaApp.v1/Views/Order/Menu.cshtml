@@ -2,10 +2,46 @@
 
 <h1>MENU</h1>
 
+<p class="menu-admin-panel">
+    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        Admin Panel
+    </a>
+</p>
+<div class="collapse menu-admin-panel" id="collapseExample">
+    <div class="card card-body">
+        <span>
+            <a asp-controller="Order" asp-action="AddPizza" class="btn btn-primary">Add Pizza</a>
+            <a asp-controller="Order" asp-action="UploadImg" class="btn btn-primary">Upload Image</a>
+        </span>
+    </div>
+</div>
+
 <div class="menu">
     @foreach (var item in Model.Menu)
     {
         @*@Html.Partial("~/Views/Shared/_pizza.cshtml", item);*@
-        <partial name="~/Views/Shared/_pizza.cshtml" for="@item" />
+        @*<partial name="~/Views/Shared/_pizza.cshtml" for="@item" />*@
+
+        <div class="card" style="width: 18rem;">
+
+            @if (Model.PizzaNames.Contains(item.Name))
+            {
+                <img src="~/img/pizza/@(item.Name).png" class="card-img-top" alt="pizza">
+            }
+            else
+            {
+                <img src="~/img/pizza/Kapri.png" class="card-img-top" alt="pizza">
+            }
+
+            <div class="card-body">
+                <h5 class="card-title">@item.Name</h5>
+            </div>
+
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Size: @item.Size.ToString()</li>
+                <li class="list-group-item">Price: <b>@item.Price$</b></li>
+            </ul>
+
+        </div>
     }
 </div>

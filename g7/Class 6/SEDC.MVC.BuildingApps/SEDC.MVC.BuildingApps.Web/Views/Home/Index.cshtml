@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model List<UserViewModel>
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    @{
+        foreach (UserViewModel user in Model)
+        {
+            <h2>User email: @user.Email</h2>
+        }
+    }
+
+</div>
