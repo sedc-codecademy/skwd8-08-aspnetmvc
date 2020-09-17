@@ -1,0 +1,27 @@
+﻿@model MenuViewModel
+
+@{ ViewBag.Title = "Menu"; }
+
+<h1>MENU</h1>
+
+<p class="menu-admin-panel">
+    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        Admin Panel
+    </a>
+</p>
+<div class="collapse menu-admin-panel" id="collapseExample">
+    <div class="card card-body">
+        <span>
+            <a asp-controller="Home" asp-action="AddPizza" class="btn btn-primary">Add Pizza</a>
+            <a asp-controller="Home" asp-action="UploadImg" class="btn btn-primary">Upload Image</a>
+        </span>
+    </div>
+</div>
+
+<div class="menu">
+    @foreach (var item in @Model.Menu)
+    {
+        //item.PizzaNames = Model.PizzaNames;
+        <partial name="~/Views/Shared/_Pizza.cshtml" for="@item" />
+    }
+</div>
