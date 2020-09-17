@@ -11,6 +11,8 @@ namespace SEDC.PizzaApp.Services.Helpers
 {
     public static class DIRepositoryModule
     {
+        // Install nugets:
+        // Microsoft.Extensions.DependencyInjection 2.1.1
         public static IServiceCollection RegisterRepositories(IServiceCollection services) 
         {
             //StaticDB repositories dependencies
