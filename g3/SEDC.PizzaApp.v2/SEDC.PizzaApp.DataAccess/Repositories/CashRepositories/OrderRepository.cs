@@ -1,6 +1,7 @@
 ﻿using SEDC.PizzaApp.DomainModels.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace SEDC.PizzaApp.DataAccess.Repositories.CashRepositories
@@ -9,27 +10,37 @@ namespace SEDC.PizzaApp.DataAccess.Repositories.CashRepositories
     {
         public List<Order> GetAll()
         {
-            throw new NotImplementedException();
+            return StaticDb.Orders;
         }
 
-        public Order GetById()
+        public Order GetById(int id)
         {
-            throw new NotImplementedException();
+            return StaticDb.Orders.FirstOrDefault(x => x.Id == id);
         }
 
         public int Insert(Order entity)
         {
-            throw new NotImplementedException();
+            StaticDb.Orders.Add(entity);
+            return entity.Id;
         }
 
         public void Update(Order entity)
         {
-            throw new NotImplementedException();
+            var order = StaticDb.Orders.FirstOrDefault(x => x.Id == entity.Id);
+            if (order != null)
+            {
+                var index = StaticDb.Orders.IndexOf(order);
+                StaticDb.Orders[index] = entity;
+            }
         }
 
         public void DeleteById(int id)
         {
-            throw new NotImplementedException();
+            var order = StaticDb.Orders.FirstOrDefault(x => x.Id == id);
+            if (order != null)
+            {
+                StaticDb.Orders.Remove(order);
+            }
         }
     }
 }
