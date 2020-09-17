@@ -5,8 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="HelperModels\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SEDC.PizzaApp.DomainModels\SEDC.PizzaApp.DomainModels.csproj" />
   </ItemGroup>
 
 </Project>

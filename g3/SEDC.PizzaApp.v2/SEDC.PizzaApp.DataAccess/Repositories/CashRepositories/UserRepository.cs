@@ -8,7 +8,6 @@ namespace SEDC.PizzaApp.DataAccess.Repositories.CashRepositories
 {
     public class UserRepository : IRepository<User>
     {
-
         public List<User> GetAll()
         {
             return StaticDb.Users;
