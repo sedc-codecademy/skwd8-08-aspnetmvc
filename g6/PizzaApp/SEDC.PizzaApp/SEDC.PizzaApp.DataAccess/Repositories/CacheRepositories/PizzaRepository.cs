@@ -31,7 +31,7 @@ namespace SEDC.PizzaApp.DataAccess.Repositories.CacheRepositories
             var pizza = CacheDb.Menu.FirstOrDefault(p => p.Id == entity.Id);
             if(pizza != null)
             {
-                int index = CacheDb.Menu.IndexOf(entity);
+                int index = CacheDb.Menu.IndexOf(pizza);
                 CacheDb.Menu[index] = entity;
             }
         }

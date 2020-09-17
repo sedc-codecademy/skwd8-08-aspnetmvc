@@ -1,6 +1,7 @@
 ﻿using NTierApp.DataAccess.Core.Entities;
 using NTierApp.DataAccess.Core.Enums;
 using NTierApp.DataAccess.Core.Interfaces;
+using NTierApp.DataAccess.Core.Repositories;
 using NTierApp.Services.Mappings;
 using NTierApp.Services.Services.Interfaces;
 using NTIerApp.PresentationLayer.ViewModels;

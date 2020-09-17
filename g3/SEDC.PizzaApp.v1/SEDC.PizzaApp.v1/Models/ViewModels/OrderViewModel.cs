@@ -12,7 +12,7 @@ namespace SEDC.PizzaApp.v1.Models.ViewModels
         public string FullName { get; set; }
         public string Address { get; set; }
         public long Contact { get; set; }
-        public List<Pizza> Pizzas { get; set; }
+        public List<PizzaViewModel> Pizzas { get; set; }
         public double Price { get; set; }
         public bool IsDelievered { get; set; }
     }

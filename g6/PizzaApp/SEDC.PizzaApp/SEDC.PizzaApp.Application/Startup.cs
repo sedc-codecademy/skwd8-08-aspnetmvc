@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SEDC.PizzaApp.BusinessLayer.Helpers;
+using SEDC.PizzaApp.BusinessLayer.Interfaces;
+using SEDC.PizzaApp.BusinessLayer.Services;
 
 namespace SEDC.PizzaApp.Application
 {
@@ -30,6 +33,11 @@ namespace SEDC.PizzaApp.Application
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            DiModule.RegisterRepositories(services);
+
+            // Di services registration
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IPizzaOrderService, PizzaOrderService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

@@ -1,0 +1,47 @@
+﻿.menu {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.menu > div {
+    margin-right: 50px;
+    margin-bottom: 30px;
+}
+
+.order-status {
+    font-size: 30px;
+}
+
+.delieverd {
+    color: green;
+}
+
+.not-delieverd {
+    color: red;
+}
+
+.orders > div {
+    margin-bottom: 20px;
+}
+
+.carousel-custom img {
+    height: 500px;
+}
+
+.menu-admin-panel {
+    margin-bottom: 10px;
+}
+
+.nav-logo {
+    margin: 0;
+    padding: 0;
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.nav-logo:hover {
+    text-decoration: none;
+    color: gray;
+}

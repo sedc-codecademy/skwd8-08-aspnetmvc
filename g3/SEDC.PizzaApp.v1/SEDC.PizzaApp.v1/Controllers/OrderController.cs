@@ -70,7 +70,7 @@ namespace SEDC.PizzaApp.v1.Controllers
         }
 
         [HttpGet]
-        public IActionResult Order() 
+        public IActionResult Order(string error) 
         {
             var menu = StaticDb.Menu;
 
@@ -88,40 +88,49 @@ namespace SEDC.PizzaApp.v1.Controllers
                 PizzaNames = filteredPizzaNames
             };
 
+            ViewBag.Error = error;
+
             return View(viewModel);
         }
 
         [HttpPost]
         public IActionResult Order(MakeOrderViewModel model) 
         {
-            var pizza = StaticDb.Menu.FirstOrDefault(x => x.Name == model.Pizzas && x.Size == model.Size);
-
-            var lastUserId = StaticDb.Users.Last().Id;
-
-            var user = new User()
+            try
             {
-                Id = lastUserId + 1,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                Address = model.Address,
-                Phone = model.Phone
-            };
+                var pizza = StaticDb.Menu.FirstOrDefault(x => x.Name == model.Pizzas && x.Size == model.Size);
 
-            var lastOrderId = StaticDb.Orders.Last().Id;
+                var lastUserId = StaticDb.Users.Last().Id;
 
-            var order = new Order()
+                var user = new User()
+                {
+                    Id = lastUserId + 1,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Address = model.Address,
+                    Phone = model.Phone
+                };
+
+                var lastOrderId = StaticDb.Orders.Last().Id;
+
+                var order = new Order()
+                {
+                    Id = lastOrderId + 1,
+                    IsDelivered = false,
+                    Price = pizza.Price + 1.5,
+                    User = user,
+                    Pizzas = new List<Pizza>() { pizza }
+                };
+
+                StaticDb.Users.Add(user);
+                StaticDb.Orders.Add(order);
+                return View("_ThankYou");
+            }
+            catch
             {
-                Id = lastOrderId + 1,
-                IsDelivered = false,
-                Price = pizza.Price + 1.5,
-                User = user,
-                Pizzas = new List<Pizza>() { pizza }
-            };
-
-            StaticDb.Users.Add(user);
-            StaticDb.Orders.Add(order);
-
-            return View("_ThankYou");
+                var message = "There was problem with the order, plesae select diferent pizza.";
+                return RedirectToAction("Order", "Order", new { error = message });
+            }
         }
 
         [HttpGet]
@@ -141,8 +150,21 @@ namespace SEDC.PizzaApp.v1.Controllers
                     Contact = order.User.Phone,
                     Price = order.Price,
                     IsDelievered = order.IsDelivered,
-                    Pizzas = order.Pizzas
+                    Pizzas = new List<PizzaViewModel>()
                 };
+
+                foreach (var pizza in order.Pizzas)
+                {
+                    var tempPizza = new PizzaViewModel()
+                    {
+                        Name = pizza.Name,
+                        Price = pizza.Price,
+                        Size = pizza.Size
+                    };
+
+                    tempOrder.Pizzas.Add(tempPizza);
+                }
+
                 orders.Add(tempOrder);
             }
 
@@ -162,7 +184,7 @@ namespace SEDC.PizzaApp.v1.Controllers
         {
             var order = StaticDb.Orders.FirstOrDefault(x => x.Id == id);
 
-            if (order == null) 
+            if (order == null)
             {
                 return RedirectToAction("Index");
             }
@@ -176,23 +198,59 @@ namespace SEDC.PizzaApp.v1.Controllers
                 Contact = order.User.Phone,
                 Price = order.Price,
                 IsDelievered = order.IsDelivered,
-                Pizzas = order.Pizzas
+                Pizzas = new List<PizzaViewModel>()
             };
-            
+
+            foreach (var pizza in order.Pizzas)
+            {
+                var tempPizza = new PizzaViewModel()
+                {
+                    Name = pizza.Name,
+                    Price = pizza.Price,
+                    Size = pizza.Size
+                };
+
+                orderDetails.Pizzas.Add(tempPizza);
+            }
+
             return View(orderDetails);
         }
 
         [HttpGet]
         public IActionResult Menu() 
         {
-            var dbMenu = StaticDb.Menu;
+            var dbMenu = StaticDb.Menu.OrderByDescending(x => x.Id).ToList();
 
-            var menu = new MenuViewModel()
+            var menu = new List<PizzaViewModel>();
+
+            foreach (var pizza in dbMenu)
             {
-                Menu = dbMenu
+                var tempModel = new PizzaViewModel()
+                {
+                    Name = pizza.Name,
+                    Price = pizza.Price,
+                    Size = pizza.Size
+                };
+
+                menu.Add(tempModel);
+            }
+
+            var fileInfo = AccessWWWRoot();
+            var pizzaImageNames = new List<string>();
+            foreach (var item in fileInfo)
+            {
+                string extension = Path.GetExtension(item.Name);
+                string result = item.Name.Substring(0, item.Name.Length - extension.Length);
+                pizzaImageNames.Add(result);
+            }
+
+            var menuViewModel = new MenuViewModel()
+            {
+                Menu = menu,
+                PizzaNames = pizzaImageNames
             };
 
-            return View(menu);
+            return View(menuViewModel);
         }
 
 

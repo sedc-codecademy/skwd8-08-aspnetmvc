@@ -39,32 +39,45 @@ namespace SEDC.PizzaApp.BusinessLayer.Services
             var listOfOrders = new List<OrderVm>();
             foreach (var order in user.Orders)
             {
-                var orderVm = new OrderVm
-                {
-                    Id = order.Id,
-                    User = userVm,
-                    PizzaOrders = order.PizzaOrders.Select(x => new PizzaOrderVm
-                    {
-                        Order = new OrderVm
-                        {
-                            Id = x.Order.Id,
-                            User = userVm
-                        },
-                        Pizza = new PizzaVm
-                        {
-                            Id = x.Pizza.Id,
-                            Image = x.Pizza.Image,
-                            Name = x.Pizza.Name,
-                            Price = x.Pizza.Price,
-                            Size = x.Pizza.Size
-                        }
-                    }).ToList()
-                };
+                var orderVm = MapOrderToOrderVm(order, userVm);
+                listOfOrders.Add(orderVm);
             }
-
             userVm.Orders = listOfOrders;
 
+            //userVm.Orders = user.Orders.Select(o => MapOrderToOrderVm(o, userVm)).ToList();
+
             return userVm;
+        }
+
+        private OrderVm MapOrderToOrderVm(Order order, UserVm user)
+        {
+            return new OrderVm
+            {
+                Id = order.Id,
+                User = user,
+                PizzaOrders = order.PizzaOrders.Select(x => MapPizzaOrderToPizzaOrderVm(x, user)).ToList()
+            };
+        }
+
+        private PizzaOrderVm MapPizzaOrderToPizzaOrderVm(PizzaOrder order, UserVm user)
+        {
+            return new PizzaOrderVm
+            {
+                Id = order.Id,
+                Order = new OrderVm
+                {
+                    Id = order.Order.Id,
+                    User = user
+                },
+                Pizza = new PizzaVm
+                {
+                    Id = order.Pizza.Id,
+                    Image = order.Pizza.Image,
+                    Name = order.Pizza.Name,
+                    Price = order.Pizza.Price,
+                    Size = order.Pizza.Size
+                }
+            };
         }
     }
 }
