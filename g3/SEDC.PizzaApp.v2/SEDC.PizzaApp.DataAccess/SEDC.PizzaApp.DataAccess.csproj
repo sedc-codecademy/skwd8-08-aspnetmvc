@@ -8,8 +8,4 @@
     <ProjectReference Include="..\SEDC.PizzaApp.DomainModels\SEDC.PizzaApp.DomainModels.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-
 </Project>
