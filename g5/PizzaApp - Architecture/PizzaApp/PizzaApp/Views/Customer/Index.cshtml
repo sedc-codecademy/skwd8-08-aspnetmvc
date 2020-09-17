@@ -1,0 +1,33 @@
+﻿@model List<ViewModels.CustomerViewModel>
+
+<h4>Customer List</h4>
+
+
+<a asp-controller="Customer" asp-action="Add" class="btn btn-block float-right col-2">Add</a>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Full Name</th>
+            <th scope="col">Address</th>
+            <th scope="col">Phone</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        <tr>
+            <th scope="row">@(i + 1)</th>
+            <td>@Model[i].FullName</td>
+            <td>@Model[i].Address</td>
+            <td>@Model[i].Phone</td>
+            <td>
+                <a asp-controller="Customer" asp-action="Details" asp-route-id="@Model[i].Id" class="btn btn-info">Details</a>
+                <a asp-controller="Customer" asp-action="Edit" asp-route-id="@Model[i].Id" class="btn btn-warning">Edit</a>
+                <a asp-controller="Customer" asp-action="Delete" asp-route-id="@Model[i].Id" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
