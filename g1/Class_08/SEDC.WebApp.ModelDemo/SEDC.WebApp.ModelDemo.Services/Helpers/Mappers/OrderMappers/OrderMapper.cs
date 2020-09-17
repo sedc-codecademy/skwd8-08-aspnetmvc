@@ -1,5 +1,7 @@
 ﻿using SEDC.WebApp.ModelDemo.DataAccess.Domain.Models;
 using SEDC.WebApp.ModelDemo.DataAccess.ViewModels;
+using SEDC.WebApp.ModelDemo.Services.Helpers.Mappers.PizzaMappers;
+using SEDC.WebApp.ModelDemo.Services.Helpers.Mappers.UserMappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +16,8 @@ namespace SEDC.WebApp.ModelDemo.Services.Helpers.Mappers.OrderMappers
             return new Order()
             {
                 Delivered = model.Delivered,
-                Pizza = model.Pizza,
-                User = model.User
+                Pizza = PizzaMapper.PizzaVMtoPizza(model.Pizza),
+                User = UserMapper.UserVMtoUser(model.User)
             };
         }
 
@@ -24,8 +26,8 @@ namespace SEDC.WebApp.ModelDemo.Services.Helpers.Mappers.OrderMappers
             return new OrderPizzaVM()
             {
                 Delivered = model.Delivered,
-                Pizza = model.Pizza,
-                User = model.User
+                Pizza = PizzaMapper.PizzaToPizzaVM(model.Pizza),
+                User = UserMapper.UserToUserVM(model.User)
             };
         }
 
@@ -35,8 +37,8 @@ namespace SEDC.WebApp.ModelDemo.Services.Helpers.Mappers.OrderMappers
             return models.Select(orderVM => new Order()
             {
                 Delivered = orderVM.Delivered,
-                Pizza = orderVM.Pizza,
-                User = orderVM.User
+                Pizza = PizzaMapper.PizzaVMtoPizza(orderVM.Pizza),
+                User = UserMapper.UserVMtoUser(orderVM.User)
             }).ToList();
 
             // return models.Select(order=> OrderVMtoOrder(order))
@@ -49,8 +51,8 @@ namespace SEDC.WebApp.ModelDemo.Services.Helpers.Mappers.OrderMappers
             return models.Select(order => new OrderPizzaVM()
             {
                 Delivered = order.Delivered,
-                Pizza = order.Pizza,
-                User = order.User
+                Pizza = PizzaMapper.PizzaToPizzaVM(order.Pizza),
+                User = UserMapper.UserToUserVM(order.User)
             }).ToList();
 
             // return models.Select(order=> OrderToOrderVM(order))

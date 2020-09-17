@@ -33,6 +33,8 @@ namespace SEDC.WebApp.ModelDemo
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            // You know what to do here for homework
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

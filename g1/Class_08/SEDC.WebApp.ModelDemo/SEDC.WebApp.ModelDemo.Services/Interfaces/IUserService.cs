@@ -8,7 +8,7 @@ namespace SEDC.WebApp.ModelDemo.Services.Interfaces
     public interface IUserService
     {
         List<UserVM> GetAllUsers();
-        List<UserVM> GetUserByName(string name);
+        List<UserVM> GetUsersByName(string name);
         string CreateNewUser(UserVM model);
 
     }
