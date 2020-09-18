@@ -1,0 +1,1 @@
+# To use the exisiting app and create the database, just use the command update-database
