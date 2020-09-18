@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewData["Title"] = "Orders";
+}
+@model OrdersViewModel
+
+<div class="jumbotron">
+    <h3>Fun facts</h3>
+    <p><b>First Customer:</b> @Model.NameOfFirstCustomer</p>
+    <p><b>Last Pizza Ordered:</b> @Model.LastPizza</p>
+    <p><b>Most popular Pizza:</b> @Model.MostPopularPizza</p>
+    <p><b>Number of orders so far: </b> @Model.OrderCount</p>
+</div>
+<h3>All orders</h3>
+@foreach (var order in Model.Orders)
+{
+    //for homework: Implement partial view _OrderItem
+
+    <div class="row">
+        <div class="col-md-4">
+            <h3>User: @order.FirstName @order.LastName</h3>
+            <p><b>Price: </b> @order.Price $</p>
+        </div>
+        <div class="col-md-8">
+            <h3>Pizzas:</h3>
+            @foreach (var pizza in order.Pizzas)
+            {
+                //for homework: display a partial view _PizzaItem
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-4">
+                        <img src="~/images/@pizza.Image" alt="Pizza image" height="150" />
+                    </div>
+                    <div class="col-md-4">
+                        <h3>Pizza @pizza.Name</h3>
+                        <h4>@pizza.Price $</h4>
+                    </div>
+                </div>
+            }
+        <h5>+ 2$ delivery fee</h5>
+        </div>
+    </div>
+}
+
