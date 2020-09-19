@@ -6,15 +6,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SEDC.AspNet.Class09.EfCodeFirst.Database;
-using SEDC.AspNet.Class09.EfCodeFirst.Database.Interfaces;
-using SEDC.AspNet.Class09.EfCodeFirst.Database.Repositories;
-using SEDC.AspNet.Class09.EfCodeFirst.Models.DomainModels;
 
-namespace SEDC.AspNet.Class09.EfCodeFirst
+namespace SEDC.AspNet.Class09.DBFirst
 {
     public class Startup
     {
@@ -35,12 +30,6 @@ namespace SEDC.AspNet.Class09.EfCodeFirst
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            //var conectionString = "Server=(localdb)\\mssqllocaldb;Database=RentalStore;Trusted_Connection=True;";
-
-            var connectionString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<RentalStoreContext>(options => options.UseSqlServer(connectionString));
-
-            services.AddTransient<IRepository<Movie>, MovieRepository>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
