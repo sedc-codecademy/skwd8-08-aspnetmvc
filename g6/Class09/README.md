@@ -106,3 +106,6 @@ update-database
 ## Extra Materials 📘
 * [Microsoft documentation on EF Core](https://docs.microsoft.com/en-us/ef/core/)
 * [Getting Started with EF Core](https://www.learnentityframeworkcore.com/walkthroughs/aspnetcore-application)
+* [ACID](https://en.wikipedia.org/wiki/ACID)
+* [Migration commands](https://www.entityframeworktutorial.net/efcore/entity-framework-core-migration.aspx)
+
