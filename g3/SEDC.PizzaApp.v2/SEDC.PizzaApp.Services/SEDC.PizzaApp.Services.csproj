@@ -5,14 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SEDC.PizzaApp.DataAccess\SEDC.PizzaApp.DataAccess.csproj" />
-    <ProjectReference Include="..\SEDC.PizzaApp.DomainModels\SEDC.PizzaApp.DomainModels.csproj" />
-    <ProjectReference Include="..\SEDC.PizzaApp.ViewModels\SEDC.PizzaApp.ViewModels.csproj" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Helpers\" />
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\SEDC.PizzaApp.DataAccess\SEDC.PizzaApp.DataAccess.csproj" />
+    <ProjectReference Include="..\SEDC.PizzaApp.DomainModels\SEDC.PizzaApp.DomainModels.csproj" />
+    <ProjectReference Include="..\SEDC.PizzaApp.ViewModels\SEDC.PizzaApp.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

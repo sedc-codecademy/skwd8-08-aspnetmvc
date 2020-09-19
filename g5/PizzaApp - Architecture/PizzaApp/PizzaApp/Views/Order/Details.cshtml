@@ -1,0 +1,37 @@
+﻿@using System.Globalization
+@model ViewModels.OrderViewModel
+
+<h4>@Model.OrderNumber</h4>
+<h4>Total: @Model.Total.ToString("C", new CultureInfo("mk-MK"))</h4>
+
+
+<a asp-controller="OrderItem" asp-action="Add" asp-route-id="@Model.Id" class="btn btn-block float-right col-2">Add</a>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Pizza</th>
+            <th scope="col">Size</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price per piece</th>
+            <th scope="col">Total</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @for (int i = 0; i < Model.OrderItems.Count; i++)
+    {
+        <tr>
+            <th scope="row">@(i + 1)</th>
+            <td>@Model.OrderItems[i].PizzaSize.PizzaViewModel.Name</td>
+            <td>@Model.OrderItems[i].PizzaSize.SizeViewModel.Name</td>
+            <td>@Model.OrderItems[i].Quantity</td>
+            <td>@Model.OrderItems[i].PizzaSize.Price.ToString("C", new CultureInfo("mk-MK"))</td>
+            <td>@Model.OrderItems[i].Total.ToString("C", new CultureInfo("mk-MK"))</td>
+            <td>
+                <a asp-controller="OrderItem" asp-action="Delete" asp-route-id="@Model.OrderItems[i].Id" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

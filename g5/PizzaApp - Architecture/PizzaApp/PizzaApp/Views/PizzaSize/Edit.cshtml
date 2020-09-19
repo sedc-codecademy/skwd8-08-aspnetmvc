@@ -1,0 +1,26 @@
+﻿@model ViewModels.PizzaSizeViewModel
+
+<form asp-controller="PizzaSize" asp-action="Save">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="PizzaId"></label>
+        @*<select asp-for="PizzaId" asp-items="Data.PizzasToSelectListItems()" class="form-control">
+            <option value=""> - Please select pizza -</option>
+        </select>*@
+        <span asp-validation-for="PizzaId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="SizeId"></label>
+        @*<select asp-for="SizeId" asp-items="Data.SizesToSelectListItems()" class="form-control">
+            <option value=""> - Please select pizza size -</option>
+        </select>*@
+        <span asp-validation-for="SizeId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Price"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <input type="submit" value="Save" class="btn btn-primary"/>
+    <a asp-controller="PizzaSize" asp-action="Index" class="btn btn-warning">Cancel</a>
+</form>

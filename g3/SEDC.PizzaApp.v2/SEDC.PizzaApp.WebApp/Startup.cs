@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SEDC.PizzaApp.Services.Helpers;
+using SEDC.PizzaApp.Services.Services.Classes;
+using SEDC.PizzaApp.Services.Services.Interfaces;
 
 namespace SEDC.PizzaApp.WebApp
 {
@@ -22,8 +25,10 @@ namespace SEDC.PizzaApp.WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             //Dipendency Injection Configuration
+            services.AddTransient<IMenuService, MenuService>();
 
             //Dipendency Injection Module
+            DIRepositoryModule.RegisterRepositories(services);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
