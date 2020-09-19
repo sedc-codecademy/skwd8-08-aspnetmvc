@@ -1,5 +1,6 @@
 ﻿using SEDC.WebApp.ModelDemo.DataAccess.Domain.Models;
 using SEDC.WebApp.ModelDemo.DataAccess.ViewModels;
+using SEDC.WebApp.ModelDemo.Services.Helpers.Mappers.OrderMappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,8 @@ namespace SEDC.WebApp.ModelDemo.Services.Helpers.Mappers.UserMappers
                 Address = model.Address,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                Phone = model.Phone
+                Phone = model.Phone,
+                Orders = OrderMapper.OrdersVMtoOrders(model.Orders)
             };
         }
 
@@ -27,7 +29,8 @@ namespace SEDC.WebApp.ModelDemo.Services.Helpers.Mappers.UserMappers
                 Address = model.Address,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                Phone = model.Phone
+                Phone = model.Phone,
+                Orders = OrderMapper.OrdersToOrdersVM(model.Orders)
             };
         }
 
@@ -38,7 +41,8 @@ namespace SEDC.WebApp.ModelDemo.Services.Helpers.Mappers.UserMappers
                 Address = userVM.Address,
                 FirstName = userVM.FirstName,
                 LastName = userVM.LastName,
-                Phone = userVM.Phone
+                Phone = userVM.Phone,
+                Orders = OrderMapper.OrdersVMtoOrders(userVM.Orders)
             }).ToList();
 
             // return models.Select(pizzaVM=> PizzaVMtoPizza(pizzaVM))
@@ -53,7 +57,8 @@ namespace SEDC.WebApp.ModelDemo.Services.Helpers.Mappers.UserMappers
                 Address = user.Address,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Phone = user.Phone
+                Phone = user.Phone,
+                Orders = OrderMapper.OrdersToOrdersVM(user.Orders)
             }).ToList();
 
             // return models.Select(order=> PizzaToPizzaVM(order))
