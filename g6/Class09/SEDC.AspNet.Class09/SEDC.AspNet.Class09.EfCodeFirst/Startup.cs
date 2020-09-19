@@ -10,6 +10,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SEDC.AspNet.Class09.EfCodeFirst.Database;
+using SEDC.AspNet.Class09.EfCodeFirst.Database.Interfaces;
+using SEDC.AspNet.Class09.EfCodeFirst.Database.Repositories;
+using SEDC.AspNet.Class09.EfCodeFirst.Models.DomainModels;
 
 namespace SEDC.AspNet.Class09.EfCodeFirst
 {
@@ -36,6 +39,8 @@ namespace SEDC.AspNet.Class09.EfCodeFirst
 
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<RentalStoreContext>(options => options.UseSqlServer(connectionString));
+
+            services.AddTransient<IRepository<Movie>, MovieRepository>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

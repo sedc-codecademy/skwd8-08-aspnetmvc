@@ -2,6 +2,7 @@
 using System.Linq;
 using DomainModels;
 using Microsoft.AspNetCore.Mvc;
+using PizzaApp.Helper;
 using Services.Interfaces;
 using ViewModels;
 
@@ -32,11 +33,22 @@ namespace PizzaApp.Controllers
 
         public IActionResult Edit(int id)
         {
+            List<SizeViewModel> sizes = _sizeService.GetAll();
+            ViewBag.SizesForSelection = sizes.ToSelectListItems();
+
+            List<PizzaViewModel> pizzas = _pizzaService.GetAll();
+            ViewBag.PizzasForSelection = pizzas.ToSelectListItems();
             return View(_pizzaSizeService.GetById(id));
         }
 
         public IActionResult Add()
         {
+            List<SizeViewModel> sizes = _sizeService.GetAll();
+            ViewBag.SizesForSelection = sizes.ToSelectListItems();
+
+            List<PizzaViewModel> pizzas = _pizzaService.GetAll();
+            ViewBag.PizzasForSelection = pizzas.ToSelectListItems();
+
             return View("Edit", new PizzaSizeViewModel());
         }
 

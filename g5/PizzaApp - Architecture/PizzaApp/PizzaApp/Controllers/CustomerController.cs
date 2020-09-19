@@ -21,7 +21,8 @@ namespace PizzaApp.Controllers
 
         public IActionResult Details(int id)
         {
-            return View(_customerService.GetById(id));
+            var customer = _customerService.GetById(id);
+            return View(customer);
         }
 
         public IActionResult Edit(int id)

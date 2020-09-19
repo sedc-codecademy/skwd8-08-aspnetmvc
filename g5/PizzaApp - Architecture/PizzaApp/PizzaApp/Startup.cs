@@ -1,5 +1,6 @@
 using DataAccess;
 using DataAccess.Implementations;
+using DataAccess.Interfaces;
 using DomainModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,12 +31,15 @@ namespace PizzaApp
             services.AddTransient<IRepository<Size>, SizeRepository>();
             services.AddTransient<IRepository<Customer>, CustomerRepository>();
             services.AddTransient<IRepository<PizzaSize>, PizzaSizeRepository>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<IRepository<OrderItem>, OrderItemRepository>();
 
             services.AddTransient<IPizzaService, PizzaService>();
             services.AddTransient<IPizzaSizeService, PizzaSizeService>();
             services.AddTransient<ICustomerService, CustomerService>();
             services.AddTransient<ISizeService, SizeService>();
-
+            services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IOrderItemService, OrderItemService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,4 +1,5 @@
-﻿using DomainModels;
+﻿using System.Linq;
+using DomainModels;
 using ViewModels;
 
 namespace Mappers
@@ -13,10 +14,9 @@ namespace Mappers
                 FirstName = customer.FirstName,
                 LastName = customer.LastName,
                 Address = customer.Address,
-                Phone = customer.Phone
+                Phone = customer.Phone,
+                Orders = customer.Orders.Select(x=> x.ToViewModel()).ToList()
             };
         }
-
-
     }
 }
