@@ -1,3 +1,47 @@
-﻿@{ ViewBag.Title = "Home"; }
+﻿@model HomeViewModel
 
-<h1>Home</h1>
+@{ ViewBag.Title = "Home"; }
+
+<div class="jumbotron">
+
+    <h1 class="display-4">Pizza App</h1>
+    <p class="lead">The best application for ordering Pizza!</p>
+    <hr class="my-4">
+
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner carousel-custom">
+            <div class="carousel-item active">
+                <img src="~/img/pizza/Kapri.png" class="d-block w-100" alt="...">
+            </div>
+
+            <div class="carousel-item">
+                <img src="~/img/pizza/Margarita.png" class="d-block w-100" alt="...">
+            </div>
+
+            <div class="carousel-item">
+                <img src="~/img/pizza/Napolitana.png" class="d-block w-100" alt="...">
+            </div>
+
+            <div class="carousel-item">
+                <img src="~/img/pizza/Peperoni.png" class="d-block w-100" alt="...">
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-4">
+
+    <h3>Order your pizza NOW!</h3>
+    <form asp-controller="Home" asp-action="Index" method="post">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-danger">Order</button>
+                    </span>
+                    <input type="text" asp-for="NumberOfPizzas" value="1" class="form-control" />
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
