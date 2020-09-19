@@ -1,8 +1,6 @@
 ﻿using SEDC.PizzaApp.Domain.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SEDC.PizzaApp.DataAccess.Repositories.CacheRepositories
 {

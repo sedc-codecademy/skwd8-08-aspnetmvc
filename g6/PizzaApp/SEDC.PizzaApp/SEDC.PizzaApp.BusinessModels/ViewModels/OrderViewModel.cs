@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace SEDC.PizzaApp.BusinessModels.newModels
+namespace SEDC.PizzaApp.BusinessModels.ViewModels
 {
     public class OrderViewModel
     {
@@ -10,6 +8,6 @@ namespace SEDC.PizzaApp.BusinessModels.newModels
         public string LastName { get; set; }
         public string Address { get; set; }
         public long Phone { get; set; }
-        public List<PizzaViewModelNew> Pizzas { get; set; }
+        public List<PizzaViewModel> Pizzas { get; set; }
     }
 }

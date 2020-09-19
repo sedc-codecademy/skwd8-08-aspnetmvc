@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SEDC.PizzaApp.BusinessLayer.Interfaces;
-using SEDC.PizzaApp.BusinessModels.newModels;
-using SEDC.PizzaApp.Domain.Models;
+using SEDC.PizzaApp.BusinessModels.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SEDC.PizzaApp.Application.Controllers
 {
@@ -18,6 +15,13 @@ namespace SEDC.PizzaApp.Application.Controllers
             _pizzaOrderService = pizzaOrderService;
         }
 
+        [HttpGet("Orders")]
+        public IActionResult Index()
+        {
+            var orderVm = _pizzaOrderService.GetAllOrders();
+            return View(orderVm);
+        }
+
         [HttpGet]
         public IActionResult Order(string error, int pizzas)
         {
@@ -27,10 +31,10 @@ namespace SEDC.PizzaApp.Application.Controllers
             }
 
             var orderVM = new OrderViewModel();
-            orderVM.Pizzas = new List<PizzaViewModelNew>();
+            orderVM.Pizzas = new List<PizzaViewModel>();
             for (int i = 0; i < pizzas; i++)
             {
-                orderVM.Pizzas.Add(new PizzaViewModelNew());
+                orderVM.Pizzas.Add(new PizzaViewModel());
             }
 
             return View(orderVM);
@@ -47,6 +51,20 @@ namespace SEDC.PizzaApp.Application.Controllers
             }
 
             return RedirectToAction("Order", model);
+        }
+
+        [HttpGet]
+        public IActionResult Details(int id)
+        {
+            try
+            {
+                var orderDetails = _pizzaOrderService.GetOrderById(id);
+                return View(orderDetails);
+            }
+            catch (Exception)
+            {
+                return View("_Error");
+            }
         }
     }
 }

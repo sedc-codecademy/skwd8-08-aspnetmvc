@@ -1,7 +1,5 @@
 ﻿using SEDC.PizzaApp.Domain.Enums;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SEDC.PizzaApp.Domain.Models
 {
