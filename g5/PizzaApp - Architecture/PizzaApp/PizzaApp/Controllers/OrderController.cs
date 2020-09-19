@@ -1,69 +1,38 @@
-﻿using System.Linq;
-using DomainModels;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Services.Interfaces;
 
 namespace PizzaApp.Controllers
 {
     public class OrderController : Controller
     {
-        //public IActionResult Add(int id)
-        //{
-        //    Customer customer = Data.Customers.FirstOrDefault(x => x.Id == id);
+        private readonly IOrderService _orderService;
 
-        //    if (customer == null)
-        //    {
-        //        return NotFound();
-        //    }
+        public OrderController(IOrderService orderService)
+        {
+            _orderService = orderService;
+        }
 
-        //    int index = Data.Customers.IndexOf(customer);
-        //    Data.Customers.RemoveAt(index);
+        public IActionResult Add(int id)
+        {
+            _orderService.AddOrderForCustomer(id);
 
-        //    customer.Orders.Add(new Order(customer.Id));
+            return RedirectToAction("Details", "Customer", new { id });
+        }
 
-        //    Data.Customers.Add(customer);
-            
-        //    return RedirectToAction("Details", "Customer", new {id});
-        //}
+        public IActionResult Details(int id)
+        {
+            var orderViewModel = _orderService.GetById(id);
+            return View(orderViewModel);
+        }
 
-        //public IActionResult Details(int id)
-        //{
-        //    Customer customer = Data.Customers.FirstOrDefault(x => x.Orders.Any(y => y.Id == id));
-            
-        //    if (customer == null)
-        //    {
-        //        return NotFound();
-        //    }
-            
-        //    Order order = customer.Orders.FirstOrDefault(x => x.Id == id);
+        public IActionResult Delete(int id)
+        {
+            var orderViewModel = _orderService.GetById(id);
+            _orderService.Delete(id);
 
-        //    if (order == null)
-        //    {
-        //        return NotFound();
-        //    }
+            var dynamic = new { Id = orderViewModel.CustomerId};
 
-        //    return View(Order.ToViewModel(order));
-        //}
-
-        //public IActionResult Delete(int id)
-        //{
-        //    Customer customer = Data.Customers.FirstOrDefault(x => x.Orders.Any(y => y.Id == id));
-
-        //    if (customer == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    Order order = customer.Orders.FirstOrDefault(x => x.Id == id);
-
-        //    if (order == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    int index = customer.Orders.IndexOf(order);
-        //    customer.Orders.RemoveAt(index);
-
-        //    return RedirectToAction("Details", "Customer", new {customer.Id});
-        //}
+            return RedirectToAction("Details", "Customer", dynamic);
+        }
     }
 }

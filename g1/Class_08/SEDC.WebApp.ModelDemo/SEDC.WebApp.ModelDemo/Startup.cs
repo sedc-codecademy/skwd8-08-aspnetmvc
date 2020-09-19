@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SEDC.WebApp.ModelDemo.DataAccess;
+using SEDC.WebApp.ModelDemo.DataAccess.DB;
 using SEDC.WebApp.ModelDemo.DataAccess.Domain.Interfaces;
 using SEDC.WebApp.ModelDemo.DataAccess.Domain.Models;
 using SEDC.WebApp.ModelDemo.DataAccess.Domain.Repositories;
@@ -48,6 +50,9 @@ namespace SEDC.WebApp.ModelDemo
             services.AddTransient<IPizzaService, PizzaService>();
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<IUserService, UserService>();
+
+            services.AddDbContext<PizzaDbContext>(options => options.
+                UseSqlServer(Configuration.GetConnectionString("PizzaAppDatabaseConnectionString")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
