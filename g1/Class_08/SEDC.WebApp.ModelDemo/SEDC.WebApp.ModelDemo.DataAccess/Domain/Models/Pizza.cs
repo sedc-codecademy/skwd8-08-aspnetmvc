@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SEDC.WebApp.ModelDemo.DataAccess.Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -10,6 +11,6 @@ namespace SEDC.WebApp.ModelDemo.DataAccess.Domain.Models
         public string Name { get; set; }
         public PizzaSize Size { get; set; }
         public double Price { get; set; }
-        public string ImageUrl { get; set; }
+        public string Image { get; set; }
     }
 }

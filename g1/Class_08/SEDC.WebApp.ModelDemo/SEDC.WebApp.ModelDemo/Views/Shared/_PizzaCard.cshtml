@@ -1,14 +1,14 @@
 ﻿@model PizzaVM
 
-    <div class="card" >
-        <img height="200" src=@Model.ImageUrl class="card-img-top" alt="...">
-        <div class="card-body">
-            <h2 class="card-title">@Model.Name</h2>
-            <h5>Price: @Model.Price</h5>
-            <h5>Size: @Model.Size</h5>
-            @Html.ActionLink("Order", "Index", "Order", new {id = Model.Id }, new { @class = "details"})
-        </div>
+<div class="card">
+    <img height="200" src="~/images/@Model.Image" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h2 class="card-title">@Model.Name</h2>
+        <h5>Price: @Model.Price</h5>
+        <h5>Size: @Model.Size</h5>
+        @Html.ActionLink("Order", "Index", "Order", new { id = Model.Id }, new { @class = "details" })
     </div>
+</div>
     
     <style>
         a.details {

@@ -4,43 +4,31 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using SEDC.WebApp.ModelDemo.Models;
-using SEDC.WebApp.ModelDemo.Models.ViewModels;
+using SEDC.WebApp.ModelDemo.Services.Interfaces;
 
 namespace SEDC.WebApp.ModelDemo.Controllers
 {
     public class HomeController : Controller
     {
+        private IPizzaService _pizzaService;
+        public HomeController(IPizzaService pizzas)
+        {
+            _pizzaService = pizzas;
+        }
         public IActionResult Index()
         {
             ViewData["Heading"] = "Pizzas menu";
             ViewBag.Title = "Welcome to our pizza app!";
-            var allPizzas = StaticDb.Menu;
+            var allPizzas = _pizzaService.GetAllPizzas();
 
             // How we map list of Pizza (domain model) to list of PizzaVM (viewModel)
-            var allPizzasVM = allPizzas.Select(pizza => new PizzaVM()
-            {
-                Name = pizza.Name,
-                Size = pizza.Size,
-                Id = pizza.Id,
-                ImageUrl = pizza.ImageUrl,
-                Price = pizza.Price
-            }).ToList();
-            return View(allPizzasVM);
+            return View(allPizzas);
         }
 
         public IActionResult PizzaDetails(int id)
         {
-            var pizza = StaticDb.Menu.SingleOrDefault(p => p.Id == id);
-            // How we map Pizza (domain model) to PizzaVM (view model)
-            PizzaVM pizzaModel = new PizzaVM()
-            {
-                Id = pizza.Id,
-                Name = pizza.Name,
-                Size = pizza.Size,
-                Price = pizza.Price
-            };
-            return View(pizzaModel);
+           
+            return View();
         }
 
 
