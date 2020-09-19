@@ -1,1 +1,38 @@
-﻿
+﻿@model MakeOrderViewModel
+
+@{ ViewBag.Title = "Order"; }
+
+<form asp-controller="Order" asp-action="Order" method="post">
+
+    <h2>Make an order!</h2>
+
+    <h3>User info:</h3>
+
+    <label asp-for="FirstName"></label>
+    <input asp-for="FirstName" /><br />
+
+    <label asp-for="LastName"></label>
+    <input asp-for="LastName" /><br />
+
+    <label asp-for="Address"></label>
+    <input asp-for="Address" /><br />
+
+    <label asp-for="Phone"></label>
+    <input asp-for="Phone" /><br />
+
+    @for (int i = 0; i < Model.Pizzas.Count; i++)
+    {
+        <h1>Pizza number: @(i + 1)</h1>
+
+        <select asp-for="Pizzas[i].Name" asp-items="new SelectList(Model.PizzaNames)"></select>
+        <select asp-for="Pizzas[i].Size" asp-items="Html.GetEnumSelectList<PizzaSize>()"></select>
+    }
+
+    <br />
+    <br />
+
+    <button type="submit" class="btn btn-outline-success">Make order</button>
+
+</form>
+
+<h5>@ViewBag.Error</h5>

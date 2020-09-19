@@ -91,5 +91,48 @@ namespace SEDC.PizzaApp.Services.Services.Classes
 
             return mostPopularPizza;
         }
+
+        public OrderViewModel GetOrderById(int id)
+        {
+            var dbOrder = _orderRepository.GetById(id);
+
+            var orderViewModel = new OrderViewModel()
+            {
+                Id = dbOrder.Id,
+                FullName = dbOrder.User.FirstName + " " + dbOrder.User.LastName,
+                Address = dbOrder.User.Address,
+                Contact = dbOrder.User.Phone,
+                Price = dbOrder.Price,
+                IsDelievered = dbOrder.IsDelivered,
+                Pizzas = new List<PizzaViewModel>()
+            };
+
+            foreach (var pizza in dbOrder.Pizzas)
+            {
+                var tempPizza = new PizzaViewModel()
+                {
+                    Name = pizza.Name,
+                    Price = pizza.Price,
+                    Size = pizza.Size
+                };
+
+                orderViewModel.Pizzas.Add(tempPizza);
+            }
+
+            return orderViewModel;
+        }
+
+        public void FinishOrder(int id)
+        {
+            var dbOrder = _orderRepository.GetById(id);
+            dbOrder.IsDelivered = true;
+            _orderRepository.Update(dbOrder);
+        }
+
+        public void CreateOrder(Order order)
+        {
+            order.Id = _orderRepository.GetAll().Last().Id + 1;
+            _orderRepository.Insert(order);
+        }
     }
 }

@@ -13,9 +13,9 @@ namespace SEDC.PizzaApp.Refactored.Controllers
     public class HomeController : Controller
     {
         private IPizzaOrderService _pizzaOrderService;
-        public HomeController()
+        public HomeController(IPizzaOrderService pizzaOrderService)
         {
-            _pizzaOrderService = new PizzaOrderService();
+            _pizzaOrderService = pizzaOrderService;
         }
 
         public IActionResult Index()
