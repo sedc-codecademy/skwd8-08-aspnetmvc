@@ -2,9 +2,6 @@
 using SEDC.AspNet.Class09.EfCodeFirst.Models.DomainModels;
 using SEDC.AspNet.Class09.EfCodeFirst.Models.Enums;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SEDC.AspNet.Class09.EfCodeFirst.Database
 {
@@ -32,6 +29,11 @@ namespace SEDC.AspNet.Class09.EfCodeFirst.Database
                 .Entity<RentalInfo>()
                 .ToTable(nameof(RentalInfo))
                 .HasOne(x => x.Movie);
+
+            modelBuilder
+                .Entity<RentalInfo>()
+                .Property(p => p.DateReturned)
+                .IsRequired(false);
 
             modelBuilder
                 .Entity<Movie>()

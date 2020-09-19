@@ -16,7 +16,7 @@ namespace SEDC.AspNet.Class09.EfCodeFirst.Models.DomainModels
         public int MovieId { get; set; }
         public int UserId { get; set; }
         public DateTime DateRented { get; set; }
-        public DateTime DateReturned { get; set; }
+        public DateTime? DateReturned { get; set; }
 
         // navigation properties
         public Movie Movie { get; set; }
