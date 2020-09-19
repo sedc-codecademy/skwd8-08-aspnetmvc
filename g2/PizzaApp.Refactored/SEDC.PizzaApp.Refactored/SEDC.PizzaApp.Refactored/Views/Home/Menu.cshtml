@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewData["Title"] = "Menu";
+}
+@model MenuViewModel
+
+
+<h1 class="text-center">Pizza Menu</h1>
+
+@foreach (var pizza in Model.Pizzas)
+{
+    //for homework: display as partial view _PizzaItem
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+            <img src="~/images/@pizza.Image" alt="Pizza image"  height="150"/>
+        </div>
+        <div class="col-md-4">
+            <h3>Pizza @pizza.Name</h3>
+            <h4>@pizza.Price $</h4>
+        </div>
+    </div>
+}
+
