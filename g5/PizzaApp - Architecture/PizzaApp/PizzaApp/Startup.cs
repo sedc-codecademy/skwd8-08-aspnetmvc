@@ -25,8 +25,17 @@ namespace PizzaApp
         {
             services.AddControllersWithViews();
             services.AddTransient<INotificationService, YahooNotificationService>();
-            services.AddTransient<IPizzaService, PizzaService>();
+
             services.AddTransient<IRepository<Pizza>, PizzaRepository>();
+            services.AddTransient<IRepository<Size>, SizeRepository>();
+            services.AddTransient<IRepository<Customer>, CustomerRepository>();
+            services.AddTransient<IRepository<PizzaSize>, PizzaSizeRepository>();
+
+            services.AddTransient<IPizzaService, PizzaService>();
+            services.AddTransient<IPizzaSizeService, PizzaSizeService>();
+            services.AddTransient<ICustomerService, CustomerService>();
+            services.AddTransient<ISizeService, SizeService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

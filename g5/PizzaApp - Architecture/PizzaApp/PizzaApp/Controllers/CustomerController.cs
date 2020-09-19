@@ -1,109 +1,62 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Services.Interfaces;
 using ViewModels;
 
 namespace PizzaApp.Controllers
 {
     public class CustomerController : Controller
     {
-        //public IActionResult Index()
-        //{
-        //    var customersViewModels = Data.Customers.Select(Customer.ToViewModel).ToList();
-        //    return View(customersViewModels);
-        //}
+        private readonly ICustomerService _customerService;
 
-        //public IActionResult Details(int id)
-        //{
-        //    var customer = Data.Customers.FirstOrDefault(x => x.Id == id);
+        public CustomerController(ICustomerService customerService)
+        {
+            _customerService = customerService;
+        }
 
-        //    if (customer == null)
-        //    {
-        //        return NotFound();
-        //    }
-            
-        //    var customerViewModel = Customer.ToViewModel(customer);
+        public IActionResult Index()
+        {
+            return View(_customerService.GetAll());
+        }
 
-        //    customerViewModel.Orders = customer.Orders.Select(x => new OrderViewModel
-        //    {
-        //        Id = x.Id,
-        //        OrderNumber = x.OrderNumber
-        //    }).ToList();
+        public IActionResult Details(int id)
+        {
+            return View(_customerService.GetById(id));
+        }
 
-        //    return View(customerViewModel);
-        //}
+        public IActionResult Edit(int id)
+        {
+            return View(_customerService.GetById(id));
+        }
 
-        //public IActionResult Edit(int id)
-        //{
-        //    var customer = Data.Customers.FirstOrDefault(x => x.Id == id);
+        public IActionResult Add()
+        {
+            return View("Edit", new CustomerViewModel());
+        }
 
-        //    if (customer == null)
-        //    {
-        //        return NotFound();
-        //    }
+        [HttpPost]
+        public IActionResult Save(CustomerViewModel customer)
+        {
+            if (customer == null)
+            {
+                return BadRequest();
+            }
 
-        //    return View(Customer.ToViewModel(customer));
-        //}
+            if (!ModelState.IsValid)
+            {
+                return View("Edit", customer);
+            }
 
-        //public IActionResult Add()
-        //{
-        //    return View("Edit", new CustomerViewModel());
-        //}
+            _customerService.Save(customer);
 
-        //[HttpPost]
-        //public IActionResult Save(CustomerViewModel customer)
-        //{
-        //    if (customer == null)
-        //    {
-        //        return BadRequest();
-        //    }
+            return RedirectToAction("Index");
+        }
 
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View("Edit", customer);
-        //    }
+        public IActionResult Delete(int id)
+        {
+            _customerService.Delete(id);
 
-        //    Customer existingCustomer = Data.Customers.FirstOrDefault(x => x.Id == customer.Id);
-
-        //    if (existingCustomer == null)
-        //    {
-        //        Customer newCustomer = new Customer
-        //        {
-        //            Id = customer.Id,
-        //            FirstName = customer.FirstName,
-        //            LastName = customer.LastName,
-        //            Address = customer.Address,
-        //            Phone = customer.Phone
-        //        };
-
-        //        Data.Customers.Add(newCustomer);
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    int indexOfExistingCustomer = Data.Customers.IndexOf(existingCustomer);
-        //    Data.Customers.RemoveAt(indexOfExistingCustomer);
-
-        //    existingCustomer.FirstName = customer.FirstName;
-        //    existingCustomer.LastName = customer.LastName;
-        //    existingCustomer.Address = customer.Address;
-        //    existingCustomer.Phone = customer.Phone;
-
-        //    Data.Customers.Add(existingCustomer);
-        //    return RedirectToAction("Index");
-        //}
-
-        //public IActionResult Delete(int id)
-        //{
-        //    Customer existingCustomer = Data.Customers.FirstOrDefault(x => x.Id == id);
-
-        //    if (existingCustomer == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    int indexOfExistingCustomer = Data.Customers.IndexOf(existingCustomer);
-        //    Data.Customers.RemoveAt(indexOfExistingCustomer);
-
-        //    return RedirectToAction("Index");
-        //}
+            return RedirectToAction("Index");
+        }
     }
 }
