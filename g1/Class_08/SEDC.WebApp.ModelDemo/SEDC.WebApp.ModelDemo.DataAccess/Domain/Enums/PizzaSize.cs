@@ -8,6 +8,7 @@ namespace SEDC.WebApp.ModelDemo.DataAccess.Domain.Enums
     {
         Small = 1,
         Medium = 2,
-        Family = 3
+        Large = 3,
+        Family = 4
     }
 }
