@@ -34,23 +34,23 @@ namespace SEDC.WebApp.ModelDemo.DataAccess
                     Name = "Kapri",
                     Price = 7,
                     Size = PizzaSize.Small,
-                    ImageUrl="https://www.abeautifulplate.com/wp-content/uploads/2015/08/the-best-homemade-margherita-pizza-1-4-480x480.jpg"
+                    Image="Kapri.png"
                 },
                 new Pizza()
                 {
                     Id = 2,
-                    Name = "Kapri",
+                    Name = "Margarita",
                     Price = 8,
                     Size = PizzaSize.Medium,
-                    ImageUrl="https://www.abeautifulplate.com/wp-content/uploads/2015/08/the-best-homemade-margherita-pizza-1-4-480x480.jpg"
+                    Image="Margarita.png"
                 },
                 new Pizza()
                 {
                     Id = 3,
-                    Name = "Kapri",
+                    Name = "Peperoni",
                     Price = 9,
                     Size = PizzaSize.Family,
-                    ImageUrl="https://www.abeautifulplate.com/wp-content/uploads/2015/08/the-best-homemade-margherita-pizza-1-4-480x480.jpg"
+                    Image="Peperoni.png"
                 }
             };
         }

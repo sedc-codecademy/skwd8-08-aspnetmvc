@@ -11,5 +11,6 @@ namespace SEDC.WebApp.ModelDemo.DataAccess.ViewModels
         public string LastName { get; set; }
         public long Phone { get; set; }
         public string Address { get; set; }
+        public List<OrderPizzaVM> Orders { get; set; }
     }
 }

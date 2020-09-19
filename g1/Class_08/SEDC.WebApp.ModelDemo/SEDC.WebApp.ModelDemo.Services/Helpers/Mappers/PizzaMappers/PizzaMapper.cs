@@ -14,7 +14,7 @@ namespace SEDC.WebApp.ModelDemo.Services.Helpers.Mappers.PizzaMappers
             return new Pizza()
             {
                 Size= model.Size,
-                ImageUrl = model.ImageUrl,
+                Image = model.Image,
                 Name = model.Name,
                 Price = model.Price,
                 Id = model.Id
@@ -26,7 +26,7 @@ namespace SEDC.WebApp.ModelDemo.Services.Helpers.Mappers.PizzaMappers
             return new PizzaVM()
             {
                 Size = model.Size,
-                ImageUrl = model.ImageUrl,
+                Image = model.Image,
                 Name = model.Name,
                 Price = model.Price,
                 Id = model.Id
@@ -39,7 +39,7 @@ namespace SEDC.WebApp.ModelDemo.Services.Helpers.Mappers.PizzaMappers
             return models.Select(pizzaVM => new Pizza()
             {
                 Size = pizzaVM.Size,
-                ImageUrl = pizzaVM.ImageUrl,
+                Image = pizzaVM.Image,
                 Name = pizzaVM.Name,
                 Price = pizzaVM.Price,
                 Id = pizzaVM.Id
@@ -55,7 +55,7 @@ namespace SEDC.WebApp.ModelDemo.Services.Helpers.Mappers.PizzaMappers
             return models.Select(pizza => new PizzaVM()
             {
                 Size = pizza.Size,
-                ImageUrl = pizza.ImageUrl,
+                Image = pizza.Image,
                 Name = pizza.Name,
                 Price = pizza.Price,
                 Id = pizza.Id

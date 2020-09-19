@@ -1,0 +1,16 @@
+﻿using SEDC.PizzaApp.ViewModels.Models;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SEDC.PizzaApp.Services.Services.Interfaces
+{
+    public interface IOrderService
+    {
+        List<OrderViewModel> GetAllOrders();
+        string GetFirstPizzaName();
+        string GetFirstPerson();
+        int GetTotalNumberOfOrders();
+        string GetMostPopularPizza();
+    }
+}

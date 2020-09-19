@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SEDC.WebApp.ModelDemo.DataAccess\SEDC.WebApp.ModelDemo.DataAccess.csproj" />
     <ProjectReference Include="..\SEDC.WebApp.ModelDemo.Services\SEDC.WebApp.ModelDemo.Services.csproj" />
   </ItemGroup>
 

@@ -17,6 +17,8 @@ namespace SEDC.PizzaApp.Services.Helpers
         {
             //StaticDB repositories dependencies
             services.AddTransient<IRepository<Pizza>, PizzaRepository>();
+            services.AddTransient<IRepository<Order>, OrderRepository>();
+            services.AddTransient<IRepository<User>, UserRepository>();
 
             //Entity repostiores dependencies
 
