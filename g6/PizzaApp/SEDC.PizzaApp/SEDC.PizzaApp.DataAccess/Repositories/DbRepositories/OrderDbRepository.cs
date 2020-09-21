@@ -26,18 +26,18 @@ namespace SEDC.PizzaApp.DataAccess.Repositories.DbRepositories
         public List<Order> GetAll()
         {
             return _context.Orders
-              .Include(x => x.PizzaOrders)
-              .ThenInclude(x => x.Pizza)
               .Include(x => x.User)
+              .Include(x => x.PizzaOrders)
+                .ThenInclude(x => x.Pizza)
               .ToList();
         }
 
         public Order GetById(int id)
         {
             return _context.Orders
-              .Include(i => i.PizzaOrders)
-              .ThenInclude(i => i.Pizza)
               .Include(i => i.User)
+              .Include(i => i.PizzaOrders)
+                .ThenInclude(i => i.Pizza)
               .FirstOrDefault(x => x.Id == id);
         }
 
