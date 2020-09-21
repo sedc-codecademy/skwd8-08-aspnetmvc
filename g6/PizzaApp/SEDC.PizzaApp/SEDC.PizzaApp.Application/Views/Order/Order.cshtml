@@ -11,7 +11,7 @@
         <div class="col-md-6">
             <div class="input-group input-group-md">
                 <span class="input-group-addon">@Html.LabelFor(x => x.FirstName)</span>
-                @Html.EditorFor(x => x.FirstName, null, new { @class = "form-control" })
+                @Html.TextBox("model.FirstName", null, new { @class = "form-control" })
                 @Html.ValidationMessageFor(x => x.FirstName)
             </div>
         </div>
