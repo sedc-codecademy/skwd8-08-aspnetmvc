@@ -12,12 +12,14 @@
             <div class="input-group input-group-md">
                 <span class="input-group-addon">@Html.LabelFor(x => x.FirstName)</span>
                 @Html.TextBox("model.FirstName", null, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.FirstName)
             </div>
         </div>
         <div class="col-md-6">
             <div class="input-group input-group-md">
                 <span class="input-group-addon">@Html.LabelFor(x => x.LastName)</span>
                 @Html.TextBox("model.LastName", null, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.LastName)
             </div>
         </div>
     </div>
@@ -26,12 +28,14 @@
             <div class="input-group input-group-md">
                 <span class="input-group-addon">@Html.LabelFor(x => x.Address)</span>
                 @Html.TextBox("model.Address", null, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Address)
             </div>
         </div>
         <div class="col-md-6">
             <div class="input-group input-group-md">
                 <span class="input-group-addon">@Html.LabelFor(x => x.Phone)</span>
                 @Html.TextBox($"model.Phone", null, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Phone)
             </div>
         </div>
     </div>

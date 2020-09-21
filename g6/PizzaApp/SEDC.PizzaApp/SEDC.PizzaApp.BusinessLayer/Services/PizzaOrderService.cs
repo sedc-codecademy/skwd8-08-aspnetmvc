@@ -59,7 +59,7 @@ namespace SEDC.PizzaApp.BusinessLayer.Services
 
             OrdersViewModel model = new OrdersViewModel()
             {
-                LastPizza = GetLastOrder().PizzaOrders[0].Pizza.Name,
+                LastPizza = GetLastOrder().PizzaOrders[0].Pizza.Name, //TODO: get last pizza
                 MostPopularPizza = GetMostPopularPizza(),
                 NameOfFirstCustomer = string.Format("{0} {1}", lastUser.FirstName, lastUser.LastName), // $"{lastUser.FirstName} {lastUser.LastName}";
                 OrderCount = GetOrderCount(),
@@ -173,7 +173,7 @@ namespace SEDC.PizzaApp.BusinessLayer.Services
                 Address = orderVm.Address,
                 FirstName = orderVm.FirstName,
                 LastName = orderVm.LastName,
-                Phone = orderVm.Phone
+                Phone = orderVm.Phone.Value
             };
 
             order.PizzaOrders = pizzas;

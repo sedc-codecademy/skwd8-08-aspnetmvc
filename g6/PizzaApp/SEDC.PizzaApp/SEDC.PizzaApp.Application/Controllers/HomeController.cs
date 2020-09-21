@@ -19,12 +19,18 @@ namespace SEDC.PizzaApp.Application.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View(new HomeViewModel());
+            ViewData["Error"] = TempData["Error"];
+            return View(new HomeViewModel() { NumberOfPizzas = 1 });
         }
 
         [HttpPost]
         public IActionResult Index(HomeViewModel model)
         {
+            if(model.NumberOfPizzas <= 0)
+            {
+                TempData["Error"] = "The order number should be higher or equal then 1";
+                return RedirectToAction("Index");
+            }
             return RedirectToAction("Order", "Order", new { pizzas = model.NumberOfPizzas });
         }
 

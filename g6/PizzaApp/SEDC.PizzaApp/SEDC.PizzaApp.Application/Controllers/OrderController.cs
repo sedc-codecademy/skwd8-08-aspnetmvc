@@ -43,6 +43,12 @@ namespace SEDC.PizzaApp.Application.Controllers
         [HttpPost]
         public IActionResult Order(OrderViewModel model)
         {
+            // TODO: Make validation
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
             var orderId = _pizzaOrderService.MakeNewOrder(model);
 
             if(orderId != 0)
