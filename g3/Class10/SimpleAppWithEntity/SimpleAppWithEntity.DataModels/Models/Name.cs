@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SimpleAppWithEntity.ViewModels.Models
+namespace SimpleAppWithEntity.DataModels.Models
 {
-    public class NameViewModel
+    public class Name
     {
+        public int Id { get; set; }
         public string MyName { get; set; }
-
-        public List<string> Names { get; set; }
     }
 }

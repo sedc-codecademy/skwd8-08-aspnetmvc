@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SimpleAppWithEntity.Services.Interfaces;
 using SimpleAppWithEntity.ViewModels.Models;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,14 @@ namespace SimpleAppWithEntity.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private IHomeService _homeService;
+
+        public HomeController(IHomeService homeService)
+        {
+            _homeService = homeService;
+        }
+
+
         [HttpGet]
         public IActionResult AddName() 
         {
@@ -18,7 +27,15 @@ namespace SimpleAppWithEntity.Web.Controllers
         [HttpPost]
         public IActionResult AddName(NameViewModel model)
         {
-            return new EmptyResult();
+            _homeService.CreateNewName(model);
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult GetNames() 
+        {
+            var names = _homeService.GetAllNames();
+            return View(names);
         }
 
     }
