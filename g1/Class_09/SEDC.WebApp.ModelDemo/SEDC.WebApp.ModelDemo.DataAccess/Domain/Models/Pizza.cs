@@ -12,5 +12,6 @@ namespace SEDC.WebApp.ModelDemo.DataAccess.Domain.Models
         public PizzaSize Size { get; set; }
         public double Price { get; set; }
         public string Image { get; set; }
+        public Discount Discount { get; set; }
     }
 }

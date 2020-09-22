@@ -11,6 +11,6 @@ namespace SEDC.WebApp.ModelDemo.DataAccess.Domain.Models
         public string LastName { get; set; }
         public long Phone { get; set; }
         public string Address { get; set; }
-        public List<Order> Orders { get; set; }
+        public List<Order> Orders { get; set; } = new List<Order>();
     }
 }

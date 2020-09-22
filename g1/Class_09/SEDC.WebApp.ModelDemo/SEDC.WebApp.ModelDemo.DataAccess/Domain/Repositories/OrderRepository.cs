@@ -1,4 +1,6 @@
-﻿using SEDC.WebApp.ModelDemo.DataAccess.Domain.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using SEDC.WebApp.ModelDemo.DataAccess.DB;
+using SEDC.WebApp.ModelDemo.DataAccess.Domain.Interfaces;
 using SEDC.WebApp.ModelDemo.DataAccess.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -9,44 +11,50 @@ namespace SEDC.WebApp.ModelDemo.DataAccess.Domain.Repositories
 {
     public class OrderRepository : IRepository<Order>
     {
-        private IStaticDb _db;
-        public OrderRepository(IStaticDb db)
+        private PizzaDbContext _db;
+        public OrderRepository(PizzaDbContext db)
         {
             _db = db;
         }
         public int Create(Order entity)
         {
-            var orderModel = _db.GetOrders().SingleOrDefault(order => order.Id == entity.Id);
+            var orderModel = _db.Orders.SingleOrDefault(order => order.Id == entity.Id);
             if (orderModel != null) return -1;
-            _db.GetOrders().ToList().Add(entity);
-            return 1;
+            _db.Orders.Add(entity);
+            return _db.SaveChanges();
         }
 
         public int Delete(int id)
         {
-            var orderModel = _db.GetOrders().SingleOrDefault(order => order.Id == id);
+            var orderModel = _db.Orders.SingleOrDefault(order => order.Id == id);
             if (orderModel == null) return -1;
-            _db.GetOrders().ToList().Remove(orderModel);
-            return 1;
+            _db.Orders.Remove(orderModel);
+            return _db.SaveChanges();
         }
 
         public List<Order> GetAll()
         {
-            return _db.GetOrders().ToList();
+            return _db.Orders
+                .Include(order => order.Pizza)
+                .Include(order => order.User)
+                .ToList();
         }
 
         public Order GetById(int id)
         {
-            return _db.GetOrders().SingleOrDefault(order => order.Id == id);
+            return _db.Orders
+                .Include(order => order.Pizza)
+                // .ThenInclude(pizza => pizza.Discount)
+                .Include(order => order.User)
+                .SingleOrDefault(order => order.Id == id);
         }
 
         public int Update(Order entity)
         {
-            var orderModel = _db.GetOrders().SingleOrDefault(order => order.Id == entity.Id);
+            var orderModel = _db.Orders.SingleOrDefault(order => order.Id == entity.Id);
             if (orderModel == null) return -1;
-            int orderIndex = _db.GetOrders().ToList().IndexOf(orderModel);
-            _db.GetOrders().ToList()[orderIndex] = entity;
-            return 1;
+            _db.Orders.Update(entity);
+            return _db.SaveChanges();
         }
     }
 }

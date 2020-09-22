@@ -21,7 +21,6 @@ namespace SEDC.WebApp.ModelDemo.Services.Services
         public string CreateNewOrder(OrderPizzaVM model)
         {
             var order = OrderMapper.OrderVMtoOrder(model);
-            order.Id = _orderRepository.GetAll().Count + 1;
             int response = _orderRepository.Create(order);
             if (response == -1) return "Was not successfull, please try again later!";
             return "Order successfully created!";

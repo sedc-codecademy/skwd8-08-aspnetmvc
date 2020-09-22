@@ -17,8 +17,7 @@ namespace SEDC.WebApp.ModelDemo.Services.Helpers.Mappers.UserMappers
                 Address = model.Address,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                Phone = model.Phone,
-                Orders = OrderMapper.OrdersVMtoOrders(model.Orders)
+                Phone = model.Phone
             };
         }
 
@@ -29,8 +28,7 @@ namespace SEDC.WebApp.ModelDemo.Services.Helpers.Mappers.UserMappers
                 Address = model.Address,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                Phone = model.Phone,
-                Orders = OrderMapper.OrdersToOrdersVM(model.Orders)
+                Phone = model.Phone
             };
         }
 
@@ -42,7 +40,6 @@ namespace SEDC.WebApp.ModelDemo.Services.Helpers.Mappers.UserMappers
                 FirstName = userVM.FirstName,
                 LastName = userVM.LastName,
                 Phone = userVM.Phone,
-                Orders = OrderMapper.OrdersVMtoOrders(userVM.Orders)
             }).ToList();
 
             // return models.Select(pizzaVM=> PizzaVMtoPizza(pizzaVM))
