@@ -1,0 +1,27 @@
+﻿@model List<OrderPizzaVM>
+
+
+
+<h2>OrderMenu</h2>
+ 
+<div>
+    @foreach (var item in Model)
+    {
+        string delivered = item.Delivered ? "DELIVERED" : "NOT DELEVERED YET";
+        <div>
+            <div>
+                Delivered: @delivered
+            </div>
+            <div>
+                User Name: @(item.User.FirstName + " " + item.User.LastName)
+                User Address: @item.User.Address
+                Phone Number: @item.User.Phone
+            </div>
+            <div>
+                Pizza: @item.Pizza.Name
+                Size: @item.Pizza.Size
+                Price: @item.Pizza.Price
+            </div>
+        </div>
+    }
+</div>
