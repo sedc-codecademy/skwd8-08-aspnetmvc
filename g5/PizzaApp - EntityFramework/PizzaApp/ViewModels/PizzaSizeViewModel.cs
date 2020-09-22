@@ -21,8 +21,6 @@ namespace ViewModels
 
         public PizzaSizeViewModel()
         {
-            var rnd = new Random();
-            Id = rnd.Next(1, 1000000000);
         }
     }
 }

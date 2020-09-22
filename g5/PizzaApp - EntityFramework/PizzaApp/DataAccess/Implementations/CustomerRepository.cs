@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DomainModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Implementations
 {
@@ -9,42 +10,66 @@ namespace DataAccess.Implementations
     {
         public List<Customer> GetAll()
         {
-            return StaticDatabase.Customers;
+            using (var db = new PizzaAppContext())
+            {
+                return db.Customers.Include(x => x.Orders).ThenInclude(x => x.OrderItems).ToList();
+            }
         }
 
         public Customer GetById(int id)
         {
-            return StaticDatabase.Customers.FirstOrDefault(x => x.Id == id);
+            using (var db = new PizzaAppContext())
+            {
+                return db.Customers.Include(x => x.Orders).ThenInclude(x => x.OrderItems).FirstOrDefault(x => x.Id == id);
+            }
         }
 
         public int Insert(Customer entity)
         {
-            StaticDatabase.Customers.Add(entity);
-            return entity.Id;
+            using (var db = new PizzaAppContext())
+            {
+                db.Customers.Add(entity);
+                db.SaveChanges();
+                return entity.Id;
+            }
         }
 
         public void Update(Customer entity)
         {
-            Customer customer = StaticDatabase.Customers.FirstOrDefault(x => x.Id == entity.Id);
-            if (customer == null)
+            using (var db = new PizzaAppContext())
             {
-                throw new Exception($"Customer with id {entity.Id} was not found");
+                db.Update(entity);
+                db.SaveChanges();
             }
-            //update the record in DB
-            int index = StaticDatabase.Customers.IndexOf(customer);
-            StaticDatabase.Customers[index] = entity;
         }
 
         public void Delete(int id)
         {
-            Customer customer = StaticDatabase.Customers.FirstOrDefault(x => x.Id == id);
-            if (customer == null)
+            using (var db = new PizzaAppContext())
             {
-                throw new Exception($"Customer with id {id} was not found");
+                var customer = db.Customers.FirstOrDefault(x => x.Id == id);
+
+                if (customer == null)
+                    throw new Exception("Customer not found.");
+
+                db.Remove(customer);
+                db.SaveChanges();
             }
-            //delete record from DB
-            int index = StaticDatabase.Customers.IndexOf(customer);
-            StaticDatabase.Customers.RemoveAt(index);
         }
+
+        ////ExecuteQuery("Capri")
+        ////ExecuteQuery("Capri';Drop Database PizzaDb;--")
+        //public void ExecuteQuery(string name)
+        //{
+        //    using (var db = new PizzaAppContext())
+        //    {
+        //        db.Database.ExecuteSqlRaw($"Select * From Pizzas Where Name Like {name}");
+
+        //        var t = $"Select * From Pizzas Where Name Like 'Capri';Drop Database PizzaDb;--'";
+
+
+        //        db.Database.ExecuteSqlRaw("Select * From Pizzas Where Name Like {0}", name);
+        //    }
+        //}
     }
 }

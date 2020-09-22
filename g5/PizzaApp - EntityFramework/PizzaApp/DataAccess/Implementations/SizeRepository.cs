@@ -9,42 +9,51 @@ namespace DataAccess.Implementations
     {
         public List<Size> GetAll()
         {
-            return StaticDatabase.Sizes;
+            using (var db = new PizzaAppContext())
+            {
+                return db.Sizes.ToList();
+            }
         }
 
         public Size GetById(int id)
         {
-            return StaticDatabase.Sizes.FirstOrDefault(x => x.Id == id);
+            using (var db = new PizzaAppContext())
+            {
+                return db.Sizes.FirstOrDefault(x => x.Id == id);
+            }
         }
 
         public int Insert(Size entity)
         {
-            StaticDatabase.Sizes.Add(entity);
-            return entity.Id;
+            using (var db = new PizzaAppContext())
+            {
+                db.Add(entity);
+                db.SaveChanges();
+                return entity.Id;
+            }
         }
 
         public void Update(Size entity)
         {
-            Size size = StaticDatabase.Sizes.FirstOrDefault(x => x.Id == entity.Id);
-            if (size == null)
+            using (var db = new PizzaAppContext())
             {
-                throw new Exception($"Size with id {entity.Id} was not found");
+                db.Update(entity);
+                db.SaveChanges();
             }
-            //update the record in DB
-            int index = StaticDatabase.Sizes.IndexOf(size);
-            StaticDatabase.Sizes[index] = entity;
         }
 
         public void Delete(int id)
         {
-            Size size = StaticDatabase.Sizes.FirstOrDefault(x => x.Id == id);
-            if (size == null)
+            using (var db = new PizzaAppContext())
             {
-                throw new Exception($"Size with id {id} was not found");
+                var size = db.Sizes.FirstOrDefault(x => x.Id == id);
+
+                if (size == null)
+                    throw new Exception("size not found.");
+
+                db.Remove(size);
+                db.SaveChanges();
             }
-            //delete record from DB
-            int index = StaticDatabase.Sizes.IndexOf(size);
-            StaticDatabase.Sizes.RemoveAt(index);
         }
     }
 }

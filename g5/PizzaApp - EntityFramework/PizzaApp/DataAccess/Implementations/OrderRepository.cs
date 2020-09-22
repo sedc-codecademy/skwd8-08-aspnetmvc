@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using DataAccess.Interfaces;
 using DomainModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Implementations
 {
@@ -15,21 +17,15 @@ namespace DataAccess.Implementations
 
         public Order GetById(int id)
         {
-            Customer customer = StaticDatabase.Customers.FirstOrDefault(x => x.Orders.Any(y => y.Id == id));
-
-            if (customer == null)
+            using (var db = new PizzaAppContext())
             {
-                throw new Exception("Customer not found");
+                return db.Orders
+                    .Include(x => x.OrderItems)
+                    .ThenInclude(x => x.PizzaSize.Pizza)
+                    .Include(x => x.OrderItems)
+                    .ThenInclude(x => x.PizzaSize.Size)
+                    .FirstOrDefault(x => x.Id == id);
             }
-
-            Order order = customer.Orders.FirstOrDefault(x => x.Id == id);
-
-            if (order == null)
-            {
-                throw new Exception("Order not found");
-            }
-
-            return order;
         }
 
         public int Insert(Order entity)
@@ -44,43 +40,34 @@ namespace DataAccess.Implementations
 
         public void Delete(int id)
         {
-            Customer customer = StaticDatabase.Customers.FirstOrDefault(x => x.Orders.Any(y => y.Id == id));
-
-            if (customer == null)
+            using (var db = new PizzaAppContext())
             {
-                throw new Exception("Customer not found");
+                var order = db.Orders.FirstOrDefault(x => x.Id == id);
+
+                if (order == null)
+                {
+                    throw new Exception("Order not found.");
+                }
+
+                db.Remove(order);
+                db.SaveChanges();
             }
-
-            Order order = customer.Orders.FirstOrDefault(x => x.Id == id);
-
-            if (order == null)
-            {
-                throw new Exception("Order not found");
-            }
-
-            int customerIndex = StaticDatabase.Customers.IndexOf(customer);
-
-            int orderIndex = customer.Orders.IndexOf(order);
-            customer.Orders.RemoveAt(orderIndex);
-
-            StaticDatabase.Customers[customerIndex] = customer;
         }
 
         public void AddOrderForCustomer(int customerId)
         {
-            Customer customer = StaticDatabase.Customers.FirstOrDefault(x => x.Id == customerId);
-
-            if (customer == null)
+            using (var db = new PizzaAppContext())
             {
-                throw new Exception("Customer not found");
+                var customer = db.Customers.FirstOrDefault(x => x.Id == customerId);
+
+                if(customer == null)
+                    throw new Exception("Customer not found");
+
+                Order order = new Order(customer.Id);
+
+                db.Add(order);
+                db.SaveChanges();
             }
-
-            int customerIndex = StaticDatabase.Customers.IndexOf(customer);
-
-            Order order = new Order(customer.Id);
-            customer.Orders.Add(order);
-
-            StaticDatabase.Customers[customerIndex] = customer;
         }
     }
 }
