@@ -27,6 +27,7 @@ namespace SEDC.PizzaApp.WebApp
             //Dipendency Injection Configuration
             services.AddTransient<IMenuService, MenuService>();
             services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IUserService, UserService>();
 
             //Dipendency Injection Module
             DIRepositoryModule.RegisterRepositories(services);

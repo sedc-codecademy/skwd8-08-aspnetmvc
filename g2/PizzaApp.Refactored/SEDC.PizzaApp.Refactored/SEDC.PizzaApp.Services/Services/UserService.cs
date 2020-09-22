@@ -11,9 +11,9 @@ namespace SEDC.PizzaApp.Services.Services
     public class UserService : IUserService
     {
         private IRepository<User> _userRepository;
-        public UserService()
+        public UserService(IRepository<User> userRepository)
         {
-            _userRepository = new UserRepository();
+            _userRepository = userRepository;
         }
 
         public int AddNewUser(User entity)

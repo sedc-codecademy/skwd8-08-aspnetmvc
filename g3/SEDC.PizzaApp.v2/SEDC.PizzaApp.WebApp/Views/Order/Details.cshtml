@@ -1,0 +1,37 @@
+﻿@model OrderViewModel
+
+@{ ViewBag.Title = "Order Details"; }
+
+<h1>Order Details</h1>
+
+<h3>Order Number: @Model.Id</h3>
+<h3>User: @("Mr./ Ms. " + Model.FullName)</h3>
+<h3>Adress: @Model.Address</h3>
+<h3>Phone: @Model.Contact</h3>
+<h3>Price: @Model.Price$</h3>
+
+<h2>Order contains:</h2>
+<div class="menu">
+    @{
+        foreach (var pizza in Model.Pizzas)
+        {
+            <partial name="~/Views/Shared/_Pizza.cshtml" for="@pizza" />
+        }
+    }
+</div>
+
+<span class="order-status">Order Status - </span>
+@if (Model.IsDelievered)
+{
+    <span class="order-status delieverd">Order is delieverd.</span>
+}
+else
+{
+    <span class="order-status not-delieverd">Order is coming to you, be patient!</span>
+    <br />
+    <a asp-controller="Order" asp-action="CompleteOrder" asp-route-id="@Model.Id" class="btn btn-outline-success">Complete Order</a>
+}
+
+<div style="margin-top: 5px;">
+    <a asp-controller="Order" asp-action="Orders" class="btn btn-outline-primary">Back</a>
+</div>

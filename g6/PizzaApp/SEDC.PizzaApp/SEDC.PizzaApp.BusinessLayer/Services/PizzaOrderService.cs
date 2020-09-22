@@ -1,12 +1,11 @@
 ﻿using SEDC.PizzaApp.BusinessLayer.Interfaces;
-using SEDC.PizzaApp.BusinessModels.newModels;
+using SEDC.PizzaApp.BusinessModels.ViewModels;
 using SEDC.PizzaApp.DataAccess.Repositories;
 using SEDC.PizzaApp.Domain.Enums;
 using SEDC.PizzaApp.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SEDC.PizzaApp.BusinessLayer.Services
 {
@@ -14,45 +13,73 @@ namespace SEDC.PizzaApp.BusinessLayer.Services
     {
         private readonly IRepository<Order> _orderRepository;
         private readonly IRepository<Pizza> _pizzaRepository;
+        private readonly IRepository<User> _userRepository;
 
         public PizzaOrderService(IRepository<Order> orderRepository,
-            IRepository<Pizza> pizzaRepository)
+            IRepository<Pizza> pizzaRepository,
+            IRepository<User> userRepository)
         {
             _orderRepository = orderRepository;
             _pizzaRepository = pizzaRepository;
+            _userRepository = userRepository;
         }
 
-        public List<Order> GetAllOrders()
+        public OrdersViewModel GetAllOrders()
         {
-            return _orderRepository.GetAll(); // TODO: create mapping to orderVM
+            // Domain models
+            List<Order> orders = _orderRepository.GetAll();
+            // View Models
+            // MAPPINT SECTION
+            List<OrderItemViewModel> viewOrders = new List<OrderItemViewModel>();
+            foreach (Order order in orders)
+            {
+                List<PizzaViewModel> pizzasView = new List<PizzaViewModel>();
+                foreach (var pizzaOrder in order.PizzaOrders)
+                {
+                    pizzasView.Add(new PizzaViewModel()
+                    {
+                        Id = pizzaOrder.Pizza.Id,
+                        Image = pizzaOrder.Pizza.Image,
+                        Name = pizzaOrder.Pizza.Name,
+                        Price = pizzaOrder.Pizza.Price,
+                        Size = pizzaOrder.Pizza.Size
+                    });
+                };
+                viewOrders.Add(new OrderItemViewModel()
+                {
+                    FirstName = order.User.FirstName,
+                    LastName = order.User.LastName,
+                    Id = order.Id,
+                    Price = order.Price,
+                    Pizzas = pizzasView
+                });
+            }
+
+            var lastUser = _userRepository.GetAll().LastOrDefault();
+
+            OrdersViewModel model = new OrdersViewModel()
+            {
+                LastPizza = GetLastOrder().PizzaOrders[0].Pizza.Name, //TODO: get last pizza
+                MostPopularPizza = GetMostPopularPizza(),
+                NameOfFirstCustomer = string.Format("{0} {1}", lastUser.FirstName, lastUser.LastName), // $"{lastUser.FirstName} {lastUser.LastName}";
+                OrderCount = GetOrderCount(),
+                Orders = viewOrders
+            };
+            return model;
+            // We send mapped view model to the view
         }
 
-        public Order GetLastOrder()
-        {
-            var orders = _orderRepository.GetAll();
-            return orders[orders.Count - 1];
-        }
-
-        //public List<Pizza> GetMenu()
-        //{
-        //    var menu = _pizzaRepository.GetAll()
-        //        .GroupBy(p => p.Name)
-        //        .Select(x => x.First())
-        //        .ToList();
-        //    return menu;
-        //}
-
-        public MenuViewModelNew GetMenu()
+        public MenuViewModel GetMenu()
         {
             var menu = _pizzaRepository.GetAll()
                 .GroupBy(p => p.Name)
                 .Select(x => x.First())
                 .ToList();
 
-            List<PizzaViewModelNew> listOfPizzas = new List<PizzaViewModelNew>();
+            List<PizzaViewModel> listOfPizzas = new List<PizzaViewModel>();
             foreach (var piza in menu)
             {
-                listOfPizzas.Add(new PizzaViewModelNew
+                listOfPizzas.Add(new PizzaViewModel
                 {
                     Id = piza.Id,
                     Image = piza.Image,
@@ -61,7 +88,7 @@ namespace SEDC.PizzaApp.BusinessLayer.Services
                     Size = piza.Size
                 });
             }
-            var model = new MenuViewModelNew
+            var model = new MenuViewModel
             {
                 Menu = listOfPizzas
             };
@@ -87,25 +114,42 @@ namespace SEDC.PizzaApp.BusinessLayer.Services
             return mostPopularPizza;
         }
 
-        public Order GetOrderById(int id)
+        public OrderDetailsViewModel GetOrderById(int id)
         {
-            return _orderRepository.GetById(id);
-        }
+            Order order = _orderRepository.GetById(id);
 
-        public int GetOrderCount()
-        {
-            return _orderRepository.GetAll().Count;
-        }
+            if(order == null)
+            {
+                throw new Exception();
+            }
 
-        public Pizza GetPizzaFromMenu(string name, PizzaSize size)
-        {
-            return _pizzaRepository.GetAll().FirstOrDefault(p => p.Name == name && p.Size == size);
-        }
+            List<PizzaViewModel> pizzas = new List<PizzaViewModel>();
+            foreach (PizzaOrder pizzaOrder in order.PizzaOrders)
+            {
+                pizzas.Add(new PizzaViewModel()
+                {
+                    Image = pizzaOrder.Pizza.Image,
+                    Name = pizzaOrder.Pizza.Name,
+                    Price = pizzaOrder.Pizza.Price,
+                    Size = pizzaOrder.Pizza.Size
+                });
+            }
 
-        public void MakeNewOrder(Order order)
-        {
-            // TODO: make validations and map to order
-            _orderRepository.Insert(order);
+            OrderDetailsViewModel viewModel = new OrderDetailsViewModel()
+            {
+                Address = order.User.Address,
+                Order = new OrderItemViewModel()
+                {
+                    Id = order.Id,
+                    FirstName = order.User.FirstName,
+                    Pizzas = pizzas,
+                    LastName = order.User.LastName,
+                    Price = order.Price
+                },
+                Phone = order.User.Phone
+            };
+
+            return viewModel;
         }
 
         public int MakeNewOrder(OrderViewModel orderVm)
@@ -129,12 +173,28 @@ namespace SEDC.PizzaApp.BusinessLayer.Services
                 Address = orderVm.Address,
                 FirstName = orderVm.FirstName,
                 LastName = orderVm.LastName,
-                Phone = orderVm.Phone
+                Phone = orderVm.Phone.Value
             };
 
             order.PizzaOrders = pizzas;
             order.User = user;
             return _orderRepository.Insert(order);
+        }
+
+        private int GetOrderCount()
+        {
+            return _orderRepository.GetAll().Count;
+        }
+
+        private Order GetLastOrder()
+        {
+            var orders = _orderRepository.GetAll();
+            return orders[orders.Count - 1];
+        }
+
+        private Pizza GetPizzaFromMenu(string name, PizzaSize size)
+        {
+            return _pizzaRepository.GetAll().FirstOrDefault(p => p.Name == name && p.Size == size);
         }
     }
 }

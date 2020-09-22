@@ -7,8 +7,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SEDC.PizzaApp.DataAccess;
+using SEDC.PizzaApp.DataAccess.Repositories;
+using SEDC.PizzaApp.DataAccess.Repositories.EntityRepositories;
+using SEDC.PizzaApp.Domain.Models;
+using SEDC.PizzaApp.Services.Services;
 
 namespace SEDC.PizzaApp.Refactored
 {
@@ -30,6 +36,20 @@ namespace SEDC.PizzaApp.Refactored
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
+
+            //CONNECTION STRING FOR THE DATABASE
+            // "Server=.\\SQLExpress;Database=PizzaDb;Trusted_Connection=True"
+            services.AddDbContext<PizzaDbContext>(x => 
+                                                  x.UseSqlServer("Server=.;Database=PizzaDb;Trusted_Connection=True"));
+
+            services.AddTransient<IRepository<User>, UserEntityRepository>();
+            services.AddTransient<IRepository<Order>, OrderEntityRepository>();
+            services.AddTransient<IRepository<Pizza>, PizzaEntityRepository>();
+
+
+            services.AddTransient<IPizzaOrderService, PizzaOrderService>();
+            services.AddTransient<IUserService, UserService>();
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
