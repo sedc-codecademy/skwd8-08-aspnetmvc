@@ -2,10 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <AssemblyVersion>20.3.0.0</AssemblyVersion>
+    <FileVersion>20.3.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="HelperModels\" />
+    <Compile Remove="HelperModels\**" />
+    <EmbeddedResource Remove="HelperModels\**" />
+    <None Remove="HelperModels\**" />
   </ItemGroup>
 
   <ItemGroup>
