@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DomainModels
+﻿namespace DomainModels
 {
     public class Pizza
     {
@@ -11,14 +9,10 @@ namespace DomainModels
 
         public Pizza()
         {
-            var rnd = new Random();
-            Id = rnd.Next(1, 1000000000);
         }
 
         public Pizza(string name, string description, string imageUrl)
         {
-            var rnd = new Random();
-            Id = rnd.Next(1, 1000000000);
             Name = name;
             Description = description;
             ImageUrl = imageUrl;

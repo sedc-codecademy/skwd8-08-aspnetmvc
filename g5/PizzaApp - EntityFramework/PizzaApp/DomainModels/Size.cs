@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DomainModels
+﻿namespace DomainModels
 {
     public class Size
     {
@@ -10,14 +8,10 @@ namespace DomainModels
 
         public Size()
         {
-            var rnd = new Random();
-            Id = rnd.Next(1, 1000000000);
         }
 
         public Size(string name, string description)
         {
-            var rnd = new Random();
-            Id = rnd.Next(1, 1000000000);
             Name = name;
             Description = description;
         }

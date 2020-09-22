@@ -9,44 +9,51 @@ namespace DataAccess.Implementations
     {
         public List<Pizza> GetAll()
         {
-            return StaticDatabase.Pizzas;
+            using (var db = new PizzaAppContext())
+            {
+                return db.Pizzas.ToList();
+            }
         }
 
         public Pizza GetById(int id)
         {
-            return StaticDatabase.Pizzas.FirstOrDefault(x => x.Id == id);
+            using (var db = new PizzaAppContext())
+            {
+                return db.Pizzas.FirstOrDefault(x => x.Id == id);
+            }
         }
 
         public int Insert(Pizza entity)
         {
-            StaticDatabase.Pizzas.Add(entity);
-            return entity.Id;
+            using (var db = new PizzaAppContext())
+            {
+                db.Add(entity);
+                db.SaveChanges();
+                return entity.Id;
+            }
         }
 
         public void Update(Pizza entity)
         {
-            var pizza = StaticDatabase.Pizzas.FirstOrDefault(x => x.Id == entity.Id);
-
-            if (pizza == null)
+            using (var db = new PizzaAppContext())
             {
-                throw new Exception("Pizza not found");
+                db.Update(entity);
+                db.SaveChanges();
             }
-
-            int index = StaticDatabase.Pizzas.IndexOf(pizza);
-            StaticDatabase.Pizzas[index] = entity;
         }
 
         public void Delete(int id)
         {
-            var pizza = StaticDatabase.Pizzas.FirstOrDefault(x => x.Id == id);
-
-            if (pizza == null)
+            using (var db = new PizzaAppContext())
             {
-                throw new Exception("Pizza not found");
-            }
+                var pizza = db.Pizzas.FirstOrDefault(x => x.Id == id);
 
-            var index = StaticDatabase.Pizzas.IndexOf(pizza);
-            StaticDatabase.Pizzas.RemoveAt(index);
+                if(pizza == null)
+                    throw new Exception("Pizza not found.");
+
+                db.Remove(pizza);
+                db.SaveChanges();
+            }
         }
     }
 }

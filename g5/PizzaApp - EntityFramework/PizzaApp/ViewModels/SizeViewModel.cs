@@ -13,8 +13,6 @@ namespace ViewModels
 
         public SizeViewModel()
         {
-            var rnd = new Random();
-            Id = rnd.Next(1, 1000000000);
         }
     }
 }

@@ -23,8 +23,6 @@ namespace ViewModels
 
         public CustomerViewModel()
         {
-            var rnd = new Random();
-            Id = rnd.Next(1, 1000000000);
             Orders = new List<OrderViewModel>();
         }
     }

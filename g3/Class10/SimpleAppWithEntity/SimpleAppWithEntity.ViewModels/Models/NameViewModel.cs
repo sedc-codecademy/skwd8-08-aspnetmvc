@@ -7,5 +7,7 @@ namespace SimpleAppWithEntity.ViewModels.Models
     public class NameViewModel
     {
         public string MyName { get; set; }
+
+        public List<string> Names { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DomainModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Implementations
 {
@@ -9,42 +10,51 @@ namespace DataAccess.Implementations
     {
         public List<PizzaSize> GetAll()
         {
-            return StaticDatabase.PizzaSizes;
+            using (var db = new PizzaAppContext())
+            {
+                return db.PizzaSizes.Include(x => x.Pizza).Include(x => x.Size).ToList();
+            }
         }
 
         public PizzaSize GetById(int id)
         {
-            return StaticDatabase.PizzaSizes.FirstOrDefault(x => x.Id == id);
+            using (var db = new PizzaAppContext())
+            {
+                return db.PizzaSizes.Include(x => x.Pizza).Include(x => x.Size).FirstOrDefault(x => x.Id == id);
+            }
         }
 
         public int Insert(PizzaSize entity)
         {
-            StaticDatabase.PizzaSizes.Add(entity);
-            return entity.Id;
+            using (var db = new PizzaAppContext())
+            {
+                db.Add(entity);
+                db.SaveChanges();
+                return entity.Id;
+            }
         }
 
         public void Update(PizzaSize entity)
         {
-            PizzaSize pizzaSize = StaticDatabase.PizzaSizes.FirstOrDefault(x => x.Id == entity.Id);
-            if (pizzaSize == null)
+            using (var db = new PizzaAppContext())
             {
-                throw new Exception($"PizzaSize with id {entity.Id} was not found");
+                db.Update(entity);
+                db.SaveChanges();
             }
-            //update the record in DB
-            int index = StaticDatabase.PizzaSizes.IndexOf(pizzaSize);
-            StaticDatabase.PizzaSizes[index] = entity;
         }
 
         public void Delete(int id)
         {
-            PizzaSize pizzaSize = StaticDatabase.PizzaSizes.FirstOrDefault(x => x.Id == id);
-            if (pizzaSize == null)
+            using (var db = new PizzaAppContext())
             {
-                throw new Exception($"PizzaSize with id {id} was not found");
+                var pizzaSize = db.PizzaSizes.FirstOrDefault(x => x.Id == id);
+
+                if (pizzaSize == null)
+                    throw new Exception("pizzaSize not found.");
+
+                db.Remove(pizzaSize);
+                db.SaveChanges();
             }
-            //delete record from DB
-            int index = StaticDatabase.PizzaSizes.IndexOf(pizzaSize);
-            StaticDatabase.PizzaSizes.RemoveAt(index);
         }
     }
 }

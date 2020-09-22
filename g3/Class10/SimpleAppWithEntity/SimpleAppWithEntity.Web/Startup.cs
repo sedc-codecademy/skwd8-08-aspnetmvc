@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleAppWithEntity.Services.Helpers;
+using SimpleAppWithEntity.Services.Interfaces;
+using SimpleAppWithEntity.Services.Services;
 
 namespace SimpleAppWithEntity.Web
 {
@@ -22,11 +25,13 @@ namespace SimpleAppWithEntity.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionString = Configuration.GetValue<string>("SQLConnectionString");
+
             //Dipendency Injection Configuration
-            //services.AddTransient<, >();
+            services.AddTransient<IHomeService, HomeService>();
 
             //Dipendency Injection Module
-            //DIRepositoryModule.RegisterRepositories(services);
+            DIRepositoryModule.RegisterRepositories(services, connectionString);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
