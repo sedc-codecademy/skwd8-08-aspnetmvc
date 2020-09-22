@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SimpleAppWithEntity.DataAccess\SimpleAppWithEntity.DataAccess.csproj" />
+    <ProjectReference Include="..\SimpleAppWithEntity.DataModels\SimpleAppWithEntity.DataModels.csproj" />
+    <ProjectReference Include="..\SimpleAppWithEntity.ViewModels\SimpleAppWithEntity.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>
