@@ -13,10 +13,10 @@ namespace SEDC.PizzaApp.Services.Services
     {
         private IRepository<Pizza> _pizzaRepository;
         private IRepository<Order> _orderRepository;
-        public PizzaOrderService()
+        public PizzaOrderService(IRepository<Pizza> pizzaRepository, IRepository<Order> orderRepository)
         {
-            _pizzaRepository = new PizzaRepository();
-            _orderRepository = new OrderRepository();
+            _pizzaRepository = pizzaRepository;
+            _orderRepository = orderRepository;
         }
 
         public List<Order> GetAllOrders()

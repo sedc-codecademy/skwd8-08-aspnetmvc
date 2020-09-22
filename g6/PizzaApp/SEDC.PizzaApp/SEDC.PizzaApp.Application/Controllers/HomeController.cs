@@ -1,32 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using SEDC.PizzaApp.Application.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 using SEDC.PizzaApp.BusinessLayer.Interfaces;
+using SEDC.PizzaApp.BusinessModels.ViewModels;
 
 namespace SEDC.PizzaApp.Application.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IPizzaOrderService _pizzaOrderService;
+        private readonly IUserService _userService;
 
-        public HomeController(IPizzaOrderService pizzaOrderService)
+        public HomeController(IPizzaOrderService pizzaOrderService,
+            IUserService userService)
         {
             _pizzaOrderService = pizzaOrderService;
+            _userService = userService;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            return View(new HomeViewModel());
+            ViewData["Error"] = TempData["Error"];
+            return View(new HomeViewModel() { NumberOfPizzas = 1 });
         }
 
         [HttpPost]
         public IActionResult Index(HomeViewModel model)
         {
+            if(model.NumberOfPizzas <= 0)
+            {
+                TempData["Error"] = "The order number should be higher or equal then 1";
+                return RedirectToAction("Index");
+            }
             return RedirectToAction("Order", "Order", new { pizzas = model.NumberOfPizzas });
         }
 
@@ -56,10 +60,17 @@ namespace SEDC.PizzaApp.Application.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpGet]
+        public IActionResult Feedback()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new FeedbackViewModel());
+        }
+
+        [HttpPost]
+        public IActionResult Feedback(FeedbackViewModel model)
+        {
+            _userService.GiveFeedback(model);
+            return RedirectToAction("Index");
         }
     }
 }

@@ -33,6 +33,9 @@ namespace SEDC.PizzaApp.Application
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            DiModule.RegisterDbContext(services, connectionString);
+
             DiModule.RegisterRepositories(services);
 
             // Di services registration

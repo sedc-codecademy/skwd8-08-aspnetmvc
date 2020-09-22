@@ -1,21 +1,21 @@
 ﻿using SEDC.PizzaApp.BusinessLayer.Interfaces;
-using SEDC.PizzaApp.BusinessModels.Models;
+using SEDC.PizzaApp.BusinessModels.ViewModels;
 using SEDC.PizzaApp.DataAccess.Repositories;
 using SEDC.PizzaApp.Domain.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SEDC.PizzaApp.BusinessLayer.Services
 {
     public class UserService : IUserService
     {
         private readonly IRepository<User> _userRepository;
+        private readonly IRepository<Feedback> _feedbackRepository;
 
-        public UserService(IRepository<User> userRepository)
+        public UserService(IRepository<User> userRepository,
+            IRepository<Feedback> feedbackRepository)
         {
             _userRepository = userRepository;
+            _feedbackRepository = feedbackRepository;
         }
 
         public string GetLastUsername()
@@ -23,61 +23,15 @@ namespace SEDC.PizzaApp.BusinessLayer.Services
             return _userRepository.GetAll().LastOrDefault().FirstName;
         }
 
-        public UserVm GetUserById(int id)
+        public void GiveFeedback(FeedbackViewModel feedbackVm)
         {
-            var user = _userRepository.GetById(id);
-
-            var userVm = new UserVm
+            Feedback feedback = new Feedback()
             {
-                Address = user.Address,
-                Id = user.Id,
-                LastName = user.LastName,
-                Phone = user.Phone,
-                FirstName = user.FirstName
+                Email = feedbackVm.Email,
+                Message = feedbackVm.Message,
+                Name = feedbackVm.Name
             };
-
-            var listOfOrders = new List<OrderVm>();
-            foreach (var order in user.Orders)
-            {
-                var orderVm = MapOrderToOrderVm(order, userVm);
-                listOfOrders.Add(orderVm);
-            }
-            userVm.Orders = listOfOrders;
-
-            //userVm.Orders = user.Orders.Select(o => MapOrderToOrderVm(o, userVm)).ToList();
-
-            return userVm;
-        }
-
-        private OrderVm MapOrderToOrderVm(Order order, UserVm user)
-        {
-            return new OrderVm
-            {
-                Id = order.Id,
-                User = user,
-                PizzaOrders = order.PizzaOrders.Select(x => MapPizzaOrderToPizzaOrderVm(x, user)).ToList()
-            };
-        }
-
-        private PizzaOrderVm MapPizzaOrderToPizzaOrderVm(PizzaOrder order, UserVm user)
-        {
-            return new PizzaOrderVm
-            {
-                Id = order.Id,
-                Order = new OrderVm
-                {
-                    Id = order.Order.Id,
-                    User = user
-                },
-                Pizza = new PizzaVm
-                {
-                    Id = order.Pizza.Id,
-                    Image = order.Pizza.Image,
-                    Name = order.Pizza.Name,
-                    Price = order.Pizza.Price,
-                    Size = order.Pizza.Size
-                }
-            };
+            _feedbackRepository.Insert(feedback);
         }
     }
 }

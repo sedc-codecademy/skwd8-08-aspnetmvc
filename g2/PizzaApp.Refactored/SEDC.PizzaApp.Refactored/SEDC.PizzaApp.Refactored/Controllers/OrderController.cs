@@ -13,10 +13,10 @@ namespace SEDC.PizzaApp.Refactored.Controllers
     {
         private IPizzaOrderService _pizzaOrderService;
         private IUserService _userService;
-        public OrderController()
+        public OrderController(IPizzaOrderService pizzaOrderService, IUserService userService)
         {
-            _pizzaOrderService = new PizzaOrderService();
-            _userService = new UserService();
+            _pizzaOrderService = pizzaOrderService;
+            _userService = userService;
         }
 
 
