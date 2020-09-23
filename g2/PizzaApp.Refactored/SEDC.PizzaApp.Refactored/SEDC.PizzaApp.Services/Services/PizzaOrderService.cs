@@ -21,7 +21,8 @@ namespace SEDC.PizzaApp.Services.Services
 
         public List<Order> GetAllOrders()
         {
-            return _orderRepository.GetAll();
+            List<Order> allOrders = _orderRepository.GetAll();
+            return allOrders;
         }
 
         public Order GetLastOrder()

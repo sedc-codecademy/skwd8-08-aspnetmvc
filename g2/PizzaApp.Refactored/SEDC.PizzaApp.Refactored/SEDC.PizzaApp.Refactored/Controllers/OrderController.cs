@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SEDC.PizzaApp.Domain.Models;
 using SEDC.PizzaApp.Refactored.Models;
@@ -9,6 +10,7 @@ using SEDC.PizzaApp.Services.Services;
 
 namespace SEDC.PizzaApp.Refactored.Controllers
 {
+    //[Authorize]
     public class OrderController : Controller
     {
         private IPizzaOrderService _pizzaOrderService;
@@ -20,11 +22,17 @@ namespace SEDC.PizzaApp.Refactored.Controllers
         }
 
 
-
         [Route("Orders")]
         public IActionResult Index()
         {
             List<Order> orders = _pizzaOrderService.GetAllOrders();
+
+            //This is the right way of fetching data. Instead of using DOMAIN model in the controller
+            //we need to use DTO model.
+
+            //List<OrderDTO> orders = _pizzaOrderService.GetAllOrders();
+
+
             //MAPPING SECTION
             List<OrderItemViewModel> viewOrders = new List<OrderItemViewModel>();
 
@@ -107,10 +115,11 @@ namespace SEDC.PizzaApp.Refactored.Controllers
             return View("_ThankYou");
         }
 
+        [AllowAnonymous]
         public IActionResult Details(int id)
         {
-
-            return View();
+            Order order = _pizzaOrderService.GetOrderById(id);
+            return View(order);
         }
     }
 }

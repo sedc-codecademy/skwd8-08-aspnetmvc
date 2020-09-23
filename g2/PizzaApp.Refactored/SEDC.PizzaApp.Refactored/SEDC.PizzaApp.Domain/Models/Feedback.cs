@@ -6,16 +6,15 @@ using System.Text;
 
 namespace SEDC.PizzaApp.Domain.Models
 {
-    public class User
+    public class Feedback
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Address { get; set; }
-        public long Phone { get; set; }
-        public List<Order> Orders { get; set; }
-        public Feedback Feedback { get; set; }
+        public string Title { get; set; }
+        public string FeedbackMessage { get; set; }
+        public double Rating { get; set; }
+        public int UserId { get; set; }
+        public User User { get; set; }
     }
 }

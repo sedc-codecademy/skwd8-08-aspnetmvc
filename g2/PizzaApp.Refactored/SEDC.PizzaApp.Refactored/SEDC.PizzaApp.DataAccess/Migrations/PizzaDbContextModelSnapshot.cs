@@ -24,11 +24,20 @@ namespace SEDC.PizzaApp.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("FeedbackMessage");
+
+                    b.Property<double>("Rating");
+
+                    b.Property<string>("Title");
+
+                    b.Property<int>("UserId");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Feedbacks");
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Feedback");
                 });
 
             modelBuilder.Entity("SEDC.PizzaApp.Domain.Models.Order", b =>
@@ -139,6 +148,14 @@ namespace SEDC.PizzaApp.DataAccess.Migrations
                         new { Id = 1, Address = "Bob Street", FirstName = "Bob", LastName = "Bobsky", Phone = 80044455534L },
                         new { Id = 2, Address = "Jill Street", FirstName = "Jill", LastName = "Wayne", Phone = 80044455123L }
                     );
+                });
+
+            modelBuilder.Entity("SEDC.PizzaApp.Domain.Models.Feedback", b =>
+                {
+                    b.HasOne("SEDC.PizzaApp.Domain.Models.User", "User")
+                        .WithOne("Feedback")
+                        .HasForeignKey("SEDC.PizzaApp.Domain.Models.Feedback", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SEDC.PizzaApp.Domain.Models.Order", b =>

@@ -19,14 +19,19 @@ namespace SEDC.PizzaApp.DataAccess.Repositories.EntityRepositories
 
         public List<Order> GetAll()
         {
-            return _context.Orders
-                           .Include(x => x.User)
-                           .ToList();
+            List<Order> allOrders = _context.Orders
+                                    .Include(x => x.PizzaOrders)
+                                    .ThenInclude(x => x.Pizza)
+                                    .Include(x => x.User)
+                                    .ToList();
+            return allOrders;
         }
 
         public Order GetById(int id)
         {
-            return _context.Orders.SingleOrDefault(x => x.Id == id);
+            return _context.Orders
+                           .Include(x => x.User)
+                           .SingleOrDefault(x => x.Id == id);
         }
 
         public int Insert(Order entity)

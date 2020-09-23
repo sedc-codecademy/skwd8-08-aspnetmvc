@@ -15,6 +15,8 @@ namespace SEDC.PizzaApp.DataAccess
         public DbSet<Order> Orders { get; set; }
         public DbSet<Pizza> Pizzas { get; set; }
         public DbSet<User> Users { get; set; }
+        //public DbSet<Feedback> Feedbacks { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //CONFIGURATIONS OF CONSTRAINTS AND DATA SEED
@@ -37,6 +39,12 @@ namespace SEDC.PizzaApp.DataAccess
                 .HasMany(x => x.Orders)
                 .WithOne(x => x.User)
                 .HasForeignKey(x => x.UserId);
+
+            //One to One relation (it is not valid in our business logic. Its just for demo purpose)
+            //modelBuilder.Entity<User>()
+            //    .HasOne<Feedback>(u => u.Feedback)
+            //    .WithOne(fe => fe.User)
+            //    .HasForeignKey<Feedback>(fe => fe.UserId);
 
             //SEED OF DATA
 

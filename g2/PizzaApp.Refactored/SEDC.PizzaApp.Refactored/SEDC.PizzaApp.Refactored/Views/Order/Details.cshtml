@@ -1,0 +1,11 @@
+﻿
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+@*Only for demo purpose. Forget about using DOMAIN model into views*@
+@model SEDC.PizzaApp.Domain.Models.Order
+<h2>Details: Order no. #@Model.Id</h2>
+<p>User name: @Model.User.FirstName</p>
+
